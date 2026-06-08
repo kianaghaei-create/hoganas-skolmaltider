@@ -1,0 +1,27 @@
+# Secrets — never commit
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+
+# Large raw data (keep processed CSVs, ignore raw Excel)
+Data/raw/
+Data/*.zip
+Data/2025/
+Data/Matsvinn*/
+Data/Förskole*/
+Data/Inköp*/
+Data/OneDrive*/
+Data/Meny*/
+
+# IDE
+.vscode/
+.idea/

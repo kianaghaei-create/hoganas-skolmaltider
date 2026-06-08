@@ -1,5 +1,4 @@
-"""Streamlit BI dashboard for Höganäs skolmåltidsanalys with OpenAI chatbot."""
-
+"""Streamlit BI dashboard — Höganäs skolmåltidsanalys med OpenAI AI-assistent."""
 from __future__ import annotations
 
 import os
@@ -7,6 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 
 # ── Page config ────────────────────────────────────────────────────────────────
@@ -17,292 +17,572 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── OpenAI key ─────────────────────────────────────────────────────────────────
+# ── Light-theme overrides ──────────────────────────────────────────────────────
+st.markdown("""
+<style>
+/* Force light background */
+[data-testid="stAppViewContainer"] { background: #f8f9fb; }
+[data-testid="stSidebar"] { background: #1a1f2e; }
+[data-testid="stSidebar"] * { color: #e2e8f0 !important; }
+[data-testid="stSidebar"] .stRadio label { color: #e2e8f0 !important; }
+[data-testid="stSidebar"] hr { border-color: #2d3748; }
+
+/* KPI cards */
+.kpi-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 4px solid;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    height: 100%;
+}
+.kpi-value { font-size: 2rem; font-weight: 700; color: #1a1f2e; margin: 4px 0; }
+.kpi-label { font-size: 0.78rem; color: #718096; text-transform: uppercase; letter-spacing: .05em; }
+.kpi-sub   { font-size: 0.78rem; color: #a0aec0; margin-top: 4px; }
+
+/* Section headers */
+h2 { color: #1a1f2e !important; }
+h3 { color: #2d3748 !important; }
+
+/* Chart containers */
+.chart-box {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    margin-bottom: 16px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ── OpenAI ─────────────────────────────────────────────────────────────────────
 try:
-    import openai as _openai_module
+    import openai as _oai
     OPENAI_KEY = (
         st.secrets.get("OPENAI_API_KEY")
         or os.environ.get("OPENAI_API_KEY")
         or ""
     )
-    _openai_module.api_key = OPENAI_KEY
+    _oai.api_key = OPENAI_KEY
     OPENAI_AVAILABLE = bool(OPENAI_KEY)
 except Exception:
     OPENAI_AVAILABLE = False
 
-# ── Data loading ───────────────────────────────────────────────────────────────
+# ── Data ───────────────────────────────────────────────────────────────────────
 DATA_DIR = Path(__file__).parent / "Data" / "processed"
-
 
 @st.cache_data
 def load_data():
-    dfs = {}
+    out = {}
     for name in ["purchases", "food_waste", "portions", "menu_nutrition", "preschool_billing"]:
         p = DATA_DIR / f"{name}.csv"
         if p.exists():
-            dfs[name] = pd.read_csv(p, low_memory=False)
-    return dfs
+            out[name] = pd.read_csv(p, low_memory=False)
+    return out
 
+data       = load_data()
+purchases  = data.get("purchases",         pd.DataFrame())
+food_waste = data.get("food_waste",         pd.DataFrame())
+portions   = data.get("portions",           pd.DataFrame())
+menu_nutr  = data.get("menu_nutrition",     pd.DataFrame())
+preschool  = data.get("preschool_billing",  pd.DataFrame())
 
-data = load_data()
-purchases = data.get("purchases", pd.DataFrame())
-food_waste = data.get("food_waste", pd.DataFrame())
-portions = data.get("portions", pd.DataFrame())
-menu_nutrition = data.get("menu_nutrition", pd.DataFrame())
-preschool_billing = data.get("preschool_billing", pd.DataFrame())
+# Derived: clean food-waste rows (remove obvious data-entry errors)
+fw_clean = food_waste[food_waste["total_waste_pct"] <= 1.0].copy() if not food_waste.empty else food_waste.copy()
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.title("🍽️ Höganäs Skolmåltider")
-    st.caption("Kostanalys 2025 — Höganäs kommun")
+    st.markdown("### 🍽️ Höganäs")
+    st.markdown("**Skolmåltidsanalys**")
     st.divider()
     page = st.radio(
         "Navigera",
-        ["📊 Översikt", "🗑️ Matsvinn", "🛒 Inköp", "🍽️ Portioner", "🤖 AI-assistent"],
+        [
+            "📊 Översikt",
+            "🗑️ Svinnanalys",
+            "🎯 Beställningsprecision",
+            "🛒 Inköp & ekonomi",
+            "📋 Avtalstrohet",
+            "⚠️ Datakvalitet",
+            "🤖 AI-assistent",
+        ],
         label_visibility="collapsed",
     )
 
-# ── KPI helpers ─────────────────────────────────────────────────────────────────
-def fmt_sek(v):
-    if v >= 1_000_000:
-        return f"{v/1_000_000:.1f} Mkr"
-    return f"{v/1_000:.0f} tkr"
+# ── Helper: KPI card ───────────────────────────────────────────────────────────
+def kpi(label: str, value: str, sub: str = "", color: str = "#3B82F6"):
+    st.markdown(f"""
+    <div class="kpi-card" style="border-color:{color}">
+        <div class="kpi-label">{label}</div>
+        <div class="kpi-value" style="color:{color}">{value}</div>
+        <div class="kpi-sub">{sub}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
+def fmt_sek(v):
+    return f"{v/1_000_000:.1f} Mkr" if v >= 1_000_000 else f"{v/1_000:.0f} tkr"
+
+PLOT_LAYOUT = dict(
+    paper_bgcolor="white", plot_bgcolor="white",
+    font=dict(family="Inter, sans-serif", color="#4a5568"),
+    margin=dict(t=20, b=20, l=10, r=10),
+)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: Översikt
+# ÖVERSIKT
 # ══════════════════════════════════════════════════════════════════════════════
 if page == "📊 Översikt":
-    st.title("📊 Översikt")
-    st.caption("Nyckeltal för kostverksamheten i Höganäs kommun 2025")
+    st.title("Översikt")
+    st.caption("Höganäs skolmåltidsanalys 2025 — helårsdata")
 
-    # KPIs
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
+    # Global filters
+    col_f1, col_f2, _, _ = st.columns([2, 2, 2, 2])
+    units_all = sorted(food_waste["unit_name"].dropna().unique()) if not food_waste.empty else []
+    with col_f1:
+        sel_unit = st.selectbox("Enhet", ["Alla"] + units_all)
+    with col_f2:
+        months_all = sorted(purchases["month"].dropna().unique().tolist()) if not purchases.empty else []
+        sel_month  = st.selectbox("Månad", ["Alla"] + [str(int(m)) for m in months_all])
+
+    fw_f = fw_clean if sel_unit == "Alla" else fw_clean[fw_clean["unit_name"] == sel_unit]
+    pu_f = purchases if sel_unit == "Alla" else purchases[purchases.get("unit_name_std", purchases.get("enhet", pd.Series(dtype=str))).str.lower().str.contains(sel_unit.lower(), na=False)]
+    if sel_month != "Alla":
+        pu_f = pu_f[pu_f["month"] == int(sel_month)]
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        total_kg = food_waste["total_waste_kg"].sum() if "total_waste_kg" in food_waste.columns else 0
+        kpi("Totalt matsvinn", f"{total_kg:,.0f} kg".replace(",", " "), "Alla enheter, helår 2025", "#EF4444")
+    with c2:
         total_sek = purchases["kronor"].sum() if not purchases.empty else 0
-        st.metric("Totala inköp", fmt_sek(total_sek))
-    with col2:
-        total_portions = portions["count"].sum() if not portions.empty else 0
-        st.metric("Totalt portioner", f"{int(total_portions):,}".replace(",", " "))
-    with col3:
-        if not food_waste.empty:
-            clean = food_waste[food_waste["total_waste_pct"] <= 1.0]
-            med_waste = clean["total_waste_pct"].median() * 100
-            st.metric("Median matsvinn", f"{med_waste:.1f} %")
+        kpi("Total inköpskostnad", fmt_sek(total_sek), "Råvaruinköp, helår 2025", "#8B5CF6")
+    with c3:
+        n_units = food_waste["unit_name"].nunique() if not food_waste.empty else 0
+        kpi("Antal enheter", str(n_units), "Skolor, förskolor, äldreomsorg", "#3B82F6")
+    with c4:
+        # Data quality: count distinct units with persistent over-ordering (> 20% of their weeks flagged)
+        if "over_order_ratio" in food_waste.columns:
+            per_unit = food_waste.groupby("unit_name").apply(
+                lambda g: (g["over_order_ratio"] > 0.15).mean()
+            )
+            dq_flags = int((per_unit > 0.30).sum())
         else:
-            st.metric("Snitt matsvinn", "–")
-    with col4:
-        units = food_waste["unit_name"].nunique() if not food_waste.empty else 0
-        st.metric("Antal enheter (svinn)", f"{units}")
+            dq_flags = 0
+        kpi("Datakvalitetsflaggor", f"{dq_flags} kritiska" if dq_flags else "Inga", "Kräver uppföljning", "#F59E0B")
 
-    st.divider()
+    st.markdown("<br>", unsafe_allow_html=True)
 
     col_a, col_b = st.columns(2)
 
     with col_a:
-        st.subheader("Inköp per månad (SEK)")
-        if not purchases.empty:
-            monthly = purchases.groupby(["year", "month"])["kronor"].sum().reset_index()
-            monthly["period"] = monthly["year"].astype(str) + "-" + monthly["month"].astype(str).str.zfill(2)
-            monthly = monthly.sort_values("period")
-            fig = px.bar(monthly, x="period", y="kronor", labels={"period": "", "kronor": "SEK"}, color_discrete_sequence=["#0068C9"])
-            fig.update_layout(margin=dict(t=10, b=10))
+        st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+        st.subheader("Svinn per enhet — kg per beställd portion")
+        if not food_waste.empty and "ordered_portions" in food_waste.columns:
+            wu = (
+                fw_f.groupby("unit_name")
+                .apply(lambda g: g["total_waste_kg"].sum() / g["ordered_portions"].sum() if g["ordered_portions"].sum() > 0 else 0)
+                .reset_index(name="kg_per_portion")
+                .sort_values("kg_per_portion", ascending=True)
+                .tail(15)
+            )
+            fig = px.bar(wu, x="kg_per_portion", y="unit_name", orientation="h",
+                         color="kg_per_portion", color_continuous_scale=["#FEE2E2", "#EF4444"],
+                         labels={"kg_per_portion": "kg/portion", "unit_name": ""})
+            fig.update_layout(**PLOT_LAYOUT, showlegend=False, coloraxis_showscale=False)
+            fig.update_traces(marker_line_width=0)
             st.plotly_chart(fig, use_container_width=True)
-        else:
-            st.info("Ingen data")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_b:
-        st.subheader("Matsvinn per enhet (kg/portion)")
-        if not food_waste.empty and "ordered_portions" in food_waste.columns:
-            waste_unit = food_waste.groupby("unit_name").apply(
-                lambda g: g["total_waste_kg"].sum() / g["ordered_portions"].sum()
-                if g["ordered_portions"].sum() > 0 else 0
-            ).reset_index(name="kg_per_portion").sort_values("kg_per_portion", ascending=False).head(15)
-            fig2 = px.bar(waste_unit, x="kg_per_portion", y="unit_name", orientation="h",
-                          labels={"kg_per_portion": "kg/portion", "unit_name": ""},
-                          color="kg_per_portion", color_continuous_scale="Reds")
-            fig2.update_layout(margin=dict(t=10, b=10), showlegend=False)
+        st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+        st.subheader("Inköp per månad (SEK)")
+        if not pu_f.empty:
+            mp = pu_f.groupby(["year", "month"])["kronor"].sum().reset_index()
+            mp["period"] = mp["year"].astype(str) + "-" + mp["month"].astype(str).str.zfill(2)
+            mp = mp.sort_values("period")
+            fig2 = px.bar(mp, x="period", y="kronor",
+                          labels={"period": "", "kronor": "SEK"},
+                          color_discrete_sequence=["#8B5CF6"])
+            fig2.update_layout(**PLOT_LAYOUT)
             st.plotly_chart(fig2, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: Matsvinn
+# SVINNANALYS
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "🗑️ Matsvinn":
-    st.title("🗑️ Matsvinn")
+elif page == "🗑️ Svinnanalys":
+    st.title("Svinnanalys")
+    st.caption("Detaljerad analys av matsvinn per enhet, vecka och typ")
 
-    if food_waste.empty:
-        st.warning("Ingen matsvinndata hittades.")
+    units_list = sorted(fw_clean["unit_name"].dropna().unique()) if not fw_clean.empty else []
+    sel = st.multiselect("Filtrera enheter", units_list, default=units_list[:8])
+    df_fw = fw_clean[fw_clean["unit_name"].isin(sel)] if sel else fw_clean
+
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        kpi("Snitt svinn %", f"{df_fw['total_waste_pct'].median()*100:.1f} %", "Median (filtrerat urval)", "#EF4444")
+    with c2:
+        total_kg = df_fw["total_waste_kg"].sum() if "total_waste_kg" in df_fw.columns else 0
+        kpi("Totalt svinn kg", f"{total_kg:,.0f} kg".replace(",", " "), "Filtrerat urval", "#F97316")
+    with c3:
+        worst = df_fw.groupby("unit_name")["total_waste_pct"].median().idxmax() if not df_fw.empty else "–"
+        kpi("Högst svinn", worst, "Enhet med högst median", "#8B5CF6")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    col_a, col_b = st.columns(2)
+
+    with col_a:
+        st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+        st.subheader("Svinn % per vecka")
+        fig = px.line(df_fw.sort_values("week"), x="week", y="total_waste_pct",
+                      color="unit_name",
+                      labels={"week": "Vecka", "total_waste_pct": "Svinn %", "unit_name": "Enhet"})
+        fig.update_layout(**PLOT_LAYOUT)
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col_b:
+        st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+        st.subheader("Svinntyper (medelvärde)")
+        waste_cols = {"kitchen_waste_pct": "Kök", "serving_waste_pct": "Servering", "plate_waste_pct": "Tallrik"}
+        avail = {v: df_fw[k].mean() for k, v in waste_cols.items() if k in df_fw.columns}
+        if avail:
+            fig2 = px.pie(values=list(avail.values()), names=list(avail.keys()), hole=0.45,
+                          color_discrete_sequence=["#EF4444", "#F97316", "#FBBF24"])
+            fig2.update_layout(**PLOT_LAYOUT)
+            st.plotly_chart(fig2, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+    st.subheader("Säsongsmönster — svinn per vecka (medel)")
+    seasonal = fw_clean.groupby("week")["total_waste_pct"].median().reset_index()
+    fig3 = px.area(seasonal, x="week", y="total_waste_pct",
+                   labels={"week": "Vecka", "total_waste_pct": "Svinn % (median)"},
+                   color_discrete_sequence=["#EF4444"])
+    fig3.update_layout(**PLOT_LAYOUT)
+    st.plotly_chart(fig3, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# BESTÄLLNINGSPRECISION
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "🎯 Beställningsprecision":
+    st.title("Beställningsprecision")
+    st.caption("Hur väl stämmer beställda portioner mot faktiskt serverade?")
+
+    if food_waste.empty or "ordered_portions" not in food_waste.columns:
+        st.warning("Ingen portionsdata att visa.")
     else:
-        units_list = sorted(food_waste["unit_name"].dropna().unique())
-        selected_units = st.multiselect("Filtrera enheter", units_list, default=units_list[:6])
-        df_fw = food_waste[food_waste["unit_name"].isin(selected_units)] if selected_units else food_waste
+        fw_p = food_waste.copy()
+        fw_p["precision_pct"] = (
+            fw_p["served_portions"] / fw_p["ordered_portions"]
+        ).clip(0, 2) * 100 if "served_portions" in fw_p.columns else None
 
-        col1, col2 = st.columns(2)
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            over = (fw_p["over_order_ratio"] > 0.05).sum() if "over_order_ratio" in fw_p.columns else 0
+            kpi("Veckor med överbeställning", str(int(over)), "> 5% över behovet", "#EF4444")
+        with c2:
+            avg_over = fw_p["over_order_ratio"].mean() * 100 if "over_order_ratio" in fw_p.columns else 0
+            kpi("Snitt överbeställning", f"{avg_over:.1f} %", "Beställt vs serverat", "#F97316")
+        with c3:
+            exact = (fw_p["over_order_ratio"].abs() <= 0.02).sum() if "over_order_ratio" in fw_p.columns else 0
+            kpi("Exakta beställningar", str(int(exact)), "Inom ±2 % av behovet", "#10B981")
 
-        with col1:
-            st.subheader("Svinn % per vecka")
-            fig = px.line(
-                df_fw.sort_values("week"),
-                x="week", y="total_waste_pct", color="unit_name",
-                labels={"week": "Vecka", "total_waste_pct": "Svinn %", "unit_name": "Enhet"},
-            )
-            fig.update_layout(margin=dict(t=10, b=10))
-            st.plotly_chart(fig, use_container_width=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        col_a, col_b = st.columns(2)
 
-        with col2:
-            st.subheader("Svinntyper (medelvärde)")
-            waste_cols = [c for c in ["kitchen_waste_pct", "serving_waste_pct", "plate_waste_pct"] if c in df_fw.columns]
-            if waste_cols:
-                means = df_fw[waste_cols].mean().rename({
-                    "kitchen_waste_pct": "Kök",
-                    "serving_waste_pct": "Servering",
-                    "plate_waste_pct": "Tallrik",
-                })
-                fig2 = px.pie(values=means.values, names=means.index, hole=0.4,
-                              color_discrete_sequence=px.colors.sequential.RdBu)
-                fig2.update_layout(margin=dict(t=10, b=10))
+        with col_a:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Överbeställningsgrad per enhet")
+            if "over_order_ratio" in fw_p.columns:
+                by_unit = fw_p.groupby("unit_name")["over_order_ratio"].mean().reset_index()
+                by_unit["over_pct"] = by_unit["over_order_ratio"] * 100
+                by_unit = by_unit.sort_values("over_pct", ascending=True)
+                fig = px.bar(by_unit, x="over_pct", y="unit_name", orientation="h",
+                             color="over_pct",
+                             color_continuous_scale=["#D1FAE5", "#10B981", "#EF4444"],
+                             labels={"over_pct": "Överbeställning %", "unit_name": ""})
+                fig.update_layout(**PLOT_LAYOUT, showlegend=False, coloraxis_showscale=False)
+                st.plotly_chart(fig, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        with col_b:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Beställda vs serverade portioner")
+            if "served_portions" in fw_p.columns:
+                week_sum = fw_p.groupby("week")[["ordered_portions", "served_portions"]].mean().reset_index()
+                fig2 = go.Figure()
+                fig2.add_trace(go.Scatter(x=week_sum["week"], y=week_sum["ordered_portions"],
+                                          name="Beställda", line=dict(color="#3B82F6")))
+                fig2.add_trace(go.Scatter(x=week_sum["week"], y=week_sum["served_portions"],
+                                          name="Serverade", line=dict(color="#10B981")))
+                fig2.update_layout(**PLOT_LAYOUT, xaxis_title="Vecka", yaxis_title="Portioner")
                 st.plotly_chart(fig2, use_container_width=True)
-
-        st.subheader("Säsongsmönster — medel svinn per vecka")
-        seasonal = food_waste.groupby("week")["total_waste_pct"].mean().reset_index()
-        fig3 = px.area(seasonal, x="week", y="total_waste_pct",
-                       labels={"week": "Vecka", "total_waste_pct": "Svinn %"},
-                       color_discrete_sequence=["#FF4B4B"])
-        st.plotly_chart(fig3, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: Inköp
+# INKÖP & EKONOMI
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "🛒 Inköp":
-    st.title("🛒 Inköp")
+elif page == "🛒 Inköp & ekonomi":
+    st.title("Inköp & ekonomi")
+    st.caption("Råvaruinköp, leverantörer och kostnadsutveckling 2025")
 
     if purchases.empty:
-        st.warning("Ingen inköpsdata hittades.")
+        st.warning("Ingen inköpsdata.")
     else:
-        col1, col2 = st.columns(2)
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            kpi("Total inköpskostnad", fmt_sek(purchases["kronor"].sum()), "Råvaror 2025", "#8B5CF6")
+        with c2:
+            n_sup = purchases["supplier"].nunique()
+            kpi("Antal leverantörer", str(n_sup), "Unika leverantörer", "#3B82F6")
+        with c3:
+            if "ekologisk" in purchases.columns:
+                eco_pct = purchases[purchases["ekologisk"] == "Ja"]["kronor"].sum() / purchases["kronor"].sum() * 100
+                kpi("Ekologisk andel", f"{eco_pct:.1f} %", "Andel av inköpsvärde", "#10B981")
 
-        with col1:
-            st.subheader("Topp 10 varugrupper (SEK)")
-            top_groups = purchases.groupby("varugrupp")["kronor"].sum().nlargest(10).reset_index()
-            fig = px.bar(top_groups, x="kronor", y="varugrupp", orientation="h",
-                         labels={"kronor": "SEK", "varugrupp": ""},
-                         color="kronor", color_continuous_scale="Blues")
-            fig.update_layout(margin=dict(t=10, b=10))
+        st.markdown("<br>", unsafe_allow_html=True)
+        col_a, col_b = st.columns(2)
+
+        with col_a:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Topp 10 varugrupper")
+            top_g = purchases.groupby("varugrupp")["kronor"].sum().nlargest(10).reset_index().sort_values("kronor")
+            fig = px.bar(top_g, x="kronor", y="varugrupp", orientation="h",
+                         color_discrete_sequence=["#8B5CF6"],
+                         labels={"kronor": "SEK", "varugrupp": ""})
+            fig.update_layout(**PLOT_LAYOUT)
             st.plotly_chart(fig, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        with col2:
-            st.subheader("Topp 10 leverantörer (SEK)")
-            top_suppliers = purchases.groupby("supplier")["kronor"].sum().nlargest(10).reset_index()
-            fig2 = px.bar(top_suppliers, x="kronor", y="supplier", orientation="h",
-                          labels={"kronor": "SEK", "supplier": ""},
-                          color="kronor", color_continuous_scale="Greens")
-            fig2.update_layout(margin=dict(t=10, b=10))
+        with col_b:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Topp 10 leverantörer")
+            top_s = purchases.groupby("supplier")["kronor"].sum().nlargest(10).reset_index().sort_values("kronor")
+            fig2 = px.bar(top_s, x="kronor", y="supplier", orientation="h",
+                          color_discrete_sequence=["#3B82F6"],
+                          labels={"kronor": "SEK", "supplier": ""})
+            fig2.update_layout(**PLOT_LAYOUT)
             st.plotly_chart(fig2, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        st.subheader("Ekologiskt vs konventionellt (andel SEK)")
-        if "ekologisk" in purchases.columns:
-            eco = purchases.groupby("ekologisk")["kronor"].sum().reset_index()
-            eco["ekologisk"] = eco["ekologisk"].map({"Ja": "Ekologisk", "Nej": "Konventionell"}).fillna("Okänd")
-            fig3 = px.pie(eco, values="kronor", names="ekologisk", hole=0.4,
-                          color_discrete_sequence=["#21C354", "#636EFA", "#EF553B"])
+        col_c, col_d = st.columns(2)
+
+        with col_c:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Kostnadsutveckling per månad")
+            mp = purchases.groupby(["year", "month"])["kronor"].sum().reset_index()
+            mp["period"] = mp["year"].astype(str) + "-" + mp["month"].astype(str).str.zfill(2)
+            mp = mp.sort_values("period")
+            fig3 = px.line(mp, x="period", y="kronor",
+                           labels={"period": "", "kronor": "SEK"},
+                           color_discrete_sequence=["#8B5CF6"])
+            fig3.update_layout(**PLOT_LAYOUT)
             st.plotly_chart(fig3, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        with col_d:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Ekologiskt vs konventionellt")
+            if "ekologisk" in purchases.columns:
+                eco = purchases.groupby("ekologisk")["kronor"].sum().reset_index()
+                eco["label"] = eco["ekologisk"].map({"Ja": "Ekologisk", "Nej": "Konventionell"}).fillna("Okänd")
+                fig4 = px.pie(eco, values="kronor", names="label", hole=0.45,
+                              color_discrete_sequence=["#10B981", "#E5E7EB", "#8B5CF6"])
+                fig4.update_layout(**PLOT_LAYOUT)
+                st.plotly_chart(fig4, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: Portioner
+# AVTALSTROHET
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "🍽️ Portioner":
-    st.title("🍽️ Portioner")
+elif page == "📋 Avtalstrohet":
+    st.title("Avtalstrohet")
+    st.caption("Andel inköp utanför upphandlade avtal")
 
-    if portions.empty:
-        st.warning("Ingen portionsdata hittades.")
+    if purchases.empty or "procent_utanfor_avtal" not in purchases.columns:
+        st.warning("Ingen avtalsdata tillgänglig.")
     else:
-        col1, col2 = st.columns(2)
+        pu_a = purchases.copy()
+        outside = pu_a[pu_a["procent_utanfor_avtal"] > 0]
 
-        with col1:
-            st.subheader("Portioner per månad")
-            monthly = portions.groupby(["year", "month"])["count"].sum().reset_index()
-            monthly["period"] = monthly["year"].astype(str) + "-" + monthly["month"].astype(str).str.zfill(2)
-            monthly = monthly.sort_values("period")
-            fig = px.bar(monthly, x="period", y="count",
-                         labels={"period": "", "count": "Portioner"},
-                         color_discrete_sequence=["#0068C9"])
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            out_pct = outside["kronor"].sum() / pu_a["kronor"].sum() * 100
+            kpi("Utanför avtal", f"{out_pct:.1f} %", "Andel av total kostnad", "#EF4444")
+        with c2:
+            kpi("Inom avtal", f"{100-out_pct:.1f} %", "Andel av total kostnad", "#10B981")
+        with c3:
+            n_rows = len(outside)
+            kpi("Antal rader utanför avtal", f"{n_rows:,}".replace(",", " "), "Inköpstransaktioner", "#F59E0B")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        col_a, col_b = st.columns(2)
+
+        with col_a:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Avtalstrohet per enhet")
+            by_unit = pu_a.groupby("enhet").apply(
+                lambda g: g[g["procent_utanfor_avtal"] > 0]["kronor"].sum() / g["kronor"].sum() * 100
+                if g["kronor"].sum() > 0 else 0
+            ).reset_index(name="utanfor_pct").sort_values("utanfor_pct", ascending=False).head(15)
+            fig = px.bar(by_unit.sort_values("utanfor_pct"), x="utanfor_pct", y="enhet",
+                         orientation="h",
+                         color="utanfor_pct", color_continuous_scale=["#D1FAE5", "#FEF3C7", "#EF4444"],
+                         labels={"utanfor_pct": "% utanför avtal", "enhet": ""})
+            fig.update_layout(**PLOT_LAYOUT, coloraxis_showscale=False)
             st.plotly_chart(fig, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        with col2:
-            st.subheader("Portioner per typ")
-            if "portion_type" in portions.columns:
-                by_type = portions.groupby("portion_type")["count"].sum().reset_index()
-                fig2 = px.pie(by_type, values="count", names="portion_type", hole=0.4)
-                st.plotly_chart(fig2, use_container_width=True)
-
-        st.subheader("Topp enheter (antal portioner)")
-        top_units = portions.groupby("unit_name")["count"].sum().nlargest(15).reset_index()
-        fig3 = px.bar(top_units, x="count", y="unit_name", orientation="h",
-                      labels={"count": "Portioner", "unit_name": ""},
-                      color="count", color_continuous_scale="Blues")
-        st.plotly_chart(fig3, use_container_width=True)
+        with col_b:
+            st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+            st.subheader("Utanför avtal per varugrupp (SEK)")
+            by_grp = outside.groupby("varugrupp")["kronor"].sum().nlargest(10).reset_index().sort_values("kronor")
+            fig2 = px.bar(by_grp, x="kronor", y="varugrupp", orientation="h",
+                          color_discrete_sequence=["#F59E0B"],
+                          labels={"kronor": "SEK", "varugrupp": ""})
+            fig2.update_layout(**PLOT_LAYOUT)
+            st.plotly_chart(fig2, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: AI-assistent
+# DATAKVALITET
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "⚠️ Datakvalitet":
+    st.title("Datakvalitet")
+    st.caption("Flaggor och avvikelser som kräver uppföljning")
+
+    issues = []
+
+    # Food waste: missing plate_waste
+    if not food_waste.empty and "plate_waste_pct" in food_waste.columns:
+        missing_plate = food_waste["plate_waste_pct"].isna().sum()
+        if missing_plate:
+            issues.append({"Typ": "Saknade värden", "Tabell": "Matsvinn", "Beskrivning": f"{missing_plate} rader saknar tallriksvinn", "Allvarlighet": "Varning"})
+
+    # Outlier waste
+    if not food_waste.empty:
+        outliers = (food_waste["total_waste_pct"] > 1.0).sum()
+        if outliers:
+            issues.append({"Typ": "Extremvärde", "Tabell": "Matsvinn", "Beskrivning": f"{outliers} rader med svinn > 100 %", "Allvarlighet": "Kritisk"})
+
+    # Purchases: missing supplier
+    if not purchases.empty:
+        miss_sup = purchases["supplier"].isna().sum()
+        if miss_sup:
+            issues.append({"Typ": "Saknade värden", "Tabell": "Inköp", "Beskrivning": f"{miss_sup} rader saknar leverantör", "Allvarlighet": "Varning"})
+
+    # Preschool: diff portions
+    if not preschool.empty and "diff_portions" in preschool.columns:
+        big_diff = (preschool["diff_portions"].abs() > 50).sum()
+        if big_diff:
+            issues.append({"Typ": "Avvikelse", "Tabell": "Förskoledebitering", "Beskrivning": f"{big_diff} rader med portionsavvikelse > 50", "Allvarlighet": "Kritisk"})
+
+    critical = sum(1 for i in issues if i["Allvarlighet"] == "Kritisk")
+    warnings = sum(1 for i in issues if i["Allvarlighet"] == "Varning")
+
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        kpi("Kritiska flaggor", str(critical), "Kräver omedelbar åtgärd", "#EF4444")
+    with c2:
+        kpi("Varningar", str(warnings), "Bör kontrolleras", "#F59E0B")
+    with c3:
+        kpi("Totalt kontrollerade tabeller", "5", "purchases, food_waste, portions, menu, preschool", "#3B82F6")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+    st.subheader("Flaggor")
+    if issues:
+        df_issues = pd.DataFrame(issues)
+        def color_row(row):
+            c = "#FEE2E2" if row["Allvarlighet"] == "Kritisk" else "#FEF3C7"
+            return [f"background-color: {c}"] * len(row)
+        st.dataframe(
+            df_issues.style.apply(color_row, axis=1),
+            use_container_width=True,
+            hide_index=True,
+        )
+    else:
+        st.success("Inga flaggor hittades!")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# AI-ASSISTENT
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "🤖 AI-assistent":
-    st.title("🤖 AI-assistent")
-    st.caption("Ställ frågor om skolmåltidsdata för Höganäs kommun. Drivs av OpenAI.")
+    st.title("AI-assistent")
+    st.caption("Ställ frågor om skolmåltidsdata. Drivs av OpenAI GPT-4o mini.")
 
     if not OPENAI_AVAILABLE:
-        st.error(
-            "OpenAI API-nyckel saknas. Lägg till `OPENAI_API_KEY` i Streamlit Secrets "
-            "eller som miljövariabel `OPENAI_API_KEY`."
-        )
+        st.error("OpenAI API-nyckel saknas. Lägg till `OPENAI_API_KEY` i Streamlit Secrets.")
         st.stop()
 
-    # Build a compact data summary to inject as context
     @st.cache_data
-    def build_context_summary() -> str:
+    def build_system_prompt() -> str:
         lines = [
             "Du är en dataanalytiker för Höganäs kommuns kostverksamhet.",
-            "Nedan följer en sammanfattning av tillgänglig data för 2025:\n",
+            "Du hjälper kostchefer och upphandlare att förstå data om skolmåltider 2025.",
+            "Svara alltid på svenska. Var konkret och lyft fram handlingsbara insikter.\n",
+            "## Datamängder tillgängliga:\n",
         ]
         if not food_waste.empty:
-            avg_w = food_waste["total_waste_pct"].mean() * 100
-            worst = food_waste.groupby("unit_name")["total_waste_pct"].mean().idxmax()
-            lines.append(f"- Matsvinn: {len(food_waste)} rader, {food_waste['unit_name'].nunique()} enheter. Snittsvinn {avg_w:.1f}%. Högst svinn: {worst}.")
+            avg_w = fw_clean["total_waste_pct"].median() * 100
+            worst = fw_clean.groupby("unit_name")["total_waste_pct"].median().idxmax()
+            best  = fw_clean.groupby("unit_name")["total_waste_pct"].median().idxmin()
+            kg    = food_waste["total_waste_kg"].sum() if "total_waste_kg" in food_waste.columns else "okänt"
+            lines.append(f"**Matsvinn**: {len(food_waste)} veckoposter, {food_waste['unit_name'].nunique()} enheter. "
+                         f"Median svinn: {avg_w:.1f}%. Totalt: {kg:.0f} kg. Högst: {worst}. Lägst: {best}.")
         if not purchases.empty:
-            tot = purchases["kronor"].sum()
             top_s = purchases.groupby("supplier")["kronor"].sum().idxmax()
-            lines.append(f"- Inköp: {len(purchases):,} rader, total {tot/1e6:.1f} Mkr. Störst leverantör: {top_s}.")
+            eco_p = purchases[purchases.get("ekologisk", pd.Series(dtype=str)) == "Ja"]["kronor"].sum() / purchases["kronor"].sum() * 100 if "ekologisk" in purchases.columns else 0
+            lines.append(f"**Inköp**: {len(purchases):,} rader, {fmt_sek(purchases['kronor'].sum())} totalt. "
+                         f"Störst leverantör: {top_s}. Ekologisk andel: {eco_p:.1f}%.")
+        if not purchases.empty and "procent_utanfor_avtal" in purchases.columns:
+            out_p = purchases[purchases["procent_utanfor_avtal"] > 0]["kronor"].sum() / purchases["kronor"].sum() * 100
+            lines.append(f"**Avtalstrohet**: {out_p:.1f}% av inköpen utanför upphandlade avtal.")
         if not portions.empty:
-            tot_p = int(portions["count"].sum())
-            lines.append(f"- Portioner: {len(portions):,} rader, totalt {tot_p:,} portioner.")
-        if not menu_nutrition.empty:
-            lines.append(f"- Menynäring: {len(menu_nutrition):,} rätter registrerade.")
-        if not preschool_billing.empty:
-            lines.append(f"- Förskoledebitering: {len(preschool_billing)} rader.")
-        lines.append("\nSvara alltid på svenska om inte användaren skriver på annat språk.")
+            lines.append(f"**Portioner**: {int(portions['count'].sum()):,} totalt över {len(portions)} poster.")
         return "\n".join(lines)
 
-    SYSTEM_PROMPT = build_context_summary()
+    SYSTEM_PROMPT = build_system_prompt()
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # Render history
+    # Suggested questions
+    if not st.session_state.messages:
+        st.markdown("**Föreslagna frågor:**")
+        suggestions = [
+            "Vilka enheter har mest matsvinn och vad kan vi göra åt det?",
+            "Hur ser avtalstroheten ut och var är riskerna störst?",
+            "Vilka leverantörer kostar mest och finns det besparingsmöjligheter?",
+            "Hur varierar matsvinnet under året och finns det säsongsmönster?",
+        ]
+        cols = st.columns(2)
+        for i, s in enumerate(suggestions):
+            with cols[i % 2]:
+                if st.button(s, key=f"sug_{i}", use_container_width=True):
+                    st.session_state.messages.append({"role": "user", "content": s})
+                    st.rerun()
+
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    # Input
     if prompt := st.chat_input("Skriv din fråga här…"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
+    if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
         with st.chat_message("assistant"):
-            with st.spinner("Tänker…"):
+            with st.spinner("Analyserar…"):
                 try:
                     import openai
                     client = openai.OpenAI(api_key=OPENAI_KEY)
-                    response = client.chat.completions.create(
+                    resp = client.chat.completions.create(
                         model="gpt-4o-mini",
                         messages=[
                             {"role": "system", "content": SYSTEM_PROMPT},
@@ -310,10 +590,9 @@ elif page == "🤖 AI-assistent":
                         ],
                         temperature=0.3,
                     )
-                    answer = response.choices[0].message.content
+                    answer = resp.choices[0].message.content
                 except Exception as e:
-                    answer = f"⚠️ Fel vid anrop till OpenAI: {e}"
-
+                    answer = f"⚠️ Fel: {e}"
             st.markdown(answer)
             st.session_state.messages.append({"role": "assistant", "content": answer})
 

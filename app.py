@@ -86,8 +86,9 @@ if page == "📊 Översikt":
         st.metric("Totalt portioner", f"{int(total_portions):,}".replace(",", " "))
     with col3:
         if not food_waste.empty:
-            avg_waste = food_waste["total_waste_pct"].mean() * 100
-            st.metric("Snitt matsvinn", f"{avg_waste:.1f} %")
+            clean = food_waste[food_waste["total_waste_pct"] <= 1.0]
+            med_waste = clean["total_waste_pct"].median() * 100
+            st.metric("Median matsvinn", f"{med_waste:.1f} %")
         else:
             st.metric("Snitt matsvinn", "–")
     with col4:

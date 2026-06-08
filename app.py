@@ -17,41 +17,33 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Light-theme overrides ──────────────────────────────────────────────────────
+# ── Minimal CSS — only what config.toml can't do ──────────────────────────────
 st.markdown("""
 <style>
-/* Force light background */
-[data-testid="stAppViewContainer"] { background: #f8f9fb; }
-[data-testid="stSidebar"] { background: #1a1f2e; }
-[data-testid="stSidebar"] * { color: #e2e8f0 !important; }
-[data-testid="stSidebar"] .stRadio label { color: #e2e8f0 !important; }
-[data-testid="stSidebar"] hr { border-color: #2d3748; }
-
-/* KPI cards */
+/* KPI metric cards */
 .kpi-card {
-    background: white;
+    background: #ffffff;
     border-radius: 12px;
-    padding: 20px 24px;
+    padding: 20px 24px 16px;
     border-left: 4px solid;
-    box-shadow: 0 1px 4px rgba(0,0,0,.06);
-    height: 100%;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
+    margin-bottom: 4px;
 }
-.kpi-value { font-size: 2rem; font-weight: 700; color: #1a1f2e; margin: 4px 0; }
-.kpi-label { font-size: 0.78rem; color: #718096; text-transform: uppercase; letter-spacing: .05em; }
-.kpi-sub   { font-size: 0.78rem; color: #a0aec0; margin-top: 4px; }
+.kpi-label { font-size: 0.72rem; font-weight: 600; color: #8896a6;
+             text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.kpi-value { font-size: 1.95rem; font-weight: 700; line-height: 1.1; }
+.kpi-sub   { font-size: 0.75rem; color: #a0aec0; margin-top: 6px; }
 
-/* Section headers */
-h2 { color: #1a1f2e !important; }
-h3 { color: #2d3748 !important; }
-
-/* Chart containers */
+/* Chart wrapper cards */
 .chart-box {
-    background: white;
+    background: #ffffff;
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    padding: 20px 20px 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
     margin-bottom: 16px;
 }
+/* Tighten Streamlit's default padding a bit */
+[data-testid="stVerticalBlock"] { gap: 0.6rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -92,8 +84,8 @@ fw_clean = food_waste[food_waste["total_waste_pct"] <= 1.0].copy() if not food_w
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("### 🍽️ Höganäs")
-    st.markdown("**Skolmåltidsanalys**")
+    st.markdown("## 🍽️ Höganäs")
+    st.caption("Skolmåltidsanalys 2025")
     st.divider()
     page = st.radio(
         "Navigera",
@@ -123,9 +115,11 @@ def fmt_sek(v):
     return f"{v/1_000_000:.1f} Mkr" if v >= 1_000_000 else f"{v/1_000:.0f} tkr"
 
 PLOT_LAYOUT = dict(
-    paper_bgcolor="white", plot_bgcolor="white",
-    font=dict(family="Inter, sans-serif", color="#4a5568"),
+    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+    font=dict(family="sans-serif", color="#4a5568"),
     margin=dict(t=20, b=20, l=10, r=10),
+    xaxis=dict(showgrid=True, gridcolor="#f0f0f0", zeroline=False),
+    yaxis=dict(showgrid=True, gridcolor="#f0f0f0", zeroline=False),
 )
 
 # ══════════════════════════════════════════════════════════════════════════════

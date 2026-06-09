@@ -530,7 +530,7 @@ elif page == "⚠️ Datakvalitet":
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "🤖 AI-assistent":
     st.title("AI-assistent")
-    st.caption("Ställ frågor om skolmåltidsdata. Drivs av OpenAI GPT-4o mini.")
+    st.caption("Ställ frågor om skolmåltidsdata. Drivs av OpenAI o4-mini.")
 
     if not OPENAI_AVAILABLE:
         st.error("OpenAI API-nyckel saknas. Lägg till `OPENAI_API_KEY` i Streamlit Secrets.")

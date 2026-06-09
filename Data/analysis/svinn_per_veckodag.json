@@ -1,0 +1,27 @@
+[
+  {
+    "veckodag": "nan",
+    "snitt_svinn_pct": 10.28,
+    "observationer": 7015
+  },
+  {
+    "veckodag": "5.0",
+    "snitt_svinn_pct": 10.28,
+    "observationer": 12601
+  },
+  {
+    "veckodag": "2.0",
+    "snitt_svinn_pct": 10.26,
+    "observationer": 6827
+  },
+  {
+    "veckodag": "4.0",
+    "snitt_svinn_pct": 10.25,
+    "observationer": 7526
+  },
+  {
+    "veckodag": "3.0",
+    "snitt_svinn_pct": 10.23,
+    "observationer": 7745
+  }
+]

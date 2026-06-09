@@ -1,0 +1,92 @@
+[
+  {
+    "enhet": "Väsbyhemmet",
+    "total_tkr": 2267.0,
+    "snitt_utanfor_avtal_pct": 2799.6,
+    "tkr_utanfor_avtal": 679.0
+  },
+  {
+    "enhet": "Vikhaga",
+    "total_tkr": 1042.0,
+    "snitt_utanfor_avtal_pct": 2053.3,
+    "tkr_utanfor_avtal": 191.0
+  },
+  {
+    "enhet": "Jonstorpsskolan",
+    "total_tkr": 2092.0,
+    "snitt_utanfor_avtal_pct": 1841.3,
+    "tkr_utanfor_avtal": 218.0
+  },
+  {
+    "enhet": "Nyhamnsgården",
+    "total_tkr": 1042.0,
+    "snitt_utanfor_avtal_pct": 1740.3,
+    "tkr_utanfor_avtal": 165.0
+  },
+  {
+    "enhet": "Kullagymnasiet",
+    "total_tkr": 2272.0,
+    "snitt_utanfor_avtal_pct": 1682.8,
+    "tkr_utanfor_avtal": 244.0
+  },
+  {
+    "enhet": "Äventyrets förskola",
+    "total_tkr": 440.0,
+    "snitt_utanfor_avtal_pct": 1487.1,
+    "tkr_utanfor_avtal": 60.0
+  },
+  {
+    "enhet": "Revets förskola",
+    "total_tkr": 129.0,
+    "snitt_utanfor_avtal_pct": 1441.9,
+    "tkr_utanfor_avtal": 15.0
+  },
+  {
+    "enhet": "Nyhamnsskolan",
+    "total_tkr": 980.0,
+    "snitt_utanfor_avtal_pct": 1322.4,
+    "tkr_utanfor_avtal": 99.0
+  },
+  {
+    "enhet": "Bruksskolan",
+    "total_tkr": 1250.0,
+    "snitt_utanfor_avtal_pct": 1211.7,
+    "tkr_utanfor_avtal": 96.0
+  },
+  {
+    "enhet": "Eleshults förskola",
+    "total_tkr": 90.0,
+    "snitt_utanfor_avtal_pct": 1200.0,
+    "tkr_utanfor_avtal": 9.0
+  },
+  {
+    "enhet": "Tornlyckeskolan",
+    "total_tkr": 1137.0,
+    "snitt_utanfor_avtal_pct": 1130.9,
+    "tkr_utanfor_avtal": 90.0
+  },
+  {
+    "enhet": "Vikenskolan",
+    "total_tkr": 2072.0,
+    "snitt_utanfor_avtal_pct": 1029.9,
+    "tkr_utanfor_avtal": 203.0
+  },
+  {
+    "enhet": "Klöverängens förskola",
+    "total_tkr": 122.0,
+    "snitt_utanfor_avtal_pct": 850.7,
+    "tkr_utanfor_avtal": 14.0
+  },
+  {
+    "enhet": "Lerbergsskolan",
+    "total_tkr": 1228.0,
+    "snitt_utanfor_avtal_pct": 848.9,
+    "tkr_utanfor_avtal": 69.0
+  },
+  {
+    "enhet": "Havets förskola",
+    "total_tkr": 100.0,
+    "snitt_utanfor_avtal_pct": 817.6,
+    "tkr_utanfor_avtal": 9.0
+  }
+]

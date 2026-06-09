@@ -1,0 +1,92 @@
+[
+  {
+    "enhet": "Svanebäcks förskola",
+    "snitt_svinn_pct": 17.42,
+    "total_kg": 519.3,
+    "veckor": 51
+  },
+  {
+    "enhet": "Nyhamnsgården",
+    "snitt_svinn_pct": 17.13,
+    "total_kg": 934.4,
+    "veckor": 53
+  },
+  {
+    "enhet": "Eric Ruuths förskola",
+    "snitt_svinn_pct": 16.84,
+    "total_kg": 488.6,
+    "veckor": 38
+  },
+  {
+    "enhet": "Revets förskola",
+    "snitt_svinn_pct": 15.55,
+    "total_kg": 486.6,
+    "veckor": 40
+  },
+  {
+    "enhet": "Klöverängens förskola",
+    "snitt_svinn_pct": 14.62,
+    "total_kg": 338.3,
+    "veckor": 47
+  },
+  {
+    "enhet": "Havets förskola",
+    "snitt_svinn_pct": 12.94,
+    "total_kg": 360.7,
+    "veckor": 51
+  },
+  {
+    "enhet": "Lärlyckans förskola",
+    "snitt_svinn_pct": 12.6,
+    "total_kg": 455.3,
+    "veckor": 50
+  },
+  {
+    "enhet": "Tornlyckeskolan",
+    "snitt_svinn_pct": 12.5,
+    "total_kg": 2741.3,
+    "veckor": 48
+  },
+  {
+    "enhet": "Nyhamnsskolan",
+    "snitt_svinn_pct": 10.65,
+    "total_kg": 2755.7,
+    "veckor": 46
+  },
+  {
+    "enhet": "Äventyrets förskola",
+    "snitt_svinn_pct": 10.32,
+    "total_kg": 657.1,
+    "veckor": 52
+  },
+  {
+    "enhet": "Solgläntans förskola",
+    "snitt_svinn_pct": 10.19,
+    "total_kg": 359.2,
+    "veckor": 51
+  },
+  {
+    "enhet": "Lerbergsskolan",
+    "snitt_svinn_pct": 9.91,
+    "total_kg": 3782.5,
+    "veckor": 52
+  },
+  {
+    "enhet": "Vikenskolan",
+    "snitt_svinn_pct": 9.47,
+    "total_kg": 4366.6,
+    "veckor": 42
+  },
+  {
+    "enhet": "Jonstorpsskolan",
+    "snitt_svinn_pct": 8.85,
+    "total_kg": 3412.8,
+    "veckor": 42
+  },
+  {
+    "enhet": "Vikens Ry förskola",
+    "snitt_svinn_pct": 8.33,
+    "total_kg": 242.0,
+    "veckor": 48
+  }
+]

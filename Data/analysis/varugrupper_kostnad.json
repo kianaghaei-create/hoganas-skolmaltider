@@ -1,0 +1,122 @@
+[
+  {
+    "varugrupp": "Okänd",
+    "total_tkr": NaN,
+    "total_kg": NaN,
+    "antal_inkop": 84
+  },
+  {
+    "varugrupp": "Mellanmjölk, 1,5%-1,8% fetthalt",
+    "total_tkr": 608.0,
+    "total_kg": 49814.0,
+    "antal_inkop": 367
+  },
+  {
+    "varugrupp": "Blandfärs",
+    "total_tkr": 543.0,
+    "total_kg": 5558.0,
+    "antal_inkop": 83
+  },
+  {
+    "varugrupp": "Kyckling tärnad",
+    "total_tkr": 481.0,
+    "total_kg": 3946.0,
+    "antal_inkop": 69
+  },
+  {
+    "varugrupp": "Nötfärs",
+    "total_tkr": 465.0,
+    "total_kg": 3672.0,
+    "antal_inkop": 81
+  },
+  {
+    "varugrupp": "Potatis förkokt",
+    "total_tkr": 428.0,
+    "total_kg": 20458.0,
+    "antal_inkop": 188
+  },
+  {
+    "varugrupp": "Torsk, panerad, förstekt",
+    "total_tkr": 346.0,
+    "total_kg": 3510.0,
+    "antal_inkop": 59
+  },
+  {
+    "varugrupp": "Ost skivad",
+    "total_tkr": 325.0,
+    "total_kg": 2814.0,
+    "antal_inkop": 317
+  },
+  {
+    "varugrupp": "Hoki",
+    "total_tkr": 300.0,
+    "total_kg": 2535.0,
+    "antal_inkop": 54
+  },
+  {
+    "varugrupp": "Vispgrädde",
+    "total_tkr": 294.0,
+    "total_kg": 5830.0,
+    "antal_inkop": 151
+  },
+  {
+    "varugrupp": "Gurka",
+    "total_tkr": 267.0,
+    "total_kg": 9608.0,
+    "antal_inkop": 278
+  },
+  {
+    "varugrupp": "Potatis skalad",
+    "total_tkr": 267.0,
+    "total_kg": 16471.0,
+    "antal_inkop": 195
+  },
+  {
+    "varugrupp": "Standardmjölk, 3,0%-3,5% fetthalt",
+    "total_tkr": 252.0,
+    "total_kg": 19065.0,
+    "antal_inkop": 139
+  },
+  {
+    "varugrupp": "Äpplen",
+    "total_tkr": 249.0,
+    "total_kg": 10556.0,
+    "antal_inkop": 437
+  },
+  {
+    "varugrupp": "Wienerkorv",
+    "total_tkr": 248.0,
+    "total_kg": 3037.0,
+    "antal_inkop": 118
+  },
+  {
+    "varugrupp": "Köttbullar",
+    "total_tkr": 231.0,
+    "total_kg": 2904.0,
+    "antal_inkop": 94
+  },
+  {
+    "varugrupp": "Morötter",
+    "total_tkr": 212.0,
+    "total_kg": 7657.0,
+    "antal_inkop": 412
+  },
+  {
+    "varugrupp": "Ägg färska",
+    "total_tkr": 207.0,
+    "total_kg": 4069.0,
+    "antal_inkop": 210
+  },
+  {
+    "varugrupp": "Fisk, panerad, förstekt",
+    "total_tkr": 191.0,
+    "total_kg": 2721.0,
+    "antal_inkop": 60
+  },
+  {
+    "varugrupp": "Nötkött tärnat",
+    "total_tkr": 186.0,
+    "total_kg": 1394.0,
+    "antal_inkop": 65
+  }
+]

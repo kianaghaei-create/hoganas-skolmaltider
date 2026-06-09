@@ -536,122 +536,30 @@ elif page == "🤖 AI-assistent":
         st.error("OpenAI API-nyckel saknas. Lägg till `OPENAI_API_KEY` i Streamlit Secrets.")
         st.stop()
 
-    # ── Neo4j connection ──────────────────────────────────────────────────────
-    NEO4J_URI  = st.secrets.get("NEO4J_URI")  or os.environ.get("NEO4J_URI",  "bolt://localhost:7687")
-    NEO4J_USER = st.secrets.get("NEO4J_USER") or os.environ.get("NEO4J_USER", "neo4j")
-    NEO4J_PASS = st.secrets.get("NEO4J_PASS") or os.environ.get("NEO4J_PASS", "hoganas2025")
+    # ── Ladda förberäknade grafanalyser (verifierade Cypher-resultat) ─────────
+    @st.cache_data
+    def load_graph_analysis() -> dict:
+        import json
+        from pathlib import Path
+        analysis = {}
+        base = Path("Data/analysis")
+        files = {
+            "enheter_svinn":   "enheter_svinn_ranking.json",
+            "leverantorer":    "leverantorer_kostnad.json",
+            "avtalstrohet":    "avtalstrohet_per_enhet.json",
+            "ekologisk":       "ekologisk_andel.json",
+            "varugrupper":     "varugrupper_kostnad.json",
+        }
+        for key, fname in files.items():
+            p = base / fname
+            if p.exists():
+                try:
+                    analysis[key] = json.loads(p.read_text(encoding="utf-8"))
+                except Exception:
+                    analysis[key] = []
+        return analysis
 
-    def query_neo4j(cypher: str) -> list[dict]:
-        try:
-            from neo4j import GraphDatabase
-            driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASS))
-            with driver.session() as s:
-                result = s.run(cypher)
-                rows = [dict(r) for r in result]
-            driver.close()
-            return rows
-        except Exception as e:
-            return [{"fel": str(e)}]
-
-    NEO4J_AVAILABLE = query_neo4j("RETURN 1 AS ok") != [{"fel": str}] and "fel" not in query_neo4j("RETURN 1 AS ok")[0]
-
-    # ── Graph schema for Cypher generation ───────────────────────────────────
-    GRAPH_SCHEMA = """
-Du har tillgång till en Neo4j-graf med följande schema:
-
-NODER:
-- (Enhet {namn}) — skola, förskola eller äldreboende
-- (Svinn {total_pct, total_kg, tallrik_pct, servering_pct, bestallda_portioner, serverade_portioner})
-- (Vecka {nr, ar})
-- (Inkop {artikel, kronor, kilo, ekologisk, utanfor_avtal_pct, manad, ar})
-- (Leverantor {namn})
-- (Varugrupp {namn})
-- (Portion {ar, manad, typ, antal})
-- (Ratt {namn, menytyp, typ})
-
-RELATIONER:
-- (Enhet)-[:HAR_SVINN]->(Svinn)-[:AVSER_VECKA]->(Vecka)
-- (Enhet)-[:KOPER]->(Inkop)-[:FRAN]->(Leverantor)
-- (Inkop)-[:TILLHOR]->(Varugrupp)
-- (Enhet)-[:SERVERAR]->(Portion)
-- (Ratt)-[:SERVERADES_VECKA {veckodag}]->(Vecka)
-
-VIKTIGT för Cypher:
-- Filtrera svinn med WHERE s.total_pct <= 1.0 för att exkludera datainmatningsfel
-- Enhetsnamn är på svenska, t.ex. "Kullagymnasiet", "Bruksskolan"
-- Vecka nr är float (1.0-53.0), år är int (2025)
-- kronor och kilo är floats
-- Använd MATCH, RETURN, aggregering (sum, avg, count) och ORDER BY
-- Returnera alltid läsbara kolumnnamn på svenska
-"""
-
-    CYPHER_SYSTEM = f"""Du är en Neo4j Cypher-expert för Höganäs kommuns kostverksamhet.
-Din uppgift är att översätta användarens fråga till EN Cypher-fråga mot grafen.
-
-{GRAPH_SCHEMA}
-
-REGLER:
-- Returnera ENBART Cypher-koden, ingen förklaring, ingen markdown
-- Frågan ska vara en READ-query (MATCH/RETURN, ingen CREATE/DELETE)
-- Om frågan inte kan besvaras med denna data, returnera: RETURN "EJ_MÖJLIGT" AS svar
-- Begränsa alltid till rimliga resultat med LIMIT (max 20)
-"""
-
-    ANSWER_SYSTEM = f"""Du är en senior kostanalytiker för Höganäs kommun.
-{GRAPH_SCHEMA}
-
-INSTRUKTIONER:
-- Svara alltid på svenska
-- Du får ENDAST svara på frågor om Höganäs kostverksamhet
-- Om frågan är irrelevant, säg: "Jag är specialiserad på Höganäs kostverksamhet och kan inte hjälpa med det."
-- Analysera Neo4j-resultaten och ge ett detaljerat svar med konkreta siffror
-- Lyft alltid 2-3 handlingsbara rekommendationer
-- Kvantifiera ekonomisk potential där möjligt
-- Strukturera svaret med rubriker och punktlistor
-"""
-
-    def ask_with_neo4j(user_question: str, history: list) -> tuple[str, str]:
-        """Returnerar (svar, cypher_query)."""
-        import openai
-        client = openai.OpenAI(api_key=OPENAI_KEY)
-
-        # Steg 1 — generera Cypher
-        cypher_resp = client.chat.completions.create(
-            model="o4-mini",
-            messages=[
-                {"role": "system", "content": CYPHER_SYSTEM},
-                {"role": "user", "content": user_question},
-            ],
-        )
-        cypher = cypher_resp.choices[0].message.content.strip().strip("```").replace("cypher\n", "").strip()
-
-        # Steg 2 — kör mot Neo4j
-        if "EJ_MÖJLIGT" in cypher:
-            neo4j_result = []
-        else:
-            neo4j_result = query_neo4j(cypher)
-
-        # Steg 3 — generera svar baserat på resultaten
-        result_text = f"Neo4j-resultat från frågan '{cypher}':\n{neo4j_result}" if neo4j_result else "Ingen data hittades för denna fråga."
-
-        answer_resp = client.chat.completions.create(
-            model="o4-mini",
-            messages=[
-                {"role": "system", "content": ANSWER_SYSTEM},
-                *history[:-1],
-                {"role": "user", "content": f"Fråga: {user_question}\n\n{result_text}"},
-            ],
-        )
-        return answer_resp.choices[0].message.content, cypher
-
-    # ── Neo4j status ──────────────────────────────────────────────────────────
-    test = query_neo4j("RETURN 1 AS ok")
-    if "fel" in test[0]:
-        st.warning("⚠️ Neo4j ej tillgänglig — använder statisk dataanalys som backup.")
-        NEO4J_AVAILABLE = False
-    else:
-        st.success("🔗 Ansluten till Neo4j — svar baseras på live-data från grafen.")
-        NEO4J_AVAILABLE = True
+    graph_analysis = load_graph_analysis()
 
     @st.cache_data
     def build_system_prompt() -> str:
@@ -742,6 +650,38 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
 - Totalt {ctx['por_total']:,} portioner serverade 2025
 - Enheter med flest portioner: {', '.join(f"{k}: {int(v):,}" for k,v in ctx['por_top5'].items())}
 """
+
+        # ── Grafanalys (verifierade Cypher-resultat från Neo4j) ───────────────
+        ga = graph_analysis
+        if ga.get("enheter_svinn"):
+            rows = [r for r in ga["enheter_svinn"] if r.get("snitt_svinn_pct")]
+            p += "\n## Svinnranking per enhet (graf-analys, verifierad)\n"
+            for r in rows[:10]:
+                p += f"- {r['enhet']}: {r['snitt_svinn_pct']}% snitt, {r['total_kg']} kg totalt ({r['veckor']} veckor)\n"
+
+        if ga.get("leverantorer"):
+            rows = [r for r in ga["leverantorer"] if r.get("leverantor") != "Okänd" and r.get("total_mkr")]
+            p += "\n## Leverantörer — inköpskostnad (graf-analys, verifierad)\n"
+            for r in rows:
+                p += f"- {r['leverantor']}: {r['total_mkr']} Mkr, {r['total_ton']} ton, {r['antal_enheter']} enheter\n"
+
+        if ga.get("avtalstrohet"):
+            rows = [r for r in ga["avtalstrohet"] if r.get("snitt_utanfor_avtal_pct", 0) > 0]
+            p += "\n## Avtalstrohet per enhet (graf-analys, verifierad)\n"
+            for r in rows[:8]:
+                p += f"- {r['enhet']}: {r['snitt_utanfor_avtal_pct']}% utanför avtal, {r['tkr_utanfor_avtal']} tkr\n"
+
+        if ga.get("ekologisk"):
+            rows = [r for r in ga["ekologisk"] if r.get("eko_andel_pct", 0) > 0]
+            p += "\n## Ekologisk andel per enhet (graf-analys, verifierad)\n"
+            for r in rows[:8]:
+                p += f"- {r['enhet']}: {r['eko_andel_pct']}% ekologiskt av {r['total_tkr']} tkr\n"
+
+        if ga.get("varugrupper"):
+            p += "\n## Varugrupper — top 10 kostnad (graf-analys, verifierad)\n"
+            for r in ga["varugrupper"][:10]:
+                p += f"- {r['varugrupp']}: {r['total_tkr']} tkr ({r['total_kg']} kg, {r['antal_inkop']} inköp)\n"
+
         return p
 
     SYSTEM_PROMPT = build_system_prompt()
@@ -776,30 +716,20 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
 
     if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
         with st.chat_message("assistant"):
-            user_q = st.session_state.messages[-1]["content"]
-            if NEO4J_AVAILABLE:
-                with st.spinner("Hämtar data från Neo4j…"):
-                    try:
-                        answer, cypher_used = ask_with_neo4j(user_q, st.session_state.messages)
-                        with st.expander("🔍 Cypher-fråga som kördes", expanded=False):
-                            st.code(cypher_used, language="cypher")
-                    except Exception as e:
-                        answer = f"⚠️ Fel: {e}"
-            else:
-                with st.spinner("Analyserar…"):
-                    try:
-                        import openai
-                        client = openai.OpenAI(api_key=OPENAI_KEY)
-                        resp = client.chat.completions.create(
-                            model="o4-mini",
-                            messages=[
-                                {"role": "system", "content": SYSTEM_PROMPT},
-                                *st.session_state.messages,
-                            ],
-                        )
-                        answer = resp.choices[0].message.content
-                    except Exception as e:
-                        answer = f"⚠️ Fel: {e}"
+            with st.spinner("Analyserar…"):
+                try:
+                    import openai
+                    client = openai.OpenAI(api_key=OPENAI_KEY)
+                    resp = client.chat.completions.create(
+                        model="o4-mini",
+                        messages=[
+                            {"role": "system", "content": SYSTEM_PROMPT},
+                            *st.session_state.messages,
+                        ],
+                    )
+                    answer = resp.choices[0].message.content
+                except Exception as e:
+                    answer = f"⚠️ Fel: {e}"
             st.markdown(answer)
             st.session_state.messages.append({"role": "assistant", "content": answer})
 

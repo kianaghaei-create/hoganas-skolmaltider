@@ -1,0 +1,142 @@
+[
+  {
+    "ratt": "Kökets val vegetariskt",
+    "menytyp": "skola",
+    "antal_ganger_serverad": 1537,
+    "snitt_svinn_pct": 10.85,
+    "svinn_index": 16682.4
+  },
+  {
+    "ratt": "Ärtsoppa med fläsk",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 339,
+    "snitt_svinn_pct": 10.24,
+    "svinn_index": 3471.3
+  },
+  {
+    "ratt": "Kökets val",
+    "menytyp": "skola",
+    "antal_ganger_serverad": 279,
+    "snitt_svinn_pct": 11.05,
+    "svinn_index": 3084.2
+  },
+  {
+    "ratt": "Ärtsoppa med patéfläsk",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 277,
+    "snitt_svinn_pct": 10.1,
+    "svinn_index": 2799.0
+  },
+  {
+    "ratt": "Ärtsoppa slät med timbalfläsk",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 256,
+    "snitt_svinn_pct": 10.12,
+    "svinn_index": 2590.4
+  },
+  {
+    "ratt": "Lasagne med grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 236,
+    "snitt_svinn_pct": 10.92,
+    "svinn_index": 2576.3
+  },
+  {
+    "ratt": "Lasagne med sallad",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 236,
+    "snitt_svinn_pct": 10.92,
+    "svinn_index": 2576.3
+  },
+  {
+    "ratt": "Lasagnetimbal med grönsakstimbal",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 236,
+    "snitt_svinn_pct": 10.92,
+    "svinn_index": 2576.3
+  },
+  {
+    "ratt": "Spagetti* med köttfärssås och grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 225,
+    "snitt_svinn_pct": 10.11,
+    "svinn_index": 2275.5
+  },
+  {
+    "ratt": "Spagetti* med köttfärssås och sallad",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 225,
+    "snitt_svinn_pct": 10.11,
+    "svinn_index": 2275.5
+  },
+  {
+    "ratt": "Pasta* med skaldjurssås och blandad sallad",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 206,
+    "snitt_svinn_pct": 10.76,
+    "svinn_index": 2216.1
+  },
+  {
+    "ratt": "Raggmunk timbal med timbalbacon, grönsaker och lingonsås",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 208,
+    "snitt_svinn_pct": 10.5,
+    "svinn_index": 2183.0
+  },
+  {
+    "ratt": "Kycklingfrikassé med ris* och grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 204,
+    "snitt_svinn_pct": 10.11,
+    "svinn_index": 2063.0
+  },
+  {
+    "ratt": "Kycklingfrikassé timbal med ristimbal och grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 204,
+    "snitt_svinn_pct": 10.11,
+    "svinn_index": 2063.0
+  },
+  {
+    "ratt": "Kycklingfrikassé paté med ris* och grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 204,
+    "snitt_svinn_pct": 10.11,
+    "svinn_index": 2063.0
+  },
+  {
+    "ratt": "Spagetti timbal med köttfärssås och grönsakstimbal",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 203,
+    "snitt_svinn_pct": 10.13,
+    "svinn_index": 2056.6
+  },
+  {
+    "ratt": "Redd grönsakssoppa",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 179,
+    "snitt_svinn_pct": 11.26,
+    "svinn_index": 2015.2
+  },
+  {
+    "ratt": "Redd grönsakssoppa paté",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 179,
+    "snitt_svinn_pct": 11.26,
+    "svinn_index": 2015.2
+  },
+  {
+    "ratt": "Kycklinglevergryta serveras med ris* och kokta grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 198,
+    "snitt_svinn_pct": 10.04,
+    "svinn_index": 1988.7
+  },
+  {
+    "ratt": "Kycklinglevergryta paté serveras med ris* och kokta grönsaker",
+    "menytyp": "ao",
+    "antal_ganger_serverad": 198,
+    "snitt_svinn_pct": 10.04,
+    "svinn_index": 1988.7
+  }
+]

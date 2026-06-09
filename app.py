@@ -662,12 +662,11 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
                     import openai
                     client = openai.OpenAI(api_key=OPENAI_KEY)
                     resp = client.chat.completions.create(
-                        model="gpt-4o",
+                        model="o4-mini",
                         messages=[
                             {"role": "system", "content": SYSTEM_PROMPT},
                             *st.session_state.messages,
                         ],
-                        temperature=0.3,
                     )
                     answer = resp.choices[0].message.content
                 except Exception as e:

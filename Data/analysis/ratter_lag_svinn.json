@@ -1,0 +1,122 @@
+[
+  {
+    "ratt": "korv stroganoff",
+    "antal_dagar": 6,
+    "snitt_gram_per_portion": 12.8,
+    "totalt_svinn_kg": 3.8
+  },
+  {
+    "ratt": "falukorv",
+    "antal_dagar": 10,
+    "snitt_gram_per_portion": 15.2,
+    "totalt_svinn_kg": 50.0
+  },
+  {
+    "ratt": "panerad fisk",
+    "antal_dagar": 12,
+    "snitt_gram_per_portion": 15.7,
+    "totalt_svinn_kg": 23.8
+  },
+  {
+    "ratt": "pasta sås",
+    "antal_dagar": 7,
+    "snitt_gram_per_portion": 16.7,
+    "totalt_svinn_kg": 9.7
+  },
+  {
+    "ratt": "wienerkorv",
+    "antal_dagar": 7,
+    "snitt_gram_per_portion": 19.8,
+    "totalt_svinn_kg": 28.1
+  },
+  {
+    "ratt": "köttfärssås",
+    "antal_dagar": 24,
+    "snitt_gram_per_portion": 20.9,
+    "totalt_svinn_kg": 74.3
+  },
+  {
+    "ratt": "snitzel",
+    "antal_dagar": 8,
+    "snitt_gram_per_portion": 21.4,
+    "totalt_svinn_kg": 44.4
+  },
+  {
+    "ratt": "köttbullar",
+    "antal_dagar": 38,
+    "snitt_gram_per_portion": 21.6,
+    "totalt_svinn_kg": 154.0
+  },
+  {
+    "ratt": "Ärtsoppa                     pannkaka och sylt; Currykryddad Grönsakssoppa  pannkaka och sylt",
+    "antal_dagar": 10,
+    "snitt_gram_per_portion": 21.9,
+    "totalt_svinn_kg": 40.9
+  },
+  {
+    "ratt": "nasi goreng",
+    "antal_dagar": 8,
+    "snitt_gram_per_portion": 22.7,
+    "totalt_svinn_kg": 24.5
+  },
+  {
+    "ratt": "lasagnette",
+    "antal_dagar": 5,
+    "snitt_gram_per_portion": 24.5,
+    "totalt_svinn_kg": 35.2
+  },
+  {
+    "ratt": "pytt i panna",
+    "antal_dagar": 27,
+    "snitt_gram_per_portion": 24.8,
+    "totalt_svinn_kg": 76.0
+  },
+  {
+    "ratt": "Het färssoppa serveras med bröd,ost och frukt; Indisk vegosoppa severas med bröd, ost och frukt",
+    "antal_dagar": 9,
+    "snitt_gram_per_portion": 24.8,
+    "totalt_svinn_kg": 55.8
+  },
+  {
+    "ratt": "schnitzel",
+    "antal_dagar": 31,
+    "snitt_gram_per_portion": 24.8,
+    "totalt_svinn_kg": 168.6
+  },
+  {
+    "ratt": "Cowboysoppa serveras med bröd, ost och frukt; Minestronesoppa serveras med bröd, ost, frukt",
+    "antal_dagar": 10,
+    "snitt_gram_per_portion": 25.2,
+    "totalt_svinn_kg": 45.9
+  },
+  {
+    "ratt": "Potatisbullar serveras med kalkonfräs och lingon; Kökets val vegetariskt",
+    "antal_dagar": 9,
+    "snitt_gram_per_portion": 26.0,
+    "totalt_svinn_kg": 18.7
+  },
+  {
+    "ratt": "Fisk",
+    "antal_dagar": 10,
+    "snitt_gram_per_portion": 26.2,
+    "totalt_svinn_kg": 66.1
+  },
+  {
+    "ratt": "korv",
+    "antal_dagar": 21,
+    "snitt_gram_per_portion": 26.5,
+    "totalt_svinn_kg": 150.3
+  },
+  {
+    "ratt": "soppa",
+    "antal_dagar": 79,
+    "snitt_gram_per_portion": 26.7,
+    "totalt_svinn_kg": 612.9
+  },
+  {
+    "ratt": "pannbiff",
+    "antal_dagar": 26,
+    "snitt_gram_per_portion": 26.8,
+    "totalt_svinn_kg": 161.0
+  }
+]

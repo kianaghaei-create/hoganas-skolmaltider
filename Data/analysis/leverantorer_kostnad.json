@@ -1,12 +1,5 @@
 [
   {
-    "leverantor": "Okänd",
-    "total_mkr": NaN,
-    "total_ton": NaN,
-    "antal_enheter": 1,
-    "antal_inkop": 84
-  },
-  {
     "leverantor": "Menigo Foodservice AB",
     "total_mkr": 8.09,
     "total_ton": 171.6,

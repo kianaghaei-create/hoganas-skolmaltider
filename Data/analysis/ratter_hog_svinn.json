@@ -1,127 +1,212 @@
 [
   {
-    "ratt": "Dansk Sjömansbiff - inkl potatis och grönsaker",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 11
+    "ratt": "fisk",
+    "antal_dagar": 119,
+    "snitt_svinn_kg": 9.03,
+    "totalt_svinn_kg": 1075.1,
+    "svinn_gram_per_portion": 27.2
   },
   {
-    "ratt": "Fläskköttgryta paté med ananas, ris* och grönsaker",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 11
+    "ratt": "soppa",
+    "antal_dagar": 79,
+    "snitt_svinn_kg": 7.76,
+    "totalt_svinn_kg": 612.9,
+    "svinn_gram_per_portion": 26.7
   },
   {
-    "ratt": "Fläskpannkaka paté med bönpaté",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 22
+    "ratt": "Spaghetti med köttfärssås; Spaghetti med färssås",
+    "antal_dagar": 33,
+    "snitt_svinn_kg": 7.82,
+    "totalt_svinn_kg": 258.0,
+    "svinn_gram_per_portion": 35.6
   },
   {
-    "ratt": "Fläskpannkaka med sallad",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 22
+    "ratt": "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar",
+    "antal_dagar": 26,
+    "snitt_svinn_kg": 8.66,
+    "totalt_svinn_kg": 225.1,
+    "svinn_gram_per_portion": 35.8
   },
   {
-    "ratt": "Fläskköttgryta med ananas, ris* och grönsaker",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 11
+    "ratt": "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås",
+    "antal_dagar": 25,
+    "snitt_svinn_kg": 8.53,
+    "totalt_svinn_kg": 213.2,
+    "svinn_gram_per_portion": 42.3
   },
   {
-    "ratt": "Järptimbal, persiljesås, potatismos och grönsak",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 11
+    "ratt": "fiskburgare",
+    "antal_dagar": 25,
+    "snitt_svinn_kg": 8.18,
+    "totalt_svinn_kg": 204.6,
+    "svinn_gram_per_portion": 40.5
   },
   {
-    "ratt": "Fläskköttgryta timbal med ananas, ristimbal och grönsaker",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 11
+    "ratt": "lasagne",
+    "antal_dagar": 37,
+    "snitt_svinn_kg": 5.52,
+    "totalt_svinn_kg": 204.4,
+    "svinn_gram_per_portion": 29.3
   },
   {
-    "ratt": "Fläskpannkaka timbal med grönsakstimbal och lingonsås",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 22
+    "ratt": "fiskgratäng",
+    "antal_dagar": 32,
+    "snitt_svinn_kg": 6.33,
+    "totalt_svinn_kg": 202.6,
+    "svinn_gram_per_portion": 30.8
   },
   {
-    "ratt": "Dansk sjömansbiff timbal, grönsakstimbal och rödbetor",
-    "snitt_svinn_pct": 17.2,
-    "veckor": 11
+    "ratt": "pytt",
+    "antal_dagar": 31,
+    "snitt_svinn_kg": 6.36,
+    "totalt_svinn_kg": 197.1,
+    "svinn_gram_per_portion": 30.5
   },
   {
-    "ratt": "Revbensspjäll paté, gräddsås, potatis*, rödkål",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "Kökets val; Kökets val vegetariskt",
+    "antal_dagar": 64,
+    "snitt_svinn_kg": 3.03,
+    "totalt_svinn_kg": 193.6,
+    "svinn_gram_per_portion": 44.6
   },
   {
-    "ratt": "Jultallrik varm timbal",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "schnitzel",
+    "antal_dagar": 31,
+    "snitt_svinn_kg": 5.44,
+    "totalt_svinn_kg": 168.6,
+    "svinn_gram_per_portion": 24.8
   },
   {
-    "ratt": "Revbensspjäll med gräddsås, kokt potatis* och rödkål",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "kyckling",
+    "antal_dagar": 19,
+    "snitt_svinn_kg": 8.81,
+    "totalt_svinn_kg": 167.4,
+    "svinn_gram_per_portion": 29.2
   },
   {
-    "ratt": "Kokt lutfisk timbal, skånsk senapssås, potatismos och grönsakstimbal",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "pannbiff",
+    "antal_dagar": 27,
+    "snitt_svinn_kg": 5.97,
+    "totalt_svinn_kg": 161.3,
+    "svinn_gram_per_portion": 26.9
   },
   {
-    "ratt": "Burgundisk köttgryta paté med stekt kulpotatis* och grönsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "kalops",
+    "antal_dagar": 16,
+    "snitt_svinn_kg": 9.74,
+    "totalt_svinn_kg": 155.8,
+    "svinn_gram_per_portion": 32.1
   },
   {
-    "ratt": "Kokt lutfisk med potatis*, skånsk senapssås och kokta grönsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "köttbullar",
+    "antal_dagar": 40,
+    "snitt_svinn_kg": 3.87,
+    "totalt_svinn_kg": 154.7,
+    "svinn_gram_per_portion": 23.0
   },
   {
-    "ratt": "Kåldolmar/pudding timbal med potatismos, gräddsås och grönsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "Köttbullar",
+    "antal_dagar": 15,
+    "snitt_svinn_kg": 10.29,
+    "totalt_svinn_kg": 154.4,
+    "svinn_gram_per_portion": 33.9
   },
   {
-    "ratt": "Jultallrik varm paté",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "pastagratäng",
+    "antal_dagar": 20,
+    "snitt_svinn_kg": 7.66,
+    "totalt_svinn_kg": 153.1,
+    "svinn_gram_per_portion": 44.1
   },
   {
-    "ratt": "Julkorv med rotmos*, pepparrotssås och kokta grönsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 14
+    "ratt": "korv",
+    "antal_dagar": 21,
+    "snitt_svinn_kg": 7.16,
+    "totalt_svinn_kg": 150.3,
+    "svinn_gram_per_portion": 26.5
   },
   {
-    "ratt": "Revbensspjäll timbal, gräddsås, ärtgrönt mos, rödkål",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "pankofisk",
+    "antal_dagar": 23,
+    "snitt_svinn_kg": 6.4,
+    "totalt_svinn_kg": 147.1,
+    "svinn_gram_per_portion": 31.8
   },
   {
-    "ratt": "Jultallrik med julens varma godsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "ärtsoppa",
+    "antal_dagar": 17,
+    "snitt_svinn_kg": 8.55,
+    "totalt_svinn_kg": 145.3,
+    "svinn_gram_per_portion": 34.1
   },
   {
-    "ratt": "Julkorv timbal med solskensmos, pepparrotssås och grönsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 14
+    "ratt": "tikka",
+    "antal_dagar": 9,
+    "snitt_svinn_kg": 15.96,
+    "totalt_svinn_kg": 143.6,
+    "svinn_gram_per_portion": 37.9
   },
   {
-    "ratt": "Burgundisk köttgryta med stekt kulpotatis* och grönsaker",
-    "snitt_svinn_pct": 14.03,
-    "veckor": 7
+    "ratt": "kebabpytt",
+    "antal_dagar": 9,
+    "snitt_svinn_kg": 15.32,
+    "totalt_svinn_kg": 137.9,
+    "svinn_gram_per_portion": 56.1
   },
   {
-    "ratt": "Stekt spättafilé med potatis*, tartarsås och kokta grönsaker",
-    "snitt_svinn_pct": 13.83,
-    "veckor": 17
+    "ratt": "korvgryta",
+    "antal_dagar": 12,
+    "snitt_svinn_kg": 11.31,
+    "totalt_svinn_kg": 135.7,
+    "svinn_gram_per_portion": 33.7
   },
   {
-    "ratt": "Schnitzel med skysås, kokt potatis* och grönsaker",
-    "snitt_svinn_pct": 13.83,
-    "veckor": 17
+    "ratt": "thaigryta",
+    "antal_dagar": 12,
+    "snitt_svinn_kg": 10.67,
+    "totalt_svinn_kg": 128.0,
+    "svinn_gram_per_portion": 33.5
   },
   {
-    "ratt": "Schnitzel timbal, skysås, potatismos och grönsaktimbal",
-    "snitt_svinn_pct": 13.83,
-    "veckor": 17
+    "ratt": "wok",
+    "antal_dagar": 11,
+    "snitt_svinn_kg": 11.3,
+    "totalt_svinn_kg": 124.3,
+    "svinn_gram_per_portion": 34.6
+  },
+  {
+    "ratt": "pastabuffe",
+    "antal_dagar": 10,
+    "snitt_svinn_kg": 12.27,
+    "totalt_svinn_kg": 122.7,
+    "svinn_gram_per_portion": 31.9
+  },
+  {
+    "ratt": "nasigoreng",
+    "antal_dagar": 8,
+    "snitt_svinn_kg": 15.16,
+    "totalt_svinn_kg": 121.3,
+    "svinn_gram_per_portion": 61.3
+  },
+  {
+    "ratt": "Tacos med tillbehör; Vegetarisk tacos med tillbehör",
+    "antal_dagar": 13,
+    "snitt_svinn_kg": 9.29,
+    "totalt_svinn_kg": 120.8,
+    "svinn_gram_per_portion": 38.4
+  },
+  {
+    "ratt": "Chili con Carne serveras med ris; Chili sin Carne serveras med ris",
+    "antal_dagar": 12,
+    "snitt_svinn_kg": 9.97,
+    "totalt_svinn_kg": 119.7,
+    "svinn_gram_per_portion": 47.2
+  },
+  {
+    "ratt": "färsrätt",
+    "antal_dagar": 17,
+    "snitt_svinn_kg": 6.99,
+    "totalt_svinn_kg": 118.9,
+    "svinn_gram_per_portion": 33.2
   }
 ]

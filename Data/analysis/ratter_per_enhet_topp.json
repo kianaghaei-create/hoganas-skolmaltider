@@ -1,0 +1,198 @@
+[
+  {
+    "enhet": "Äventyrets förskola",
+    "topp5_ratter": [
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (34.1g/p)",
+      "fisk,spenat (36.1g/p)",
+      "nudelwok (33.9g/p)",
+      "färslimpa (35.2g/p)",
+      "soppa (18.4g/p)"
+    ]
+  },
+  {
+    "enhet": "Bruksskolan",
+    "topp5_ratter": [
+      "fisk (31.2g/p)",
+      "köttfärssås (33.5g/p)",
+      "nasi goreng (18.5g/p)",
+      "fiskburgare (28.2g/p)",
+      "pasta (31.7g/p)"
+    ]
+  },
+  {
+    "enhet": "Eleshults förskola",
+    "topp5_ratter": [
+      "fisk (9.8g/p)",
+      "pytt i panna (28.7g/p)",
+      "thaigryta (16.7g/p)",
+      "köttfärssås (20.9g/p)",
+      "nasi goreng (22.6g/p)"
+    ]
+  },
+  {
+    "enhet": "Eric Ruuths förskola",
+    "topp5_ratter": [
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (30.3g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (43.8g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (47.1g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (63.3g/p)",
+      "Köttfärslimpa med potatis, brunsås och lingon; Bouletter serveras med potatis, brunsås och lingon (76.4g/p)"
+    ]
+  },
+  {
+    "enhet": "Havets förskola",
+    "topp5_ratter": [
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (29.1g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (23.5g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (20.7g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (28.4g/p)",
+      "Kökets val; Kökets val vegetariskt (30.0g/p)"
+    ]
+  },
+  {
+    "enhet": "Jonstorpsskolan",
+    "topp5_ratter": [
+      "Spaghetti köttfärsås (33.4g/p)",
+      "Fiskburgare (39.5g/p)",
+      "Tikka masala (34.6g/p)",
+      "Spaghetti het sås (34.5g/p)",
+      "Kycklingwok (34.5g/p)"
+    ]
+  },
+  {
+    "enhet": "Klöverängens förskola",
+    "topp5_ratter": [
+      "fisk (18.9g/p)",
+      "köttfärssås, spaghetti (49.8g/p)",
+      "nasigoreng (77.1g/p)",
+      "kycklingwok (31.7g/p)",
+      "köttfärslimpa (24.0g/p)"
+    ]
+  },
+  {
+    "enhet": "Kullagymnasiet",
+    "topp5_ratter": [
+      "nasigoreng (87.2g/p)",
+      "fiskburgare (57.6g/p)",
+      "ärtsoppa (47.3g/p)",
+      "tikka (36.5g/p)",
+      "wok (41.4g/p)"
+    ]
+  },
+  {
+    "enhet": "Lärlyckans förskola",
+    "topp5_ratter": [
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (36.0g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (35.2g/p)",
+      "Mexikansk köttfärsgryta serveras med ris och nachos; Mexikansk gryta serveras med ris och nachos (32.6g/p)",
+      "Kökets val; Kökets val vegetariskt (32.3g/p)",
+      "Köttbullar serveras med potatis, brunsås och lingon; Bouletter serveras med potatis, brunsås och lingon (40.2g/p)"
+    ]
+  },
+  {
+    "enhet": "Lerbergsskolan",
+    "topp5_ratter": [
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (54.3g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (43.6g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (39.4g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (58.3g/p)",
+      "Köttfärslimpa med potatis, brunsås och lingon; Bouletter serveras med potatis, brunsås och lingon (45.0g/p)"
+    ]
+  },
+  {
+    "enhet": "Nyhamnsskolan",
+    "topp5_ratter": [
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (42.4g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (39.5g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (35.8g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (47.3g/p)",
+      "Kökets val; Kökets val vegetariskt (45.2g/p)"
+    ]
+  },
+  {
+    "enhet": "Peter Lundhs förskola",
+    "topp5_ratter": [
+      "thaigryta (17.9g/p)",
+      "spröd torsk (12.0g/p)",
+      "köttfärssås (15.3g/p)",
+      "nasi goreng (25.7g/p)",
+      "fiskburgare (8.7g/p)"
+    ]
+  },
+  {
+    "enhet": "Revets förskola",
+    "topp5_ratter": [
+      "Kökets val; Kökets val vegetariskt (90.4g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (73.2g/p)",
+      "Påsklov Kökets val; Kökets val vegetariskt (23.3g/p)",
+      "kycklingwok (50.0g/p)",
+      "spagetti ,köttfärssås (30.1g/p)"
+    ]
+  },
+  {
+    "enhet": "Solgläntans förskola",
+    "topp5_ratter": [
+      "pyttipanna (29.4g/p)"
+    ]
+  },
+  {
+    "enhet": "Svanebäcks förskola",
+    "topp5_ratter": [
+      "fisk,pot (43.3g/p)",
+      "mos,korv (33.9g/p)",
+      "limpa,pot (42.6g/p)",
+      "snitsel.pot (31.4g/p)",
+      "pasta,paprikasås (82.2g/p)"
+    ]
+  },
+  {
+    "enhet": "Tornlyckeskolan",
+    "topp5_ratter": [
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (42.4g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (39.7g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (16.0g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (52.8g/p)",
+      "Köttfärslimpa med potatis, brunsås och lingon; Bouletter serveras med potatis, brunsås och lingon (47.0g/p)"
+    ]
+  },
+  {
+    "enhet": "Väsbyhemmet",
+    "topp5_ratter": [
+      "Kökets val; Kökets val vegetariskt (19.6g/p)",
+      "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar (19.1g/p)",
+      "Spaghetti med köttfärssås; Spaghetti med färssås (20.3g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (21.8g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (18.8g/p)"
+    ]
+  },
+  {
+    "enhet": "Vikens Ry förskola",
+    "topp5_ratter": [
+      "Spaghetti med köttfärssås; Spaghetti med färssås (44.7g/p)",
+      "Tikka Masala serveras med ris; Vegetarisk Tikka Masala serveras med ris (16.2g/p)",
+      "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås (13.2g/p)",
+      "Kökets val; Kökets val vegetariskt (10.8g/p)",
+      "gulashsoppa (14.5g/p)"
+    ]
+  },
+  {
+    "enhet": "Vikenskolan",
+    "topp5_ratter": [
+      "thaigryta (40.0g/p)",
+      "fisk (41.7g/p)",
+      "nasigoreng (44.2g/p)",
+      "fiskburgare (39.0g/p)",
+      "tikka (39.8g/p)"
+    ]
+  },
+  {
+    "enhet": "Vikhaga",
+    "topp5_ratter": [
+      "Kasslergratäng inkl potatis med grönsaker; Spagetti* med köttfärssås och sallad; Kasslergratäng inkl. potatis paté med grönsaker; Spagetti* med köttfärssås och grönsaker; Kasslergratäng timbal, potatismos, grönsakstimbal; Spagetti timbal med köttfärssås och grönsakstimbal (8.9g/p)",
+      "Ärtsoppa med fläsk; Kycklingfrikassé med ris* och grönsaker; Ärtsoppa med patéfläsk; Kycklingfrikassé paté med ris* och grönsaker; Ärtsoppa slät med timbalfläsk; Kycklingfrikassé timbal med ristimbal och grönsaker (13.0g/p)",
+      "Kassler i Bergakungenssås med potatis* och grönsaker; Lasagne med sallad; Kassler i Bergakungenssås paté med potatis* och grönsaker; Lasagne med grönsaker; Kassler i Bergakungenssås timbal, potatismos, grönsakstimbal; Lasagnetimbal med grönsakstimbal (14.3g/p)",
+      "Kokt kycklingfilé med currysås, ris* och grönsaker; Pasta* med skaldjurssås och blandad sallad; Kokt kycklingpaté med currysås, ris* och grönsaker; Pasta* med skaldjurssås och kokta grönsaker; Kokt kycklingtimbal med currysås, ristimbal och grönsaker; Pasta med skaldjurssås timb och grönsakstimbal (11.9g/p)",
+      "Ärtsoppa med fläsk; Lasagne med sallad; Ärtsoppa med patéfläsk; Lasagne med grönsaker; Ärtsoppa slät med timbalfläsk; Lasagnetimbal med grönsakstimbal (14.1g/p)"
+    ]
+  }
+]

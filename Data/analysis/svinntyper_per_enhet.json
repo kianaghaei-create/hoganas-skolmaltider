@@ -1,0 +1,142 @@
+[
+  {
+    "enhet": "Kullagymnasiet",
+    "tallrik_gram_per_portion": 32.3,
+    "servering_gram_per_portion": 4.9,
+    "koks_gram_per_portion": 17.1,
+    "dagar": 178
+  },
+  {
+    "enhet": "Tornlyckeskolan",
+    "tallrik_gram_per_portion": 30.3,
+    "servering_gram_per_portion": 10.9,
+    "koks_gram_per_portion": 10.2,
+    "dagar": 213
+  },
+  {
+    "enhet": "Äventyrets förskola",
+    "tallrik_gram_per_portion": 24.8,
+    "servering_gram_per_portion": 3.8,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 237
+  },
+  {
+    "enhet": "Lerbergsskolan",
+    "tallrik_gram_per_portion": 22.2,
+    "servering_gram_per_portion": 12.0,
+    "koks_gram_per_portion": 12.9,
+    "dagar": 234
+  },
+  {
+    "enhet": "Bruksskolan",
+    "tallrik_gram_per_portion": 21.4,
+    "servering_gram_per_portion": 7.0,
+    "koks_gram_per_portion": 2.9,
+    "dagar": 223
+  },
+  {
+    "enhet": "Vikenskolan",
+    "tallrik_gram_per_portion": 19.4,
+    "servering_gram_per_portion": 10.7,
+    "koks_gram_per_portion": 10.8,
+    "dagar": 188
+  },
+  {
+    "enhet": "Jonstorpsskolan",
+    "tallrik_gram_per_portion": 17.8,
+    "servering_gram_per_portion": 8.9,
+    "koks_gram_per_portion": 8.6,
+    "dagar": 188
+  },
+  {
+    "enhet": "Nyhamnsskolan",
+    "tallrik_gram_per_portion": 17.7,
+    "servering_gram_per_portion": 12.8,
+    "koks_gram_per_portion": 14.8,
+    "dagar": 210
+  },
+  {
+    "enhet": "Eric Ruuths förskola",
+    "tallrik_gram_per_portion": 17.5,
+    "servering_gram_per_portion": 30.9,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 167
+  },
+  {
+    "enhet": "Svanebäcks förskola",
+    "tallrik_gram_per_portion": 15.1,
+    "servering_gram_per_portion": 33.7,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 234
+  },
+  {
+    "enhet": "Revets förskola",
+    "tallrik_gram_per_portion": 15.1,
+    "servering_gram_per_portion": 30.6,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 164
+  },
+  {
+    "enhet": "Havets förskola",
+    "tallrik_gram_per_portion": 14.1,
+    "servering_gram_per_portion": 24.4,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 232
+  },
+  {
+    "enhet": "Vikhaga",
+    "tallrik_gram_per_portion": 12.5,
+    "servering_gram_per_portion": 0.0,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 249
+  },
+  {
+    "enhet": "Klöverängens förskola",
+    "tallrik_gram_per_portion": 11.2,
+    "servering_gram_per_portion": 27.5,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 211
+  },
+  {
+    "enhet": "Solgläntans förskola",
+    "tallrik_gram_per_portion": 11.0,
+    "servering_gram_per_portion": 46.4,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 22
+  },
+  {
+    "enhet": "Vikens Ry förskola",
+    "tallrik_gram_per_portion": 8.1,
+    "servering_gram_per_portion": 14.1,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 215
+  },
+  {
+    "enhet": "Eleshults förskola",
+    "tallrik_gram_per_portion": 8.0,
+    "servering_gram_per_portion": 11.6,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 236
+  },
+  {
+    "enhet": "Lärlyckans förskola",
+    "tallrik_gram_per_portion": 6.8,
+    "servering_gram_per_portion": 27.7,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 220
+  },
+  {
+    "enhet": "Peter Lundhs förskola",
+    "tallrik_gram_per_portion": 1.9,
+    "servering_gram_per_portion": 14.7,
+    "koks_gram_per_portion": 0.0,
+    "dagar": 209
+  },
+  {
+    "enhet": "Väsbyhemmet",
+    "tallrik_gram_per_portion": 0.9,
+    "servering_gram_per_portion": 0.0,
+    "koks_gram_per_portion": 19.8,
+    "dagar": 260
+  }
+]

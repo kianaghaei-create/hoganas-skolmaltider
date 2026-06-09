@@ -17,6 +17,29 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Password gate ──────────────────────────────────────────────────────────────
+APP_PASSWORD = (
+    st.secrets.get("APP_PASSWORD")
+    or os.environ.get("APP_PASSWORD")
+    or ""
+)
+
+if APP_PASSWORD:
+    if not st.session_state.get("authenticated"):
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        col_a, col_b, col_c = st.columns([1, 1.2, 1])
+        with col_b:
+            st.markdown("### 🍽️ Höganäs Skolmåltider")
+            st.caption("Kostanalys 2025 — ange lösenord för att fortsätta")
+            pwd = st.text_input("Lösenord", type="password", placeholder="Ange lösenord…")
+            if st.button("Logga in", use_container_width=True, type="primary"):
+                if pwd == APP_PASSWORD:
+                    st.session_state.authenticated = True
+                    st.rerun()
+                else:
+                    st.error("Fel lösenord. Försök igen.")
+        st.stop()
+
 # ── Minimal CSS — only what config.toml can't do ──────────────────────────────
 st.markdown("""
 <style>

@@ -538,30 +538,92 @@ elif page == "🤖 AI-assistent":
 
     @st.cache_data
     def build_system_prompt() -> str:
-        lines = [
-            "Du är en dataanalytiker för Höganäs kommuns kostverksamhet.",
-            "Du hjälper kostchefer och upphandlare att förstå data om skolmåltider 2025.",
-            "Svara alltid på svenska. Var konkret och lyft fram handlingsbara insikter.\n",
-            "## Datamängder tillgängliga:\n",
-        ]
-        if not food_waste.empty:
-            avg_w = fw_clean["total_waste_pct"].median() * 100
-            worst = fw_clean.groupby("unit_name")["total_waste_pct"].median().idxmax()
-            best  = fw_clean.groupby("unit_name")["total_waste_pct"].median().idxmin()
-            kg    = food_waste["total_waste_kg"].sum() if "total_waste_kg" in food_waste.columns else "okänt"
-            lines.append(f"**Matsvinn**: {len(food_waste)} veckoposter, {food_waste['unit_name'].nunique()} enheter. "
-                         f"Median svinn: {avg_w:.1f}%. Totalt: {kg:.0f} kg. Högst: {worst}. Lägst: {best}.")
+        # ── Compute rich statistics to inject as context ──────────────────────
+        ctx = {}
+
+        if not fw_clean.empty:
+            ctx["fw_units"]   = fw_clean["unit_name"].nunique()
+            ctx["fw_median"]  = fw_clean["total_waste_pct"].median() * 100
+            ctx["fw_kg"]      = food_waste["total_waste_kg"].sum() if "total_waste_kg" in food_waste.columns else 0
+            by_unit           = fw_clean.groupby("unit_name")["total_waste_pct"].median() * 100
+            ctx["fw_worst5"]  = by_unit.nlargest(5).to_dict()
+            ctx["fw_best5"]   = by_unit.nsmallest(5).to_dict()
+            if "over_order_ratio" in food_waste.columns:
+                ctx["over_mean"] = food_waste["over_order_ratio"].mean() * 100
+                ctx["over_worst"] = food_waste.groupby("unit_name")["over_order_ratio"].mean().nlargest(5).to_dict()
+            if "plate_waste_pct" in fw_clean.columns:
+                ctx["plate_median"] = fw_clean["plate_waste_pct"].median() * 100
+            if "serving_waste_pct" in fw_clean.columns:
+                ctx["serving_median"] = fw_clean["serving_waste_pct"].median() * 100
+
         if not purchases.empty:
-            top_s = purchases.groupby("supplier")["kronor"].sum().idxmax()
-            eco_p = purchases[purchases.get("ekologisk", pd.Series(dtype=str)) == "Ja"]["kronor"].sum() / purchases["kronor"].sum() * 100 if "ekologisk" in purchases.columns else 0
-            lines.append(f"**Inköp**: {len(purchases):,} rader, {fmt_sek(purchases['kronor'].sum())} totalt. "
-                         f"Störst leverantör: {top_s}. Ekologisk andel: {eco_p:.1f}%.")
-        if not purchases.empty and "procent_utanfor_avtal" in purchases.columns:
-            out_p = purchases[purchases["procent_utanfor_avtal"] > 0]["kronor"].sum() / purchases["kronor"].sum() * 100
-            lines.append(f"**Avtalstrohet**: {out_p:.1f}% av inköpen utanför upphandlade avtal.")
+            ctx["pu_total"]      = purchases["kronor"].sum()
+            ctx["pu_suppliers"]  = purchases["supplier"].nunique()
+            ctx["pu_top5_sup"]   = purchases.groupby("supplier")["kronor"].sum().nlargest(5).to_dict()
+            ctx["pu_top5_grp"]   = purchases.groupby("varugrupp")["kronor"].sum().nlargest(5).to_dict()
+            if "ekologisk" in purchases.columns:
+                ctx["eco_pct"]   = purchases[purchases["ekologisk"]=="Ja"]["kronor"].sum() / purchases["kronor"].sum() * 100
+            if "procent_utanfor_avtal" in purchases.columns:
+                ctx["out_pct"]   = purchases[purchases["procent_utanfor_avtal"]>0]["kronor"].sum() / purchases["kronor"].sum() * 100
+                ctx["out_top5"]  = purchases.groupby("enhet").apply(
+                    lambda g: g[g["procent_utanfor_avtal"]>0]["kronor"].sum() / g["kronor"].sum() * 100
+                    if g["kronor"].sum() > 0 else 0
+                ).nlargest(5).to_dict()
+
         if not portions.empty:
-            lines.append(f"**Portioner**: {int(portions['count'].sum()):,} totalt över {len(portions)} poster.")
-        return "\n".join(lines)
+            ctx["por_total"] = int(portions["count"].sum())
+            ctx["por_top5"]  = portions.groupby("unit_name")["count"].sum().nlargest(5).to_dict()
+
+        # ── Build prompt ──────────────────────────────────────────────────────
+        p = """Du är en senior dataanalytiker och kostexpert för Höganäs kommuns kostverksamhet.
+Du har djup kunskap om skolmåltider, offentlig upphandling, livsmedelssvinn och kommunal ekonomi.
+
+INSTRUKTIONER:
+- Svara alltid på svenska
+- Ge detaljerade, analytiska svar med konkreta siffror från datan
+- Lyft alltid fram 2-3 handlingsbara rekommendationer
+- Jämför enheter mot varandra och mot genomsnittet
+- Kvantifiera ekonomisk potential där möjligt (t.ex. "om X reduceras med 20% sparas Y kr")
+- Strukturera längre svar med rubriker och punktlistor
+- Om du inte har tillräcklig data för att svara säkert, säg det tydligt
+
+KONTEXT — Höganäs kommuns kostverksamhet 2025:
+"""
+        if "fw_units" in ctx:
+            p += f"""
+## Matsvinn
+- Totalt: {ctx['fw_kg']:,.0f} kg svinn över {ctx['fw_units']} enheter hela 2025
+- Median svinnandel: {ctx['fw_median']:.1f}% per vecka
+- Tallrikssvinn (median): {ctx.get('plate_median', 0):.1f}%
+- Serveringssvinn (median): {ctx.get('serving_median', 0):.1f}%
+- Enheter med HÖGST svinn (median %): {', '.join(f"{k}: {v:.1f}%" for k,v in ctx['fw_worst5'].items())}
+- Enheter med LÄGST svinn (median %): {', '.join(f"{k}: {v:.1f}%" for k,v in ctx['fw_best5'].items())}
+"""
+        if "over_mean" in ctx:
+            p += f"""- Snitt överbeställning: {ctx['over_mean']:.1f}% (beställt vs faktiskt serverat)
+- Enheter med högst överbeställning: {', '.join(f"{k}: {v*100:.1f}%" for k,v in ctx['over_worst'].items())}
+"""
+        if "pu_total" in ctx:
+            p += f"""
+## Inköp & ekonomi
+- Total inköpskostnad 2025: {ctx['pu_total']/1e6:.1f} Mkr från {ctx['pu_suppliers']} leverantörer
+- Topp 5 leverantörer (SEK): {', '.join(f"{k}: {v/1e6:.1f}Mkr" for k,v in ctx['pu_top5_sup'].items())}
+- Topp 5 varugrupper (SEK): {', '.join(f"{k}: {v/1e3:.0f}tkr" for k,v in ctx['pu_top5_grp'].items())}
+- Ekologisk andel: {ctx.get('eco_pct', 0):.1f}% av inköpsvärdet
+"""
+        if "out_pct" in ctx:
+            p += f"""
+## Avtalstrohet
+- {ctx['out_pct']:.1f}% av inköpen görs utanför upphandlade avtal
+- Enheter med störst avvikelse: {', '.join(f"{k}: {v:.1f}%" for k,v in ctx['out_top5'].items())}
+"""
+        if "por_total" in ctx:
+            p += f"""
+## Portioner
+- Totalt {ctx['por_total']:,} portioner serverade 2025
+- Enheter med flest portioner: {', '.join(f"{k}: {int(v):,}" for k,v in ctx['por_top5'].items())}
+"""
+        return p
 
     SYSTEM_PROMPT = build_system_prompt()
 
@@ -600,7 +662,7 @@ elif page == "🤖 AI-assistent":
                     import openai
                     client = openai.OpenAI(api_key=OPENAI_KEY)
                     resp = client.chat.completions.create(
-                        model="gpt-4o-mini",
+                        model="gpt-4o",
                         messages=[
                             {"role": "system", "content": SYSTEM_PROMPT},
                             *st.session_state.messages,

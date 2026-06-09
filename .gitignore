@@ -21,6 +21,14 @@ Data/Förskole*/
 Data/Inköp*/
 Data/OneDrive*/
 Data/Meny*/
+Data/Ink*.xlsx
+
+# Root-level raw files
+*.zip
+Utveckling*.xlsx
+dashboard_quality_review.md
+PROJECT_MEMORY.md
+reports/
 
 # IDE
 .vscode/

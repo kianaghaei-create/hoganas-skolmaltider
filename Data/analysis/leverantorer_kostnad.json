@@ -3,21 +3,21 @@
     "leverantor": "Menigo Foodservice AB",
     "total_mkr": 8.09,
     "total_ton": 171.6,
-    "antal_enheter": 21,
-    "antal_inkop": 12556
+    "enheter": 21,
+    "inkop": 12556
   },
   {
     "leverantor": "Svensk Cater",
     "total_mkr": 5.68,
     "total_ton": 183.5,
-    "antal_enheter": 11,
-    "antal_inkop": 5486
+    "enheter": 11,
+    "inkop": 5486
   },
   {
     "leverantor": "Martin & Servera AB",
     "total_mkr": 3.14,
     "total_ton": 68.7,
-    "antal_enheter": 21,
-    "antal_inkop": 5437
+    "enheter": 21,
+    "inkop": 5437
   }
 ]

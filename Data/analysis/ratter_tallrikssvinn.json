@@ -1,0 +1,152 @@
+[
+  {
+    "ratt": "pasta,paprikasås",
+    "obs": 4,
+    "tallrik_gram_per_portion": 57.6,
+    "totalt_tallrik_kg": 29.0
+  },
+  {
+    "ratt": "kykling,pot",
+    "obs": 3,
+    "tallrik_gram_per_portion": 48.0,
+    "totalt_tallrik_kg": 7.1
+  },
+  {
+    "ratt": "lasagnett",
+    "obs": 6,
+    "tallrik_gram_per_portion": 43.4,
+    "totalt_tallrik_kg": 12.5
+  },
+  {
+    "ratt": "korv, mos",
+    "obs": 4,
+    "tallrik_gram_per_portion": 40.8,
+    "totalt_tallrik_kg": 21.1
+  },
+  {
+    "ratt": "pasta,korv",
+    "obs": 5,
+    "tallrik_gram_per_portion": 39.3,
+    "totalt_tallrik_kg": 6.8
+  },
+  {
+    "ratt": "pannbiff,pot",
+    "obs": 3,
+    "tallrik_gram_per_portion": 37.8,
+    "totalt_tallrik_kg": 5.6
+  },
+  {
+    "ratt": "köttb,pot",
+    "obs": 3,
+    "tallrik_gram_per_portion": 36.5,
+    "totalt_tallrik_kg": 3.5
+  },
+  {
+    "ratt": "köttsoppa",
+    "obs": 5,
+    "tallrik_gram_per_portion": 35.5,
+    "totalt_tallrik_kg": 40.6
+  },
+  {
+    "ratt": "fisk,mos",
+    "obs": 4,
+    "tallrik_gram_per_portion": 35.1,
+    "totalt_tallrik_kg": 11.0
+  },
+  {
+    "ratt": "mos,korv",
+    "obs": 6,
+    "tallrik_gram_per_portion": 33.7,
+    "totalt_tallrik_kg": 10.5
+  },
+  {
+    "ratt": "korv,mos",
+    "obs": 5,
+    "tallrik_gram_per_portion": 32.9,
+    "totalt_tallrik_kg": 22.2
+  },
+  {
+    "ratt": "gulasch",
+    "obs": 5,
+    "tallrik_gram_per_portion": 32.9,
+    "totalt_tallrik_kg": 22.9
+  },
+  {
+    "ratt": "nasigoreng",
+    "obs": 8,
+    "tallrik_gram_per_portion": 32.7,
+    "totalt_tallrik_kg": 67.8
+  },
+  {
+    "ratt": "spag,köttf",
+    "obs": 5,
+    "tallrik_gram_per_portion": 32.6,
+    "totalt_tallrik_kg": 7.2
+  },
+  {
+    "ratt": "gryta",
+    "obs": 5,
+    "tallrik_gram_per_portion": 32.2,
+    "totalt_tallrik_kg": 16.0
+  },
+  {
+    "ratt": "fisk,pot",
+    "obs": 32,
+    "tallrik_gram_per_portion": 32.1,
+    "totalt_tallrik_kg": 85.9
+  },
+  {
+    "ratt": "bordelaise",
+    "obs": 3,
+    "tallrik_gram_per_portion": 32.0,
+    "totalt_tallrik_kg": 25.0
+  },
+  {
+    "ratt": "spagetti hetsås",
+    "obs": 3,
+    "tallrik_gram_per_portion": 31.1,
+    "totalt_tallrik_kg": 27.8
+  },
+  {
+    "ratt": "falafel,ris",
+    "obs": 4,
+    "tallrik_gram_per_portion": 31.0,
+    "totalt_tallrik_kg": 14.8
+  },
+  {
+    "ratt": "järpar,pot",
+    "obs": 3,
+    "tallrik_gram_per_portion": 30.6,
+    "totalt_tallrik_kg": 4.1
+  },
+  {
+    "ratt": "kyklingwook",
+    "obs": 4,
+    "tallrik_gram_per_portion": 30.2,
+    "totalt_tallrik_kg": 6.5
+  },
+  {
+    "ratt": "pasta,baconsås",
+    "obs": 5,
+    "tallrik_gram_per_portion": 30.2,
+    "totalt_tallrik_kg": 27.3
+  },
+  {
+    "ratt": "minestronesoppa",
+    "obs": 5,
+    "tallrik_gram_per_portion": 29.3,
+    "totalt_tallrik_kg": 20.9
+  },
+  {
+    "ratt": "kyckling gryta",
+    "obs": 3,
+    "tallrik_gram_per_portion": 29.1,
+    "totalt_tallrik_kg": 29.9
+  },
+  {
+    "ratt": "vårrullar",
+    "obs": 6,
+    "tallrik_gram_per_portion": 28.6,
+    "totalt_tallrik_kg": 36.5
+  }
+]

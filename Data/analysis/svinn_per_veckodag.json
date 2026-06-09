@@ -1,32 +1,32 @@
 [
   {
-    "veckodag": "Måndag",
-    "snitt_gram_per_portion": 35.9,
-    "snitt_svinn_kg": 6.56,
-    "observationer": 788
+    "dag": "Måndag",
+    "gram_per_portion": 33.1,
+    "snitt_kg": 5.68,
+    "obs": 790
   },
   {
-    "veckodag": "Tisdag",
-    "snitt_gram_per_portion": 35.3,
-    "snitt_svinn_kg": 6.62,
-    "observationer": 826
+    "dag": "Tisdag",
+    "gram_per_portion": 32.5,
+    "snitt_kg": 5.68,
+    "obs": 827
   },
   {
-    "veckodag": "Onsdag",
-    "snitt_gram_per_portion": 35.6,
-    "snitt_svinn_kg": 6.91,
-    "observationer": 863
+    "dag": "Onsdag",
+    "gram_per_portion": 33.5,
+    "snitt_kg": 5.92,
+    "obs": 864
   },
   {
-    "veckodag": "Torsdag",
-    "snitt_gram_per_portion": 33.7,
-    "snitt_svinn_kg": 6.49,
-    "observationer": 818
+    "dag": "Torsdag",
+    "gram_per_portion": 30.8,
+    "snitt_kg": 5.59,
+    "obs": 821
   },
   {
-    "veckodag": "Fredag",
-    "snitt_gram_per_portion": 34.8,
-    "snitt_svinn_kg": 6.42,
-    "observationer": 795
+    "dag": "Fredag",
+    "gram_per_portion": 32.9,
+    "snitt_kg": 5.65,
+    "obs": 799
   }
 ]

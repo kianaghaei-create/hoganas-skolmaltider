@@ -1,122 +1,122 @@
 [
   {
-    "ratt": "korv stroganoff",
-    "antal_dagar": 6,
-    "snitt_gram_per_portion": 12.8,
-    "totalt_svinn_kg": 3.8
+    "ratt": "gryta",
+    "obs": 5,
+    "gram_per_portion": 0.2,
+    "totalt_kg": 0.1
   },
   {
-    "ratt": "falukorv",
-    "antal_dagar": 10,
-    "snitt_gram_per_portion": 15.2,
-    "totalt_svinn_kg": 50.0
+    "ratt": "kökets val",
+    "obs": 6,
+    "gram_per_portion": 1.2,
+    "totalt_kg": 0.3
   },
   {
-    "ratt": "panerad fisk",
-    "antal_dagar": 12,
-    "snitt_gram_per_portion": 15.7,
-    "totalt_svinn_kg": 23.8
+    "ratt": "mos,korv",
+    "obs": 5,
+    "gram_per_portion": 1.6,
+    "totalt_kg": 0.4
+  },
+  {
+    "ratt": "lasagnett",
+    "obs": 6,
+    "gram_per_portion": 1.9,
+    "totalt_kg": 0.5
+  },
+  {
+    "ratt": "spag,köttf",
+    "obs": 5,
+    "gram_per_portion": 2.0,
+    "totalt_kg": 0.4
+  },
+  {
+    "ratt": "pasta,korv",
+    "obs": 5,
+    "gram_per_portion": 2.8,
+    "totalt_kg": 0.5
+  },
+  {
+    "ratt": "tacogratäng",
+    "obs": 6,
+    "gram_per_portion": 5.9,
+    "totalt_kg": 0.8
   },
   {
     "ratt": "pasta sås",
-    "antal_dagar": 7,
-    "snitt_gram_per_portion": 16.7,
-    "totalt_svinn_kg": 9.7
+    "obs": 7,
+    "gram_per_portion": 8.9,
+    "totalt_kg": 6.2
   },
   {
-    "ratt": "wienerkorv",
-    "antal_dagar": 7,
-    "snitt_gram_per_portion": 19.8,
-    "totalt_svinn_kg": 28.1
+    "ratt": "spaghetti",
+    "obs": 8,
+    "gram_per_portion": 9.4,
+    "totalt_kg": 10.3
+  },
+  {
+    "ratt": "korv.mos",
+    "obs": 6,
+    "gram_per_portion": 9.8,
+    "totalt_kg": 8.1
+  },
+  {
+    "ratt": "fajitas",
+    "obs": 5,
+    "gram_per_portion": 11.6,
+    "totalt_kg": 8.7
+  },
+  {
+    "ratt": "fisk,pot",
+    "obs": 31,
+    "gram_per_portion": 15.7,
+    "totalt_kg": 41.1
+  },
+  {
+    "ratt": "grönsakssoppa",
+    "obs": 5,
+    "gram_per_portion": 20.3,
+    "totalt_kg": 15.4
+  },
+  {
+    "ratt": "pyttipanna",
+    "obs": 15,
+    "gram_per_portion": 20.9,
+    "totalt_kg": 29.5
+  },
+  {
+    "ratt": "biff stroganoff",
+    "obs": 5,
+    "gram_per_portion": 21.1,
+    "totalt_kg": 23.9
+  },
+  {
+    "ratt": "ugnspannkaka",
+    "obs": 6,
+    "gram_per_portion": 21.3,
+    "totalt_kg": 5.0
   },
   {
     "ratt": "köttfärssås",
-    "antal_dagar": 24,
-    "snitt_gram_per_portion": 20.9,
-    "totalt_svinn_kg": 74.3
+    "obs": 26,
+    "gram_per_portion": 21.7,
+    "totalt_kg": 62.3
   },
   {
-    "ratt": "snitzel",
-    "antal_dagar": 8,
-    "snitt_gram_per_portion": 21.4,
-    "totalt_svinn_kg": 44.4
+    "ratt": "köttfärsgryta",
+    "obs": 7,
+    "gram_per_portion": 22.8,
+    "totalt_kg": 36.6
   },
   {
-    "ratt": "köttbullar",
-    "antal_dagar": 38,
-    "snitt_gram_per_portion": 21.6,
-    "totalt_svinn_kg": 154.0
+    "ratt": "pasta",
+    "obs": 22,
+    "gram_per_portion": 23.4,
+    "totalt_kg": 102.6
   },
   {
-    "ratt": "Ärtsoppa                     pannkaka och sylt; Currykryddad Grönsakssoppa  pannkaka och sylt",
-    "antal_dagar": 10,
-    "snitt_gram_per_portion": 21.9,
-    "totalt_svinn_kg": 40.9
-  },
-  {
-    "ratt": "nasi goreng",
-    "antal_dagar": 8,
-    "snitt_gram_per_portion": 22.7,
-    "totalt_svinn_kg": 24.5
-  },
-  {
-    "ratt": "lasagnette",
-    "antal_dagar": 5,
-    "snitt_gram_per_portion": 24.5,
-    "totalt_svinn_kg": 35.2
-  },
-  {
-    "ratt": "pytt i panna",
-    "antal_dagar": 27,
-    "snitt_gram_per_portion": 24.8,
-    "totalt_svinn_kg": 76.0
-  },
-  {
-    "ratt": "Het färssoppa serveras med bröd,ost och frukt; Indisk vegosoppa severas med bröd, ost och frukt",
-    "antal_dagar": 9,
-    "snitt_gram_per_portion": 24.8,
-    "totalt_svinn_kg": 55.8
-  },
-  {
-    "ratt": "schnitzel",
-    "antal_dagar": 31,
-    "snitt_gram_per_portion": 24.8,
-    "totalt_svinn_kg": 168.6
-  },
-  {
-    "ratt": "Cowboysoppa serveras med bröd, ost och frukt; Minestronesoppa serveras med bröd, ost, frukt",
-    "antal_dagar": 10,
-    "snitt_gram_per_portion": 25.2,
-    "totalt_svinn_kg": 45.9
-  },
-  {
-    "ratt": "Potatisbullar serveras med kalkonfräs och lingon; Kökets val vegetariskt",
-    "antal_dagar": 9,
-    "snitt_gram_per_portion": 26.0,
-    "totalt_svinn_kg": 18.7
-  },
-  {
-    "ratt": "Fisk",
-    "antal_dagar": 10,
-    "snitt_gram_per_portion": 26.2,
-    "totalt_svinn_kg": 66.1
-  },
-  {
-    "ratt": "korv",
-    "antal_dagar": 21,
-    "snitt_gram_per_portion": 26.5,
-    "totalt_svinn_kg": 150.3
-  },
-  {
-    "ratt": "soppa",
-    "antal_dagar": 79,
-    "snitt_gram_per_portion": 26.7,
-    "totalt_svinn_kg": 612.9
-  },
-  {
-    "ratt": "pannbiff",
-    "antal_dagar": 26,
-    "snitt_gram_per_portion": 26.8,
-    "totalt_svinn_kg": 161.0
+    "ratt": "hamburgare",
+    "obs": 19,
+    "gram_per_portion": 24.0,
+    "totalt_kg": 47.3
   }
 ]

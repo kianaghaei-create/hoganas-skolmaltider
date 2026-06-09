@@ -1,0 +1,762 @@
+[
+  {
+    "ratt": "ost och skinksås",
+    "svinn_g_p": 102.4,
+    "tallrik_g_p": null,
+    "protein": 24.84,
+    "kcal": 444.59,
+    "fett": 10.94,
+    "kh": 59.35,
+    "obs": 2
+  },
+  {
+    "ratt": "ky korvgryta",
+    "svinn_g_p": 41.3,
+    "tallrik_g_p": null,
+    "protein": 8.51,
+    "kcal": 293.06,
+    "fett": 5.34,
+    "kh": 50.09,
+    "obs": 2
+  },
+  {
+    "ratt": "spagetti hetsås",
+    "svinn_g_p": 41.2,
+    "tallrik_g_p": null,
+    "protein": 15.79,
+    "kcal": 441.96,
+    "fett": 9.72,
+    "kh": 66.99,
+    "obs": 3
+  },
+  {
+    "ratt": "spag ksås",
+    "svinn_g_p": 40.3,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 2
+  },
+  {
+    "ratt": "fiskgratäng,pot",
+    "svinn_g_p": 39.0,
+    "tallrik_g_p": null,
+    "protein": 26.36,
+    "kcal": 242.46,
+    "fett": 2.2,
+    "kh": 27.07,
+    "obs": 2
+  },
+  {
+    "ratt": "kyckling curry",
+    "svinn_g_p": 37.8,
+    "tallrik_g_p": null,
+    "protein": 32.53,
+    "kcal": 422.58,
+    "fett": 9.5,
+    "kh": 49.46,
+    "obs": 5
+  },
+  {
+    "ratt": "kassler currytäcke",
+    "svinn_g_p": 37.1,
+    "tallrik_g_p": null,
+    "protein": 26.52,
+    "kcal": 399.11,
+    "fett": 7.32,
+    "kh": 52.78,
+    "obs": 2
+  },
+  {
+    "ratt": "kebabpytt",
+    "svinn_g_p": 36.7,
+    "tallrik_g_p": null,
+    "protein": 15.06,
+    "kcal": 667.9,
+    "fett": 32.61,
+    "kh": 73.72,
+    "obs": 12
+  },
+  {
+    "ratt": "pasta paprikasås",
+    "svinn_g_p": 35.7,
+    "tallrik_g_p": null,
+    "protein": 26.57,
+    "kcal": 632.41,
+    "fett": 17.57,
+    "kh": 84.49,
+    "obs": 2
+  },
+  {
+    "ratt": "kyckling gryta",
+    "svinn_g_p": 34.6,
+    "tallrik_g_p": null,
+    "protein": 27.16,
+    "kcal": 468.8,
+    "fett": 7.87,
+    "kh": 68.42,
+    "obs": 3
+  },
+  {
+    "ratt": "spaghetti het sås",
+    "svinn_g_p": 34.5,
+    "tallrik_g_p": null,
+    "protein": 15.79,
+    "kcal": 441.96,
+    "fett": 9.72,
+    "kh": 66.99,
+    "obs": 2
+  },
+  {
+    "ratt": "het korvgryta",
+    "svinn_g_p": 33.8,
+    "tallrik_g_p": null,
+    "protein": 19.49,
+    "kcal": 454.33,
+    "fett": 16.16,
+    "kh": 56.52,
+    "obs": 2
+  },
+  {
+    "ratt": "stroganoff",
+    "svinn_g_p": 33.8,
+    "tallrik_g_p": null,
+    "protein": 22.73,
+    "kcal": 546.62,
+    "fett": 20.64,
+    "kh": 64.78,
+    "obs": 3
+  },
+  {
+    "ratt": "spaghetti köttfärsås",
+    "svinn_g_p": 33.6,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 3
+  },
+  {
+    "ratt": "pasta baconsås",
+    "svinn_g_p": 31.4,
+    "tallrik_g_p": null,
+    "protein": 17.77,
+    "kcal": 550.13,
+    "fett": 30.64,
+    "kh": 47.85,
+    "obs": 5
+  },
+  {
+    "ratt": "pasta,skinksås",
+    "svinn_g_p": 27.9,
+    "tallrik_g_p": null,
+    "protein": 24.21,
+    "kcal": 435.72,
+    "fett": 11.08,
+    "kh": 55.92,
+    "obs": 2
+  },
+  {
+    "ratt": "sweetchilifisk",
+    "svinn_g_p": 25.9,
+    "tallrik_g_p": null,
+    "protein": 25.78,
+    "kcal": 572.14,
+    "fett": 32.15,
+    "kh": 43.45,
+    "obs": 2
+  },
+  {
+    "ratt": "spagetti,köttfärssås",
+    "svinn_g_p": 24.8,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 2
+  },
+  {
+    "ratt": "lasagnettegratäng",
+    "svinn_g_p": 24.6,
+    "tallrik_g_p": null,
+    "protein": 19.36,
+    "kcal": 468.67,
+    "fett": 17.8,
+    "kh": 55.54,
+    "obs": 3
+  },
+  {
+    "ratt": "påskmat",
+    "svinn_g_p": 24.5,
+    "tallrik_g_p": null,
+    "protein": 31.83,
+    "kcal": 541.6,
+    "fett": 30.95,
+    "kh": 32.54,
+    "obs": 2
+  },
+  {
+    "ratt": "korvgryta",
+    "svinn_g_p": 23.6,
+    "tallrik_g_p": null,
+    "protein": 19.49,
+    "kcal": 454.33,
+    "fett": 16.16,
+    "kh": 56.52,
+    "obs": 14
+  },
+  {
+    "ratt": "pasta,baconsås",
+    "svinn_g_p": 23.5,
+    "tallrik_g_p": null,
+    "protein": 17.77,
+    "kcal": 550.13,
+    "fett": 30.64,
+    "kh": 47.85,
+    "obs": 5
+  },
+  {
+    "ratt": "pasta gratäng",
+    "svinn_g_p": 23.4,
+    "tallrik_g_p": null,
+    "protein": 26.23,
+    "kcal": 541.97,
+    "fett": 15.5,
+    "kh": 71.4,
+    "obs": 2
+  },
+  {
+    "ratt": "korvstroganoff",
+    "svinn_g_p": 23.0,
+    "tallrik_g_p": null,
+    "protein": 17.6,
+    "kcal": 440.64,
+    "fett": 13.57,
+    "kh": 60.62,
+    "obs": 6
+  },
+  {
+    "ratt": "moussaka",
+    "svinn_g_p": 21.4,
+    "tallrik_g_p": null,
+    "protein": 18.82,
+    "kcal": 378.75,
+    "fett": 12.08,
+    "kh": 44.42,
+    "obs": 6
+  },
+  {
+    "ratt": "pasta,paprikasås",
+    "svinn_g_p": 21.2,
+    "tallrik_g_p": null,
+    "protein": 26.57,
+    "kcal": 632.41,
+    "fett": 17.57,
+    "kh": 84.49,
+    "obs": 4
+  },
+  {
+    "ratt": "köttbullar,mos",
+    "svinn_g_p": 20.3,
+    "tallrik_g_p": null,
+    "protein": 24.43,
+    "kcal": 470.72,
+    "fett": 12.86,
+    "kh": 61.4,
+    "obs": 2
+  },
+  {
+    "ratt": "ost/skinksås",
+    "svinn_g_p": 20.3,
+    "tallrik_g_p": null,
+    "protein": 24.21,
+    "kcal": 435.72,
+    "fett": 11.08,
+    "kh": 55.92,
+    "obs": 2
+  },
+  {
+    "ratt": "spagetti köttfärssås",
+    "svinn_g_p": 19.5,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 2
+  },
+  {
+    "ratt": "julbord",
+    "svinn_g_p": 19.3,
+    "tallrik_g_p": null,
+    "protein": 28.77,
+    "kcal": 655.05,
+    "fett": 31.13,
+    "kh": 61.96,
+    "obs": 9
+  },
+  {
+    "ratt": "chiliconcarne",
+    "svinn_g_p": 19.0,
+    "tallrik_g_p": null,
+    "protein": 19.01,
+    "kcal": 397.48,
+    "fett": 11.67,
+    "kh": 50.99,
+    "obs": 4
+  },
+  {
+    "ratt": "pastagratäng",
+    "svinn_g_p": 18.2,
+    "tallrik_g_p": null,
+    "protein": 22.21,
+    "kcal": 370.85,
+    "fett": 8.99,
+    "kh": 47.54,
+    "obs": 21
+  },
+  {
+    "ratt": "potatisbullar",
+    "svinn_g_p": 18.1,
+    "tallrik_g_p": null,
+    "protein": 17.26,
+    "kcal": 496.2,
+    "fett": 21.75,
+    "kh": 55.02,
+    "obs": 18
+  },
+  {
+    "ratt": "soppbuffe",
+    "svinn_g_p": 17.9,
+    "tallrik_g_p": null,
+    "protein": 6.26,
+    "kcal": 113.98,
+    "fett": 4.15,
+    "kh": 12.05,
+    "obs": 2
+  },
+  {
+    "ratt": "ugnspannkaka",
+    "svinn_g_p": 17.5,
+    "tallrik_g_p": null,
+    "protein": 18.36,
+    "kcal": 521.99,
+    "fett": 24.06,
+    "kh": 56.19,
+    "obs": 7
+  },
+  {
+    "ratt": "ostgratinerad korv",
+    "svinn_g_p": 17.2,
+    "tallrik_g_p": null,
+    "protein": 16.67,
+    "kcal": 372.07,
+    "fett": 22.84,
+    "kh": 23.91,
+    "obs": 2
+  },
+  {
+    "ratt": "fiskgratäng",
+    "svinn_g_p": 17.0,
+    "tallrik_g_p": null,
+    "protein": 2.75,
+    "kcal": 121.9,
+    "fett": 2.23,
+    "kh": 21.11,
+    "obs": 40
+  },
+  {
+    "ratt": "fiskburgare,mos",
+    "svinn_g_p": 17.0,
+    "tallrik_g_p": null,
+    "protein": 26.82,
+    "kcal": 789.82,
+    "fett": 30.18,
+    "kh": 98.15,
+    "obs": 2
+  },
+  {
+    "ratt": "soppa",
+    "svinn_g_p": 16.8,
+    "tallrik_g_p": null,
+    "protein": 6.26,
+    "kcal": 113.98,
+    "fett": 4.15,
+    "kh": 12.05,
+    "obs": 82
+  },
+  {
+    "ratt": "chili con carne",
+    "svinn_g_p": 16.6,
+    "tallrik_g_p": null,
+    "protein": 19.01,
+    "kcal": 397.48,
+    "fett": 11.67,
+    "kh": 50.99,
+    "obs": 12
+  },
+  {
+    "ratt": "blomkål/broccolisoppa",
+    "svinn_g_p": 15.3,
+    "tallrik_g_p": null,
+    "protein": 12.96,
+    "kcal": 336.34,
+    "fett": 13.79,
+    "kh": 36.25,
+    "obs": 2
+  },
+  {
+    "ratt": "lasagnette",
+    "svinn_g_p": 14.9,
+    "tallrik_g_p": null,
+    "protein": 22.21,
+    "kcal": 370.85,
+    "fett": 8.99,
+    "kh": 47.54,
+    "obs": 8
+  },
+  {
+    "ratt": "pytt i panna",
+    "svinn_g_p": 14.7,
+    "tallrik_g_p": null,
+    "protein": 14.02,
+    "kcal": 612.62,
+    "fett": 26.44,
+    "kh": 74.7,
+    "obs": 35
+  },
+  {
+    "ratt": "lasagne",
+    "svinn_g_p": 14.3,
+    "tallrik_g_p": null,
+    "protein": 28.36,
+    "kcal": 392.96,
+    "fett": 12.7,
+    "kh": 38.46,
+    "obs": 45
+  },
+  {
+    "ratt": "spaghetti, köttfärssås",
+    "svinn_g_p": 13.7,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 3
+  },
+  {
+    "ratt": "pasta",
+    "svinn_g_p": 13.6,
+    "tallrik_g_p": null,
+    "protein": 25.59,
+    "kcal": 679.16,
+    "fett": 39.17,
+    "kh": 52.13,
+    "obs": 22
+  },
+  {
+    "ratt": "kycklinglasagne",
+    "svinn_g_p": 13.0,
+    "tallrik_g_p": null,
+    "protein": 28.36,
+    "kcal": 392.96,
+    "fett": 12.7,
+    "kh": 38.46,
+    "obs": 4
+  },
+  {
+    "ratt": "kycklinggryta",
+    "svinn_g_p": 12.7,
+    "tallrik_g_p": null,
+    "protein": 27.16,
+    "kcal": 468.8,
+    "fett": 7.87,
+    "kh": 68.42,
+    "obs": 12
+  },
+  {
+    "ratt": "tikka masala",
+    "svinn_g_p": 11.9,
+    "tallrik_g_p": null,
+    "protein": 30.79,
+    "kcal": 536.69,
+    "fett": 18.46,
+    "kh": 58.89,
+    "obs": 21
+  },
+  {
+    "ratt": "kycklingfajitas",
+    "svinn_g_p": 11.2,
+    "tallrik_g_p": null,
+    "protein": 37.07,
+    "kcal": 699.91,
+    "fett": 15.15,
+    "kh": 96.66,
+    "obs": 4
+  },
+  {
+    "ratt": "midsommarmat",
+    "svinn_g_p": 10.7,
+    "tallrik_g_p": null,
+    "protein": 30.67,
+    "kcal": 556.58,
+    "fett": 34.88,
+    "kh": 28.75,
+    "obs": 4
+  },
+  {
+    "ratt": "pyttipanna",
+    "svinn_g_p": 10.6,
+    "tallrik_g_p": null,
+    "protein": 14.02,
+    "kcal": 612.62,
+    "fett": 26.44,
+    "kh": 74.7,
+    "obs": 15
+  },
+  {
+    "ratt": "korv stroganoff",
+    "svinn_g_p": 10.3,
+    "tallrik_g_p": null,
+    "protein": 22.01,
+    "kcal": 469.04,
+    "fett": 19.36,
+    "kh": 48.92,
+    "obs": 9
+  },
+  {
+    "ratt": "köttfärssås",
+    "svinn_g_p": 9.7,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 28
+  },
+  {
+    "ratt": "spagetti, köttfärssås",
+    "svinn_g_p": 8.4,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 2
+  },
+  {
+    "ratt": "kycklingkorvgryta",
+    "svinn_g_p": 8.3,
+    "tallrik_g_p": null,
+    "protein": 7.79,
+    "kcal": 215.48,
+    "fett": 4.06,
+    "kh": 34.23,
+    "obs": 6
+  },
+  {
+    "ratt": "tacogratäng",
+    "svinn_g_p": 6.3,
+    "tallrik_g_p": null,
+    "protein": 29.55,
+    "kcal": 674.97,
+    "fett": 48.4,
+    "kh": 28.26,
+    "obs": 6
+  },
+  {
+    "ratt": "julmat",
+    "svinn_g_p": 4.4,
+    "tallrik_g_p": null,
+    "protein": 28.77,
+    "kcal": 655.05,
+    "fett": 31.13,
+    "kh": 61.96,
+    "obs": 4
+  },
+  {
+    "ratt": "lassagne",
+    "svinn_g_p": 4.4,
+    "tallrik_g_p": null,
+    "protein": 13.37,
+    "kcal": 310.61,
+    "fett": 13.93,
+    "kh": 30.34,
+    "obs": 2
+  },
+  {
+    "ratt": "köttfärssås, spaghetti",
+    "svinn_g_p": 3.6,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 2
+  },
+  {
+    "ratt": "pasta med paprikasås",
+    "svinn_g_p": 3.3,
+    "tallrik_g_p": null,
+    "protein": 26.57,
+    "kcal": 632.41,
+    "fett": 17.57,
+    "kh": 84.49,
+    "obs": 2
+  },
+  {
+    "ratt": "spaghetti",
+    "svinn_g_p": 3.0,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 8
+  },
+  {
+    "ratt": "pasta sås",
+    "svinn_g_p": 2.8,
+    "tallrik_g_p": null,
+    "protein": 25.59,
+    "kcal": 679.16,
+    "fett": 39.17,
+    "kh": 52.13,
+    "obs": 7
+  },
+  {
+    "ratt": "pasta ost o skinksås",
+    "svinn_g_p": 2.6,
+    "tallrik_g_p": null,
+    "protein": 24.21,
+    "kcal": 435.72,
+    "fett": 11.08,
+    "kh": 55.92,
+    "obs": 2
+  },
+  {
+    "ratt": "kykling,ris",
+    "svinn_g_p": 2.5,
+    "tallrik_g_p": null,
+    "protein": 32.75,
+    "kcal": 530.44,
+    "fett": 11.58,
+    "kh": 69.71,
+    "obs": 2
+  },
+  {
+    "ratt": "kyckling, currysås",
+    "svinn_g_p": 2.4,
+    "tallrik_g_p": null,
+    "protein": 32.53,
+    "kcal": 422.58,
+    "fett": 9.5,
+    "kh": 49.46,
+    "obs": 4
+  },
+  {
+    "ratt": "spag,köttf",
+    "svinn_g_p": 2.2,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 5
+  },
+  {
+    "ratt": "tika masala",
+    "svinn_g_p": 2.1,
+    "tallrik_g_p": null,
+    "protein": 30.79,
+    "kcal": 536.69,
+    "fett": 18.46,
+    "kh": 58.89,
+    "obs": 3
+  },
+  {
+    "ratt": "fiskgratäng,mos",
+    "svinn_g_p": 2.0,
+    "tallrik_g_p": null,
+    "protein": 2.75,
+    "kcal": 121.9,
+    "fett": 2.23,
+    "kh": 21.11,
+    "obs": 2
+  },
+  {
+    "ratt": "lasagnett",
+    "svinn_g_p": 1.9,
+    "tallrik_g_p": null,
+    "protein": 22.21,
+    "kcal": 370.85,
+    "fett": 8.99,
+    "kh": 47.54,
+    "obs": 6
+  },
+  {
+    "ratt": "lasagne al forno",
+    "svinn_g_p": 1.8,
+    "tallrik_g_p": null,
+    "protein": 21.78,
+    "kcal": 405.91,
+    "fett": 23.63,
+    "kh": 25.51,
+    "obs": 2
+  },
+  {
+    "ratt": "kalkonschnitzel",
+    "svinn_g_p": 1.4,
+    "tallrik_g_p": null,
+    "protein": 21.57,
+    "kcal": 464.43,
+    "fett": 20.8,
+    "kh": 45.94,
+    "obs": 2
+  },
+  {
+    "ratt": "spagetti ,köttfärssås",
+    "svinn_g_p": 1.1,
+    "tallrik_g_p": null,
+    "protein": 19.11,
+    "kcal": 451.51,
+    "fett": 13.83,
+    "kh": 59.72,
+    "obs": 2
+  },
+  {
+    "ratt": "panerad torsk",
+    "svinn_g_p": 1.0,
+    "tallrik_g_p": null,
+    "protein": 20.96,
+    "kcal": 425.81,
+    "fett": 18.93,
+    "kh": 40.98,
+    "obs": 4
+  },
+  {
+    "ratt": "kycklingfaitas",
+    "svinn_g_p": 0.9,
+    "tallrik_g_p": null,
+    "protein": 37.07,
+    "kcal": 699.91,
+    "fett": 15.15,
+    "kh": 96.66,
+    "obs": 2
+  },
+  {
+    "ratt": "västerhavsfisk",
+    "svinn_g_p": 0.5,
+    "tallrik_g_p": null,
+    "protein": 21.71,
+    "kcal": 479.23,
+    "fett": 22.5,
+    "kh": 43.13,
+    "obs": 2
+  }
+]

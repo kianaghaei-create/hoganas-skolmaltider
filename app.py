@@ -89,21 +89,59 @@ DATA_DIR = Path(__file__).parent / "Data" / "processed"
 @st.cache_data
 def load_data():
     out = {}
-    for name in ["purchases", "food_waste", "portions", "menu_nutrition", "preschool_billing"]:
+    for name in ["purchases", "food_waste", "portions", "preschool_billing"]:
         p = DATA_DIR / f"{name}.csv"
         if p.exists():
             out[name] = pd.read_csv(p, low_memory=False)
+    # Näringsfil ersätter menu_nutrition — menu_type='skola'|'ao', exakt datum + näringsvärden
+    naring_path = DATA_DIR / "naring.parquet"
+    if naring_path.exists():
+        out["naring"] = pd.read_parquet(naring_path)
     return out
 
 data       = load_data()
 purchases  = data.get("purchases",         pd.DataFrame())
 food_waste = data.get("food_waste",         pd.DataFrame())
 portions   = data.get("portions",           pd.DataFrame())
-menu_nutr  = data.get("menu_nutrition",     pd.DataFrame())
+naring     = data.get("naring",             pd.DataFrame())  # menu_type='skola'|'ao'
 preschool  = data.get("preschool_billing",  pd.DataFrame())
 
 # Derived: clean food-waste rows (remove obvious data-entry errors)
 fw_clean = food_waste[food_waste["total_waste_pct"] <= 1.0].copy() if not food_waste.empty else food_waste.copy()
+
+# ── Källmetadata ───────────────────────────────────────────────────────────────
+import json as _json
+from datetime import datetime as _dt
+
+def _analysis_ts():
+    """Senast uppdaterad bland analysfilerna."""
+    files = list(Path("Data/analysis").glob("*.json"))
+    if not files: return "okänt"
+    ts = max(f.stat().st_mtime for f in files)
+    return _dt.fromtimestamp(ts).strftime("%Y-%m-%d")
+
+def source_label(källa: str, rader: int = 0, extra: str = ""):
+    """Renderar en diskret källetikett under ett diagram."""
+    rad_txt = f" · {rader:,} rader".replace(",", " ") if rader else ""
+    extra_txt = f" · {extra}" if extra else ""
+    st.caption(f"📂 Källa: {källa}{rad_txt}{extra_txt}")
+
+def raw_expander(df: pd.DataFrame, label: str = "Visa rådata", max_rows: int = 500):
+    """Expanderbar rådata-tabell med nedladdningsknapp."""
+    with st.expander(f"🔍 {label}"):
+        st.dataframe(df.head(max_rows), use_container_width=True)
+        st.download_button(
+            "⬇️ Ladda ner CSV",
+            df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8-sig"),
+            file_name=f"{label.lower().replace(' ','_')}.csv",
+            mime="text/csv",
+            key=f"dl_{label}_{len(df)}",
+        )
+
+_ANALYSIS_DATE = _analysis_ts()
+_SVINN_FILER   = "Matsvinnfiler 2025 (Excel per enhet)"
+_INKOP_FILER   = "Inköpsfiler jan–dec 2025 (Excel per månad)"
+_NARING_FILER  = "Näringsfiler 2025 (Skola + ÄO)"
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -231,6 +269,7 @@ if page == "📊 Översikt":
 elif page == "🗑️ Svinnanalys":
     st.title("Svinnanalys")
     st.caption("Detaljerad analys av matsvinn per enhet, vecka och typ")
+    source_label(_SVINN_FILER, len(food_waste), f"analyserad {_ANALYSIS_DATE}")
 
     units_list = sorted(fw_clean["unit_name"].dropna().unique()) if not fw_clean.empty else []
     sel = st.multiselect("Filtrera enheter", units_list, default=units_list[:8])
@@ -280,6 +319,90 @@ elif page == "🗑️ Svinnanalys":
     fig3.update_layout(**PLOT_LAYOUT)
     st.plotly_chart(fig3, use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
+
+    raw_expander(df_fw[["unit_name","week","total_waste_pct","total_waste_kg",
+                        "plate_waste_pct","serving_waste_pct","kitchen_waste_pct"]].rename(columns={
+        "unit_name":"Enhet","week":"Vecka","total_waste_pct":"Svinn %","total_waste_kg":"Svinn kg",
+        "plate_waste_pct":"Tallrik %","serving_waste_pct":"Servering %","kitchen_waste_pct":"Kök %"
+    }), "Rådata svinnanalys")
+
+    # ── Svinn vs Protein kvadrantdiagram ─────────────────────────────────────
+    import json as _json
+    _kv_path = Path("Data/analysis/svinn_naring_kvadrant.json")
+    if _kv_path.exists():
+        st.markdown('<div class="chart-box">', unsafe_allow_html=True)
+        st.subheader("Svinn vs Protein per rätt — kvadrantanalys")
+        st.caption("Baserat på matchning av svinndata mot näringsfil. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+).")
+
+        kv_color_map = {
+            "hog_svinn_lag_protein":  "#EF4444",
+            "hog_svinn_hog_protein":  "#F97316",
+            "lag_svinn_hog_protein":  "#22C55E",
+            "lag_svinn_lag_protein":  "#94A3B8",
+        }
+        kv_label_map = {
+            "hog_svinn_lag_protein":  "❌ Dubbel förlust",
+            "hog_svinn_hog_protein":  "⚠️ Högt svinn, högt protein",
+            "lag_svinn_hog_protein":  "✅ Optimal",
+            "lag_svinn_lag_protein":  "⚠️ Lågt svinn, lågt protein",
+        }
+
+        kv_df = pd.DataFrame(_json.loads(_kv_path.read_text()))
+        name_col = "komponent" if "komponent" in kv_df.columns else "ratt"
+        kv_df["ratt_visning"] = kv_df[name_col]
+        kv_df["Kategori"] = kv_df["kvadrant"].map(kv_label_map)
+
+        med_svinn   = kv_df["svinn_g_p"].median()
+        med_protein = kv_df["protein"].median()
+
+        fig_kv = px.scatter(
+            kv_df, x="protein", y="svinn_g_p",
+            color="Kategori",
+            size="obs", size_max=28,
+            hover_name="ratt_visning",
+            hover_data={"protein": ":.1f", "svinn_g_p": ":.1f", "kcal": ":.0f",
+                        "obs": True, "Kategori": False, "ratt_visning": False},
+            labels={"protein": "Protein per portion (g)", "svinn_g_p": "Svinn per portion (g)", "kcal": "Energi (kcal)", "obs": "Observationer"},
+            color_discrete_map={v: kv_color_map[k] for k, v in kv_label_map.items()},
+        )
+        # Kvadrantlinjer
+        fig_kv.add_hline(y=med_svinn,   line_dash="dot", line_color="#64748B", line_width=1,
+                         annotation_text=f"Median svinn {med_svinn:.0f}g", annotation_position="top right")
+        fig_kv.add_vline(x=med_protein, line_dash="dot", line_color="#64748B", line_width=1,
+                         annotation_text=f"Median protein {med_protein:.0f}g", annotation_position="top right")
+        # Kvadrantetiketter — korrigerade
+        x_max = kv_df["protein"].max() * 1.05
+        y_max = kv_df["svinn_g_p"].max() * 1.05
+        for txt, x, y, color in [
+            ("DUBBEL FÖRLUST",     med_protein * 0.25, y_max * 0.92, "#EF4444"),
+            ("HÖGT SVINN,\nBRA RÄTT", x_max * 0.75,   y_max * 0.92, "#F97316"),
+            ("OPTIMAL",            x_max * 0.75,       med_svinn * 0.3, "#22C55E"),
+            ("LÅGT VÄRDE",         med_protein * 0.25, med_svinn * 0.3, "#94A3B8"),
+        ]:
+            fig_kv.add_annotation(text=f"<b>{txt}</b>", x=x, y=y, showarrow=False,
+                                  font=dict(size=9, color=color), opacity=0.55)
+        # Bubbelskala-förklaring
+        fig_kv.add_annotation(
+            text="<b>Bubbelstorlek</b><br>● liten = 2 obs<br>● stor = 10+ obs",
+            x=x_max * 0.02, y=y_max * 0.98, showarrow=False, align="left",
+            font=dict(size=9, color="#64748B"),
+            bgcolor="rgba(255,255,255,0.7)", bordercolor="#E2E8F0", borderwidth=1,
+        )
+        fig_kv.update_layout(**PLOT_LAYOUT, height=500,
+                              legend=dict(orientation="h", yanchor="bottom", y=-0.28))
+        st.plotly_chart(fig_kv, use_container_width=True)
+
+        col_kv1, col_kv2 = st.columns(2)
+        with col_kv1:
+            st.markdown("**❌ Dubbel förlust** — åtgärda i första hand:")
+            for r in kv_df[kv_df["kvadrant"]=="hog_svinn_lag_protein"].sort_values("svinn_g_p", ascending=False).head(6).itertuples():
+                st.markdown(f"- {r.ratt_visning} &nbsp; `{r.svinn_g_p}g svinn` `{r.protein}g prot`")
+        with col_kv2:
+            st.markdown("**✅ Optimal** — prioritera i menyn:")
+            for r in kv_df[kv_df["kvadrant"]=="lag_svinn_hog_protein"].sort_values("protein", ascending=False).head(6).itertuples():
+                st.markdown(f"- {r.ratt_visning} &nbsp; `{r.svinn_g_p}g svinn` `{r.protein}g prot`")
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # BESTÄLLNINGSPRECISION
@@ -345,6 +468,7 @@ elif page == "🎯 Beställningsprecision":
 elif page == "🛒 Inköp & ekonomi":
     st.title("Inköp & ekonomi")
     st.caption("Råvaruinköp, leverantörer och kostnadsutveckling 2025")
+    source_label(_INKOP_FILER, len(purchases), f"analyserad {_ANALYSIS_DATE}")
 
     if purchases.empty:
         st.warning("Ingen inköpsdata.")
@@ -412,12 +536,16 @@ elif page == "🛒 Inköp & ekonomi":
                 st.plotly_chart(fig4, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
+        _pu_cols = ["enhet","supplier","varugrupp","kronor","kilo","ekologisk","procent_utanfor_avtal","source_file"]
+        raw_expander(purchases[[c for c in _pu_cols if c in purchases.columns]], "Rådata inköp")
+
 # ══════════════════════════════════════════════════════════════════════════════
 # AVTALSTROHET
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "📋 Avtalstrohet":
     st.title("Avtalstrohet")
     st.caption("Andel inköp utanför upphandlade avtal")
+    source_label(_INKOP_FILER, len(purchases), f"analyserad {_ANALYSIS_DATE}")
 
     if purchases.empty or "procent_utanfor_avtal" not in purchases.columns:
         st.warning("Ingen avtalsdata tillgänglig.")
@@ -506,7 +634,7 @@ elif page == "⚠️ Datakvalitet":
     with c2:
         kpi("Varningar", str(warnings), "Bör kontrolleras", "#F59E0B")
     with c3:
-        kpi("Totalt kontrollerade tabeller", "5", "purchases, food_waste, portions, menu, preschool", "#3B82F6")
+        kpi("Totalt kontrollerade tabeller", "5", "purchases, food_waste, portions, naring, preschool", "#3B82F6")
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="chart-box">', unsafe_allow_html=True)
@@ -544,11 +672,21 @@ elif page == "🤖 AI-assistent":
         analysis = {}
         base = Path("Data/analysis")
         files = {
-            "enheter_svinn":   "enheter_svinn_ranking.json",
-            "leverantorer":    "leverantorer_kostnad.json",
-            "avtalstrohet":    "avtalstrohet_per_enhet.json",
-            "ekologisk":       "ekologisk_andel.json",
-            "varugrupper":     "varugrupper_kostnad.json",
+            "enheter_svinn":        "enheter_svinn_ranking.json",
+            "leverantorer":         "leverantorer_kostnad.json",
+            "avtalstrohet":         "avtalstrohet_per_enhet.json",
+            "ekologisk":            "ekologisk_andel.json",
+            "varugrupper":          "varugrupper_kostnad.json",
+            "ratter_svinn":         "ratter_svinn_per_portion.json",
+            "ratter_lag_svinn":     "ratter_lag_svinn.json",
+            "ratter_tallrik":       "ratter_tallrikssvinn.json",
+            "svinn_veckodag":       "svinn_per_veckodag.json",
+            "svinntyper":           "svinntyper_per_enhet.json",
+            "ratter_per_enhet":     "ratter_per_enhet_topp.json",
+            "overbestallning":      "overbestallning_per_ratt.json",
+            "svinn_naring":         "svinn_naring_per_ratt.json",
+            "svinn_naring_kvadrant":"svinn_naring_kvadrant.json",
+            "konsumerad_naring":    "konsumerad_naring.json",
         }
         for key, fname in files.items():
             p = base / fname
@@ -607,6 +745,7 @@ INSTRUKTIONER:
 - Svara alltid på svenska
 - Du får ENDAST svara på frågor som rör Höganäs kommuns kostverksamhet, skolmåltider, matsvinn, inköp, leverantörer, portioner eller avtalstrohet baserat på den data som finns nedan
 - Om användaren ställer en fråga som inte är relaterad till denna data, svara artigt: "Jag är specialiserad på Höganäs kostverksamhet och kan tyvärr inte hjälpa med det. Ställ gärna en fråga om matsvinn, inköp eller portionsdata."
+- Om användaren frågar vad en rätt "innehåller", "är gjord på" eller efterfrågar ingredienser/recept: svara att systemet inte har tillgång till receptdatabasen eller ingredienslistor — vi har rättnamn, näringsvärden och svinndata men inte vilka råvaror som ingår. Hänvisa till kostchefen eller produktionssystemet för receptdetaljer.
 - Ge detaljerade, analytiska svar med konkreta siffror från datan
 - Lyft alltid fram 2-3 handlingsbara rekommendationer
 - Jämför enheter mot varandra och mot genomsnittet
@@ -657,19 +796,19 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
             rows = [r for r in ga["enheter_svinn"] if r.get("snitt_svinn_pct")]
             p += "\n## Svinnranking per enhet (graf-analys, verifierad)\n"
             for r in rows[:10]:
-                p += f"- {r['enhet']}: {r['snitt_svinn_pct']}% snitt, {r['total_kg']} kg totalt ({r['veckor']} veckor)\n"
+                p += f"- {r['enhet']}: {r['snitt_svinn_pct']}% snitt, {r['gram_per_portion']}g/portion, {r['total_kg']} kg totalt ({r['dagar']} dagar)\n"
 
         if ga.get("leverantorer"):
             rows = [r for r in ga["leverantorer"] if r.get("leverantor") != "Okänd" and r.get("total_mkr")]
             p += "\n## Leverantörer — inköpskostnad (graf-analys, verifierad)\n"
             for r in rows:
-                p += f"- {r['leverantor']}: {r['total_mkr']} Mkr, {r['total_ton']} ton, {r['antal_enheter']} enheter\n"
+                p += f"- {r['leverantor']}: {r['total_mkr']} Mkr, {r['total_ton']} ton, {r['enheter']} enheter\n"
 
         if ga.get("avtalstrohet"):
-            rows = [r for r in ga["avtalstrohet"] if r.get("snitt_utanfor_avtal_pct", 0) > 0]
+            rows = [r for r in ga["avtalstrohet"] if r.get("snitt_utanfor_pct", 0) > 0]
             p += "\n## Avtalstrohet per enhet (graf-analys, verifierad)\n"
             for r in rows[:8]:
-                p += f"- {r['enhet']}: {r['snitt_utanfor_avtal_pct']}% utanför avtal, {r['tkr_utanfor_avtal']} tkr\n"
+                p += f"- {r['enhet']}: {r['snitt_utanfor_pct']}% utanför avtal, {r['tkr_utanfor']} tkr\n"
 
         if ga.get("ekologisk"):
             rows = [r for r in ga["ekologisk"] if r.get("eko_andel_pct", 0) > 0]
@@ -680,7 +819,61 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
         if ga.get("varugrupper"):
             p += "\n## Varugrupper — top 10 kostnad (graf-analys, verifierad)\n"
             for r in ga["varugrupper"][:10]:
-                p += f"- {r['varugrupp']}: {r['total_tkr']} tkr ({r['total_kg']} kg, {r['antal_inkop']} inköp)\n"
+                p += f"- {r['varugrupp']}: {r['total_tkr']} tkr ({r['total_kg']} kg)\n"
+
+        if ga.get("ratter_svinn"):
+            p += "\n## Rätter med högst svinn per portion (dag-nivå, verifierad)\n"
+            for r in ga["ratter_svinn"][:10]:
+                p += f"- {r['ratt']}: {r['gram_per_portion']}g/portion ({r['obs']} observationer, {r['totalt_kg']}kg totalt)\n"
+
+        if ga.get("ratter_lag_svinn"):
+            p += "\n## Rätter med lägst svinn per portion — bäst praxis (verifierad)\n"
+            for r in ga["ratter_lag_svinn"][:10]:
+                p += f"- {r['ratt']}: {r['gram_per_portion']}g/portion ({r['obs']} observationer)\n"
+
+        if ga.get("ratter_tallrik"):
+            p += "\n## Rätter med högst tallrikssvinn per portion (verifierad)\n"
+            for r in ga["ratter_tallrik"][:8]:
+                p += f"- {r['ratt']}: {r['tallrik_gram_per_portion']}g tallrik/portion ({r['obs']} observationer, {r['totalt_tallrik_kg']}kg totalt)\n"
+
+        if ga.get("svinn_veckodag"):
+            p += "\n## Svinn per veckodag (genomsnitt alla enheter, verifierad)\n"
+            for r in ga["svinn_veckodag"]:
+                p += f"- {r['dag']}: {r['gram_per_portion']}g/portion (snitt {r['snitt_kg']}kg, {r['obs']} dagar)\n"
+
+        if ga.get("svinntyper"):
+            p += "\n## Svinntyper per enhet — tallrik/servering/kök (verifierad)\n"
+            for r in ga["svinntyper"][:8]:
+                p += (f"- {r['enhet']}: tallrik {r.get('tallrik_g_p','?')}g, "
+                      f"servering {r.get('servering_g_p','?')}g, "
+                      f"kök {r.get('koks_g_p','?')}g per portion\n")
+
+        if ga.get("overbestallning"):
+            p += "\n## Rätter med störst överbeställning (verifierad)\n"
+            for r in ga["overbestallning"][:8]:
+                p += f"- {r['ratt']}: {r['snitt_over_pct']}% i snitt, {int(r['total_over_portioner'])} portioner totalt\n"
+
+        if ga.get("svinn_naring_kvadrant"):
+            dubbel = [r for r in ga["svinn_naring_kvadrant"] if r.get("kvadrant") == "hog_svinn_lag_protein"]
+            optimal = [r for r in ga["svinn_naring_kvadrant"] if r.get("kvadrant") == "lag_svinn_hog_protein"]
+            p += "\n## Svinn + näring — kvadrantanalys (graf-analys, verifierad)\n"
+            p += f"Baserat på {len(ga['svinn_naring_kvadrant'])} rätter matchade mot näringsvärden.\n"
+            p += "### Dubbel förlust — högt svinn OCH lågt protein (prioritera att åtgärda):\n"
+            for r in dubbel[:8]:
+                namn = r.get('komponent') or r.get('ratt', '?')
+                p += f"- {namn}: {r['svinn_g_p']}g/portion svinn, {r['protein']}g protein, {r['kcal']} kcal\n"
+            p += "### Optimala rätter — lågt svinn OCH högt protein (prioritera i menyn):\n"
+            for r in optimal[:8]:
+                namn = r.get('komponent') or r.get('ratt', '?')
+                p += f"- {namn}: {r['svinn_g_p']}g/portion svinn, {r['protein']}g protein, {r['kcal']} kcal\n"
+
+        if ga.get("konsumerad_naring"):
+            p += "\n## Konsumerad näring per rätt (serverat × (1−svinn), verifierad)\n"
+            p += "Visar hur mycket näring som faktiskt äts upp efter svinn:\n"
+            for r in ga["konsumerad_naring"][:8]:
+                namn = r.get('komponent') or r.get('ratt', '?')
+                p += (f"- {namn}: {r.get('protein_konsumerad_g','?')}g protein konsumerat "
+                      f"(serverat: {r.get('protein_serverad_g','?')}g, svinn: {r.get('svinn_pct','?')}%)\n")
 
         return p
 

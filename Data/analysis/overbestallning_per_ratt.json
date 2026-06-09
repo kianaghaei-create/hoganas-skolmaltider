@@ -1,0 +1,122 @@
+[
+  {
+    "ratt": "kyckling gryta",
+    "obs": 3,
+    "snitt_over_pct": 22.3,
+    "total_over_portioner": 140.0
+  },
+  {
+    "ratt": "spagetti hetsås",
+    "obs": 3,
+    "snitt_over_pct": 20.0,
+    "total_over_portioner": 305.0
+  },
+  {
+    "ratt": "gulachsoppa",
+    "obs": 3,
+    "snitt_over_pct": 16.6,
+    "total_over_portioner": 272.0
+  },
+  {
+    "ratt": "bordelaise",
+    "obs": 3,
+    "snitt_over_pct": 15.0,
+    "total_over_portioner": 231.0
+  },
+  {
+    "ratt": "chiliconcarne",
+    "obs": 4,
+    "snitt_over_pct": 14.4,
+    "total_over_portioner": 335.0
+  },
+  {
+    "ratt": "korv",
+    "obs": 22,
+    "snitt_over_pct": 14.2,
+    "total_over_portioner": 618.0
+  },
+  {
+    "ratt": "tomatsoppa",
+    "obs": 5,
+    "snitt_over_pct": 12.3,
+    "total_over_portioner": 285.0
+  },
+  {
+    "ratt": "korv, mos",
+    "obs": 3,
+    "snitt_over_pct": 11.6,
+    "total_over_portioner": 182.0
+  },
+  {
+    "ratt": "nasigoreng",
+    "obs": 8,
+    "snitt_over_pct": 11.4,
+    "total_over_portioner": 486.0
+  },
+  {
+    "ratt": "tacogratäng",
+    "obs": 6,
+    "snitt_over_pct": 11.3,
+    "total_over_portioner": 68.0
+  },
+  {
+    "ratt": "moussaka",
+    "obs": 5,
+    "snitt_over_pct": 11.1,
+    "total_over_portioner": 306.0
+  },
+  {
+    "ratt": "kyckling curry",
+    "obs": 5,
+    "snitt_over_pct": 10.3,
+    "total_over_portioner": 56.0
+  },
+  {
+    "ratt": "chilipanna",
+    "obs": 7,
+    "snitt_over_pct": 10.0,
+    "total_over_portioner": 389.0
+  },
+  {
+    "ratt": "stroganoff",
+    "obs": 3,
+    "snitt_over_pct": 9.8,
+    "total_over_portioner": 62.0
+  },
+  {
+    "ratt": "pasta,baconsås",
+    "obs": 5,
+    "snitt_over_pct": 9.6,
+    "total_over_portioner": 225.0
+  },
+  {
+    "ratt": "pasta,paprikasås",
+    "obs": 4,
+    "snitt_over_pct": 9.4,
+    "total_over_portioner": 206.0
+  },
+  {
+    "ratt": "korv,mos",
+    "obs": 5,
+    "snitt_over_pct": 9.1,
+    "total_over_portioner": 295.0
+  },
+  {
+    "ratt": "biffstroganoff",
+    "obs": 3,
+    "snitt_over_pct": 9.0,
+    "total_over_portioner": 141.0
+  },
+  {
+    "ratt": "köttsoppa",
+    "obs": 5,
+    "snitt_over_pct": 8.8,
+    "total_over_portioner": 262.0
+  },
+  {
+    "ratt": "tikka",
+    "obs": 10,
+    "snitt_over_pct": 8.7,
+    "total_over_portioner": 490.0
+  }
+]

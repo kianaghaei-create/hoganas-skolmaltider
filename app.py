@@ -838,6 +838,11 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
         if ga.get("leverantorer"):
             rows = [r for r in ga["leverantorer"] if r.get("leverantor") != "Okänd" and r.get("total_mkr")]
             p += "\n## Leverantörer — inköpskostnad (graf-analys, verifierad)\n"
+            p += ("VIKTIG BEGRÄNSNING: det finns INGEN koppling mellan leverantör och svinn i datan. "
+                  "Datan saknar råvara→rätt-länken. Alla enheter köper från flera leverantörer samtidigt, "
+                  "så det är omöjligt att fördela svinn per leverantör. "
+                  "Om frågan ställs: svara att det inte går att besvara med befintlig data, "
+                  "och förklara varför (inköp och svinn är båda på enhetsnivå men inte länkade via rätt).\n")
             for r in rows:
                 p += f"- {r['leverantor']}: {r['total_mkr']} Mkr, {r['total_ton']} ton, {r['enheter']} enheter\n"
 

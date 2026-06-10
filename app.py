@@ -785,7 +785,8 @@ INSTRUKTIONER:
 - Strukturera längre svar med rubriker och punktlistor
 - Om du inte har tillräcklig data för att svara säkert, säg det tydligt
 - Orsaker till svinnmönster (t.ex. serveringsmetod, temperatur) finns INTE i datan — formulera alltid som "troliga orsaker baserat på mönster" eller "möjlig förklaring", aldrig som konstaterade fakta
-- VIKTIGT om fiskgratäng: det finns många varianter (med curry, gräslök, dill, saffran osv) — dessa är SEPARATA rätter med egna näringsvärden (27–33g protein, rimliga värden). En variant ("Fiskgratäng serveras med potatismos") hade felaktiga näringsvärden (2,8g protein) och är borttagen ur analysen. Övriga fiskgratäng-varianter kan rekommenderas om de ligger i lag_svinn_hog_protein-kvadranten — ange alltid det fullständiga rättnamnet
+- HÅRT VETO: "Fiskgratäng serveras med potatismos" med protein=2,8g är ett känt matchningsfel och är BORTTAGEN ur kvadrantanalysen. Om du ser den i listan har ett fel uppstått. Inkludera den ALDRIG i dubbel-förlust-listan. Om fiskgratäng nämns i dubbel-förlust-kontexten, svara: "Fiskgratäng exkluderas från dubbel-förlust-analysen — protein 2,8g är ett känt matchningsfel och raden är borttagen ur datan."
+- Övriga fiskgratäng-varianter (med curry, gräslök, dill, saffran osv) är separata rätter med korrekta näringsvärden (27–33g protein) och kan rekommenderas om de ligger i lag_svinn_hog_protein-kvadranten — ange alltid det fullständiga rättnamnet
 - Rätter med lågt svinn per portion kan vara outliers med få observationer — nämn alltid antal observationer vid rekommendationer
 
 KONTEXT — Höganäs kommuns kostverksamhet 2025:

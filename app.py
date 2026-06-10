@@ -892,7 +892,7 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
             dubbel = [r for r in ga["svinn_naring_kvadrant"] if r.get("kvadrant") == "hog_svinn_lag_protein"]
             optimal = [r for r in ga["svinn_naring_kvadrant"] if r.get("kvadrant") == "lag_svinn_hog_protein"]
             p += "\n## Svinn + näring — kvadrantanalys (graf-analys, verifierad)\n"
-            p += f"Baserat på {len(ga['svinn_naring_kvadrant'])} rätter matchade mot näringsvärden.\n"
+            p += f"Baserat på {len(ga['svinn_naring_kvadrant'])} rätter matchade mot näringsvärden (orimliga näringsvärden har filtrerats bort — protein<5g eller kcal<150 exkluderas som troliga felmatchningar).\n"
             p += "### Dubbel förlust — högt svinn OCH lågt protein (prioritera att åtgärda):\n"
             for r in dubbel[:8]:
                 namn = r.get('komponent') or r.get('ratt', '?')

@@ -830,8 +830,9 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
         if ga.get("enheter_svinn"):
             rows = [r for r in ga["enheter_svinn"] if r.get("snitt_svinn_pct")]
             p += "\n## Svinnranking per enhet (graf-analys, verifierad)\n"
+            p += "OBS: gram_per_portion använder SERVERADE portioner som nämnare (inte beställda). Ange alltid 'per serverad portion' i svar.\n"
             for r in rows[:10]:
-                p += f"- {r['enhet']}: {r['snitt_svinn_pct']}% snitt, {r['gram_per_portion']}g/portion, {r['total_kg']} kg totalt ({r['dagar']} dagar)\n"
+                p += f"- {r['enhet']}: {r['snitt_svinn_pct']}% snitt, {r['gram_per_portion']}g per serverad portion, {r['total_kg']} kg totalt ({r['dagar']} dagar)\n"
 
         if ga.get("leverantorer"):
             rows = [r for r in ga["leverantorer"] if r.get("leverantor") != "Okänd" and r.get("total_mkr")]
@@ -840,10 +841,11 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
                 p += f"- {r['leverantor']}: {r['total_mkr']} Mkr, {r['total_ton']} ton, {r['enheter']} enheter\n"
 
         if ga.get("avtalstrohet"):
-            rows = [r for r in ga["avtalstrohet"] if r.get("snitt_utanfor_pct", 0) > 0]
-            p += "\n## Avtalstrohet per enhet (graf-analys, verifierad)\n"
+            rows = [r for r in ga["avtalstrohet"] if r.get("pct_utanfor", 0) > 0]
+            p += "\n## Avtalstrohet per enhet — andel av inköpsvärde utanför avtal (graf-analys, verifierad)\n"
+            p += "OBS: pct_utanfor = tkr_utanfor / total_tkr × 100, dvs andel av faktisk inköpskostnad. Använd aldrig snitt_utanfor_pct — det fältet är borttaget pga beräkningsfel.\n"
             for r in rows[:8]:
-                p += f"- {r['enhet']}: {r['snitt_utanfor_pct']}% utanför avtal, {r['tkr_utanfor']} tkr\n"
+                p += f"- {r['enhet']}: {r['pct_utanfor']}% utanför avtal ({r['tkr_utanfor']} tkr av {r['total_tkr']} tkr totalt)\n"
 
         if ga.get("ekologisk"):
             rows = [r for r in ga["ekologisk"] if r.get("eko_andel_pct", 0) > 0]
@@ -878,10 +880,11 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
 
         if ga.get("svinntyper"):
             p += "\n## Svinntyper per enhet — tallrik/servering/kök (verifierad)\n"
+            p += "ANALYTISK NYCKEL: detta är det viktigaste fyndet vid enhetsjämförelser. Hög tallrikssvinn → elever/gäster äter inte upp (åtgärd: mindre förstaportion, fri påfyllning). Hög serveringssvinn → personal lägger upp för mycket (åtgärd: utbilda i portionering). Hög kökssvinn → tillagningsfel eller fel kvantitet. Lyft alltid fram svinntyp-skillnader när du jämför enheter.\n"
             for r in ga["svinntyper"][:8]:
                 p += (f"- {r['enhet']}: tallrik {r.get('tallrik_g_p','?')}g, "
                       f"servering {r.get('servering_g_p','?')}g, "
-                      f"kök {r.get('koks_g_p','?')}g per portion\n")
+                      f"kök {r.get('koks_g_p','?')}g per serverad portion\n")
 
         if ga.get("overbestallning"):
             p += "\n## Rätter med störst överbeställning (verifierad)\n"

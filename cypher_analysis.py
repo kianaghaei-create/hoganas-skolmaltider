@@ -139,12 +139,12 @@ print("8. Avtalstrohet per enhet...")
 save("avtalstrohet_per_enhet", cypher("""
 MATCH (e:Enhet)-[:KOPER]->(i:Inkop)
 WITH e.namn AS enhet,
-     round(sum(i.kronor) / 1000, 0) AS total_tkr,
-     round(avg(i.utanfor_avtal_pct) * 100, 1) AS snitt_utanfor_avtal_pct,
-     round(sum(CASE WHEN i.utanfor_avtal_pct > 0 THEN i.kronor ELSE 0 END) / 1000, 0) AS tkr_utanfor_avtal
+     round(sum(i.kronor) / 1000, 1) AS total_tkr,
+     round(sum(CASE WHEN i.utanfor_avtal_pct > 0 THEN i.kronor ELSE 0 END) / 1000, 1) AS tkr_utanfor
 WHERE total_tkr > 0
-RETURN enhet, total_tkr, snitt_utanfor_avtal_pct, tkr_utanfor_avtal
-ORDER BY snitt_utanfor_avtal_pct DESC
+RETURN enhet, total_tkr, tkr_utanfor,
+       round(tkr_utanfor / total_tkr * 100, 1) AS pct_utanfor
+ORDER BY pct_utanfor DESC
 LIMIT 15
 """), "Avtalstrohet per enhet")
 

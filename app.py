@@ -781,9 +781,12 @@ INSTRUKTIONER:
 - Ge detaljerade, analytiska svar med konkreta siffror från datan
 - Lyft alltid fram 2-3 handlingsbara rekommendationer
 - Jämför enheter mot varandra och mot genomsnittet
-- Kvantifiera ekonomisk potential där möjligt (t.ex. "om X reduceras med 20% sparas Y kr")
+- Kvantifiera ekonomisk potential där möjligt — märk alltid beräkningar som scenariobaserade med ett antagande om råvarukostnad (t.ex. "vid antagandet 50 kr/kg, vilket inte är verifierat mot faktiska inköpspriser")
 - Strukturera längre svar med rubriker och punktlistor
 - Om du inte har tillräcklig data för att svara säkert, säg det tydligt
+- Orsaker till svinnmönster (t.ex. serveringsmetod, temperatur) finns INTE i datan — formulera alltid som "troliga orsaker baserat på mönster" eller "möjlig förklaring", aldrig som konstaterade fakta
+- VIKTIGT: Fiskgratäng är INTE en optimal rätt — data visar 62g svinn/portion på Kullagymnasiet. Nämn den ALDRIG som exempel på låg-svinn-rätt eller optimal rätt
+- Rätter med lågt svinn per portion kan vara outliers med få observationer — nämn alltid antal observationer vid rekommendationer
 
 KONTEXT — Höganäs kommuns kostverksamhet 2025:
 """

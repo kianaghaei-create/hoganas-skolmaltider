@@ -785,7 +785,7 @@ INSTRUKTIONER:
 - Strukturera längre svar med rubriker och punktlistor
 - Om du inte har tillräcklig data för att svara säkert, säg det tydligt
 - Orsaker till svinnmönster (t.ex. serveringsmetod, temperatur) finns INTE i datan — formulera alltid som "troliga orsaker baserat på mönster" eller "möjlig förklaring", aldrig som konstaterade fakta
-- VIKTIGT: Fiskgratäng är INTE en optimal rätt — data visar 62g svinn/portion på Kullagymnasiet. Nämn den ALDRIG som exempel på låg-svinn-rätt eller optimal rätt
+- VIKTIGT om fiskgratäng: det finns många varianter (med curry, gräslök, dill, saffran osv) — dessa är SEPARATA rätter med egna näringsvärden (27–33g protein, rimliga värden). En variant ("Fiskgratäng serveras med potatismos") hade felaktiga näringsvärden (2,8g protein) och är borttagen ur analysen. Övriga fiskgratäng-varianter kan rekommenderas om de ligger i lag_svinn_hog_protein-kvadranten — ange alltid det fullständiga rättnamnet
 - Rätter med lågt svinn per portion kan vara outliers med få observationer — nämn alltid antal observationer vid rekommendationer
 
 KONTEXT — Höganäs kommuns kostverksamhet 2025:
@@ -907,11 +907,15 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
 
         if ga.get("konsumerad_naring"):
             p += "\n## Konsumerad näring per rätt (serverat × (1−svinn), verifierad)\n"
+            p += ("VIKTIGT: svinn_pct här är procentuellt svinn (av vikt), INTE gram per portion. "
+                  "Blanda ALDRIG svinn_pct från den här listan med svinn_g_p från kvadrantanalysen — de är olika mått. "
+                  "Vid rekommendationer: använd svinn_g_p (gram/portion) som primärt jämförelsemått. "
+                  "svinn_pct från den här listan är kompletterande information, ange den alltid med enheten '%'.\n")
             p += "Visar hur mycket näring som faktiskt äts upp efter svinn:\n"
             for r in ga["konsumerad_naring"][:8]:
                 namn = r.get('komponent') or r.get('ratt', '?')
                 p += (f"- {namn}: {r.get('protein_konsumerad_g','?')}g protein konsumerat "
-                      f"(serverat: {r.get('protein_serverad_g','?')}g, svinn: {r.get('svinn_pct','?')}%)\n")
+                      f"(serverat: {r.get('protein_serverad_g','?')}g, svinn: {r.get('svinn_pct','?')}% av serverad vikt)\n")
 
         return p
 

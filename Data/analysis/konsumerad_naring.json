@@ -6,7 +6,8 @@
     "protein_serverad_g": 37.1,
     "kcal_serverad": 700.0,
     "svinn_pct": 0.2,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "kycklingfajitas",
@@ -15,7 +16,8 @@
     "protein_serverad_g": 37.1,
     "kcal_serverad": 700.0,
     "svinn_pct": 2.2,
-    "obs": 4
+    "obs": 4,
+    "svinn_g_p": 15.1
   },
   {
     "ratt": "kykling,ris",
@@ -24,7 +26,8 @@
     "protein_serverad_g": 32.8,
     "kcal_serverad": 530.0,
     "svinn_pct": 0.5,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "kyckling, currysås",
@@ -33,7 +36,8 @@
     "protein_serverad_g": 32.5,
     "kcal_serverad": 423.0,
     "svinn_pct": 0.7,
-    "obs": 4
+    "obs": 4,
+    "svinn_g_p": null
   },
   {
     "ratt": "tika masala",
@@ -42,7 +46,8 @@
     "protein_serverad_g": 30.8,
     "kcal_serverad": 537.0,
     "svinn_pct": 0.4,
-    "obs": 3
+    "obs": 3,
+    "svinn_g_p": null
   },
   {
     "ratt": "midsommarmat",
@@ -51,7 +56,8 @@
     "protein_serverad_g": 30.7,
     "kcal_serverad": 557.0,
     "svinn_pct": 1.7,
-    "obs": 4
+    "obs": 4,
+    "svinn_g_p": null
   },
   {
     "ratt": "tikka masala",
@@ -60,7 +66,8 @@
     "protein_serverad_g": 30.8,
     "kcal_serverad": 537.0,
     "svinn_pct": 2.4,
-    "obs": 21
+    "obs": 21,
+    "svinn_g_p": 15.6
   },
   {
     "ratt": "påskmat",
@@ -69,7 +76,8 @@
     "protein_serverad_g": 31.8,
     "kcal_serverad": 542.0,
     "svinn_pct": 6.1,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "kyckling curry",
@@ -78,7 +86,8 @@
     "protein_serverad_g": 32.5,
     "kcal_serverad": 423.0,
     "svinn_pct": 10.6,
-    "obs": 5
+    "obs": 5,
+    "svinn_g_p": null
   },
   {
     "ratt": "tacogratäng",
@@ -87,7 +96,8 @@
     "protein_serverad_g": 29.6,
     "kcal_serverad": 675.0,
     "svinn_pct": 1.9,
-    "obs": 6
+    "obs": 6,
+    "svinn_g_p": 10.3
   },
   {
     "ratt": "julmat",
@@ -96,7 +106,8 @@
     "protein_serverad_g": 28.8,
     "kcal_serverad": 655.0,
     "svinn_pct": 0.8,
-    "obs": 4
+    "obs": 4,
+    "svinn_g_p": null
   },
   {
     "ratt": "julbord",
@@ -105,7 +116,8 @@
     "protein_serverad_g": 28.8,
     "kcal_serverad": 655.0,
     "svinn_pct": 3.3,
-    "obs": 9
+    "obs": 9,
+    "svinn_g_p": 15.1
   },
   {
     "ratt": "kycklinglasagne",
@@ -114,7 +126,8 @@
     "protein_serverad_g": 28.4,
     "kcal_serverad": 393.0,
     "svinn_pct": 3.9,
-    "obs": 4
+    "obs": 4,
+    "svinn_g_p": 18.6
   },
   {
     "ratt": "lasagne",
@@ -123,7 +136,8 @@
     "protein_serverad_g": 28.4,
     "kcal_serverad": 393.0,
     "svinn_pct": 4.3,
-    "obs": 45
+    "obs": 45,
+    "svinn_g_p": 18.6
   },
   {
     "ratt": "pasta med paprikasås",
@@ -132,7 +146,8 @@
     "protein_serverad_g": 26.6,
     "kcal_serverad": 632.0,
     "svinn_pct": 0.8,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "kycklinggryta",
@@ -141,7 +156,8 @@
     "protein_serverad_g": 27.2,
     "kcal_serverad": 469.0,
     "svinn_pct": 3.0,
-    "obs": 12
+    "obs": 12,
+    "svinn_g_p": 20.1
   },
   {
     "ratt": "fiskburgare,mos",
@@ -150,7 +166,8 @@
     "protein_serverad_g": 26.8,
     "kcal_serverad": 790.0,
     "svinn_pct": 4.1,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "pasta sås",
@@ -159,7 +176,8 @@
     "protein_serverad_g": 25.6,
     "kcal_serverad": 679.0,
     "svinn_pct": 0.7,
-    "obs": 7
+    "obs": 7,
+    "svinn_g_p": null
   },
   {
     "ratt": "pasta,paprikasås",
@@ -168,7 +186,8 @@
     "protein_serverad_g": 26.6,
     "kcal_serverad": 632.0,
     "svinn_pct": 5.1,
-    "obs": 4
+    "obs": 4,
+    "svinn_g_p": null
   },
   {
     "ratt": "kyckling gryta",
@@ -177,7 +196,8 @@
     "protein_serverad_g": 27.2,
     "kcal_serverad": 469.0,
     "svinn_pct": 8.2,
-    "obs": 3
+    "obs": 3,
+    "svinn_g_p": null
   },
   {
     "ratt": "pasta gratäng",
@@ -186,7 +206,8 @@
     "protein_serverad_g": 26.2,
     "kcal_serverad": 542.0,
     "svinn_pct": 5.8,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "pasta",
@@ -195,7 +216,8 @@
     "protein_serverad_g": 25.6,
     "kcal_serverad": 679.0,
     "svinn_pct": 3.5,
-    "obs": 22
+    "obs": 22,
+    "svinn_g_p": 22.6
   },
   {
     "ratt": "pasta paprikasås",
@@ -204,7 +226,8 @@
     "protein_serverad_g": 26.6,
     "kcal_serverad": 632.0,
     "svinn_pct": 8.6,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "sweetchilifisk",
@@ -213,7 +236,8 @@
     "protein_serverad_g": 25.8,
     "kcal_serverad": 572.0,
     "svinn_pct": 5.9,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "kassler currytäcke",
@@ -222,7 +246,8 @@
     "protein_serverad_g": 26.5,
     "kcal_serverad": 399.0,
     "svinn_pct": 8.9,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "pasta ost o skinksås",
@@ -231,7 +256,8 @@
     "protein_serverad_g": 24.2,
     "kcal_serverad": 436.0,
     "svinn_pct": 0.7,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "fiskgratäng,pot",
@@ -240,7 +266,8 @@
     "protein_serverad_g": 26.4,
     "kcal_serverad": 242.0,
     "svinn_pct": 13.5,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "ost/skinksås",
@@ -249,7 +276,8 @@
     "protein_serverad_g": 24.2,
     "kcal_serverad": 436.0,
     "svinn_pct": 5.8,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "köttbullar,mos",
@@ -258,7 +286,8 @@
     "protein_serverad_g": 24.4,
     "kcal_serverad": 471.0,
     "svinn_pct": 6.9,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   },
   {
     "ratt": "pasta,skinksås",
@@ -267,6 +296,7 @@
     "protein_serverad_g": 24.2,
     "kcal_serverad": 436.0,
     "svinn_pct": 7.9,
-    "obs": 2
+    "obs": 2,
+    "svinn_g_p": null
   }
 ]

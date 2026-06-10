@@ -89,24 +89,55 @@ DATA_DIR = Path(__file__).parent / "Data" / "processed"
 @st.cache_data
 def load_data():
     out = {}
-    for name in ["purchases", "food_waste", "portions", "preschool_billing"]:
+    for name in ["purchases", "portions", "preschool_billing"]:
         p = DATA_DIR / f"{name}.csv"
         if p.exists():
             out[name] = pd.read_csv(p, low_memory=False)
-    # Näringsfil ersätter menu_nutrition — menu_type='skola'|'ao', exakt datum + näringsvärden
+    # Daglig svinnfil (master) — unit_name + enhet, datum per rätt
+    daily_path = DATA_DIR / "food_waste_daily_v2.csv"
+    if daily_path.exists():
+        out["food_waste_daily"] = pd.read_csv(daily_path, low_memory=False)
+    # Näringsfil — menu_type='skola'|'ao', exakt datum + näringsvärden
+    # OBS: förskolor saknar näringskoppling (ingen standardiserad meny)
     naring_path = DATA_DIR / "naring.parquet"
     if naring_path.exists():
         out["naring"] = pd.read_parquet(naring_path)
     return out
 
-data       = load_data()
-purchases  = data.get("purchases",         pd.DataFrame())
-food_waste = data.get("food_waste",         pd.DataFrame())
-portions   = data.get("portions",           pd.DataFrame())
-naring     = data.get("naring",             pd.DataFrame())  # menu_type='skola'|'ao'
-preschool  = data.get("preschool_billing",  pd.DataFrame())
+data          = load_data()
+purchases     = data.get("purchases",         pd.DataFrame())
+food_waste_d  = data.get("food_waste_daily",  pd.DataFrame())  # daglig per rätt, unit_name normaliserat
+portions      = data.get("portions",          pd.DataFrame())
+naring        = data.get("naring",            pd.DataFrame())  # skola+ÄO, ej förskola
+preschool     = data.get("preschool_billing", pd.DataFrame())
 
-# Derived: clean food-waste rows (remove obvious data-entry errors)
+# Bakåtkompatibelt aggregat för sidor som fortfarande använder veckonivå
+food_waste = pd.DataFrame()
+if not food_waste_d.empty and "total_waste_pct" in food_waste_d.columns:
+    food_waste = food_waste_d.copy()
+elif not food_waste_d.empty:
+    # Aggregera daglig → veckonivå för äldre vyer
+    _agg = food_waste_d.copy()
+    for col in ["kokssvinn_pct","serveringssvinn_pct","tallrikssvinn_pct","totalt_svinn_pct"]:
+        if col not in _agg.columns: _agg[col] = None
+    food_waste = (_agg.groupby(["unit_name","ar","vecka"], dropna=False)
+        .agg(
+            kitchen_waste_pct  =("kokssvinn_pct",       "mean"),
+            serving_waste_pct  =("serveringssvinn_pct", "mean"),
+            plate_waste_pct    =("tallrikssvinn_pct",   "mean"),
+            total_waste_pct    =("totalt_svinn_pct",    "mean"),
+            total_waste_kg     =("totalt_svinn_kg",     "sum"),
+            ordered_portions   =("bestallda_portioner", "sum"),
+            served_portions    =("serverade_portioner", "sum"),
+        ).reset_index()
+        .rename(columns={"unit_name": "unit_name", "ar": "year", "vecka": "week"})
+    )
+    food_waste["over_order_ratio"] = (
+        (food_waste["ordered_portions"] - food_waste["served_portions"]) /
+        food_waste["ordered_portions"].replace(0, float("nan"))
+    )
+
+# Derived: clean food-waste rows
 fw_clean = food_waste[food_waste["total_waste_pct"] <= 1.0].copy() if not food_waste.empty else food_waste.copy()
 
 # ── Källmetadata ───────────────────────────────────────────────────────────────
@@ -158,6 +189,7 @@ with st.sidebar:
             "📋 Avtalstrohet",
             "⚠️ Datakvalitet",
             "🤖 AI-assistent",
+            "🔗 Graf-analys",
         ],
         label_visibility="collapsed",
     )
@@ -929,4 +961,110 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
     if st.session_state.messages:
         if st.button("Rensa konversation", type="secondary"):
             st.session_state.messages = []
+            st.rerun()
+
+# ══════════════════════════════════════════════════════════════════════════════
+# GRAF-ANALYS — OpenAI + Neo4j-lins
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "🔗 Graf-analys":
+    st.title("Graf-analys")
+    st.caption("Ställ frågor som kräver relationer — rätt → svinn → näring → leverantör")
+    source_label("Neo4j-graf (förberäknade Cypher-analyser)", extra=f"uppdaterad {_ANALYSIS_DATE}")
+
+    if not OPENAI_AVAILABLE:
+        st.warning("OpenAI API-nyckel saknas.")
+        st.stop()
+
+    # ── Ladda bara graf-specifika analysfiler ─────────────────────────────────
+    @st.cache_data
+    def load_graph_context() -> str:
+        import json
+        base = Path("Data/analysis")
+        files = {
+            "Svinnranking per enhet":           "enheter_svinn_ranking.json",
+            "Rätter med högst svinn/portion":   "ratter_svinn_per_portion.json",
+            "Rätter med lägst svinn/portion":   "ratter_lag_svinn.json",
+            "Tallrikssvinn per rätt":            "ratter_tallrikssvinn.json",
+            "Svinn per veckodag":               "svinn_per_veckodag.json",
+            "Svinntyper per enhet":             "svinntyper_per_enhet.json",
+            "Topp-rätter per enhet":            "ratter_per_enhet_topp.json",
+            "Överbeställning per rätt":         "overbestallning_per_ratt.json",
+            "Leverantörskostnader":             "leverantorer_kostnad.json",
+            "Avtalstrohet per enhet":           "avtalstrohet_per_enhet.json",
+            "Ekologisk andel per enhet":        "ekologisk_andel.json",
+            "Varugrupper kostnad":              "varugrupper_kostnad.json",
+            "Svinn × näring kvadrant":          "svinn_naring_kvadrant.json",
+            "Konsumerad näring per rätt":       "konsumerad_naring.json",
+        }
+        ctx = "Du har tillgång till följande förberäknade grafanalyser från Neo4j:\n\n"
+        for label, fname in files.items():
+            p = base / fname
+            if not p.exists():
+                continue
+            data = json.loads(p.read_text(encoding="utf-8"))
+            ctx += f"### {label} ({len(data)} rader)\n"
+            ctx += json.dumps(data[:20], ensure_ascii=False, indent=2)
+            ctx += "\n\n"
+        return ctx
+
+    GRAPH_SYSTEM = """Du är en grafanalytiker för Höganäs kommuns skolmåltider.
+Du svarar ENDAST baserat på Neo4j-grafanalyserna nedan — inga gissningar.
+Svara på svenska. Var konkret och hänvisa alltid till vilken analys du använder.
+Lyft gärna fram relationer: hur rätten hänger ihop med svinn, näring och leverantör.
+Om data saknas för att besvara frågan, säg det explicit.
+
+TILLGÄNGLIGA GRAFANALYSER:
+""" + load_graph_context()
+
+    # ── Föreslagna frågor ─────────────────────────────────────────────────────
+    if "graph_messages" not in st.session_state:
+        st.session_state.graph_messages = []
+
+    if not st.session_state.graph_messages:
+        st.markdown("**Föreslagna frågor:**")
+        graph_suggestions = [
+            "Vilka rätter är dubbel förlust — högt svinn och lågt protein?",
+            "Vilken leverantör är kopplad till mest svinn via sina rätter?",
+            "Jämför Kullagymnasiet och Lerbergsskolan — vad skiljer dem?",
+            "Vilka rätter bör vi prioritera i menyn baserat på näring och svinn?",
+            "Var är överbeställningen störst och vilka rätter driver den?",
+        ]
+        cols = st.columns(2)
+        for i, s in enumerate(graph_suggestions):
+            if cols[i % 2].button(s, key=f"gs_{i}", use_container_width=True):
+                st.session_state.graph_messages.append({"role": "user", "content": s})
+                st.rerun()
+
+    # ── Chattgränssnitt ───────────────────────────────────────────────────────
+    for msg in st.session_state.graph_messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+
+    if prompt := st.chat_input("Fråga om relationer i grafen…"):
+        st.session_state.graph_messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+    if st.session_state.graph_messages and st.session_state.graph_messages[-1]["role"] == "user":
+        with st.chat_message("assistant"):
+            with st.spinner("Traverserar grafen…"):
+                try:
+                    import openai
+                    client = openai.OpenAI(api_key=OPENAI_KEY)
+                    resp = client.chat.completions.create(
+                        model="o4-mini",
+                        messages=[
+                            {"role": "system", "content": GRAPH_SYSTEM},
+                            *st.session_state.graph_messages,
+                        ],
+                    )
+                    answer = resp.choices[0].message.content
+                except Exception as e:
+                    answer = f"⚠️ Fel: {e}"
+            st.markdown(answer)
+            st.session_state.graph_messages.append({"role": "assistant", "content": answer})
+
+    if st.session_state.graph_messages:
+        if st.button("Rensa konversation", key="clear_graph", type="secondary"):
+            st.session_state.graph_messages = []
             st.rerun()

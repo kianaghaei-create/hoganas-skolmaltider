@@ -494,7 +494,7 @@ elif page == "🎯 Beställningsprecision":
             st.markdown('<div class="chart-box">', unsafe_allow_html=True)
             st.subheader("Beställda vs serverade portioner")
             if "served_portions" in fw_p.columns:
-                week_sum = fw_p.groupby("week")[["ordered_portions", "served_portions"]].mean().reset_index()
+                week_sum = fw_p.groupby("week")[["ordered_portions", "served_portions"]].sum().reset_index()
                 fig2 = go.Figure()
                 fig2.add_trace(go.Scatter(x=week_sum["week"], y=week_sum["ordered_portions"],
                                           name="Beställda", line=dict(color="#3B82F6")))

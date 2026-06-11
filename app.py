@@ -148,7 +148,10 @@ elif not food_waste_d.empty:
     )
 
 # Derived: clean food-waste rows
-fw_clean = food_waste[food_waste["total_waste_pct"] <= 1.0].copy() if not food_waste.empty else food_waste.copy()
+# Behåller rader med NaN i total_waste_pct (förskolor rapporterar ej %) men filtrerar >100% som outliers
+fw_clean = food_waste[
+    food_waste["total_waste_pct"].isna() | (food_waste["total_waste_pct"] <= 1.0)
+].copy() if not food_waste.empty else food_waste.copy()
 
 # ── Källmetadata ───────────────────────────────────────────────────────────────
 import json as _json
@@ -314,15 +317,20 @@ elif page == "🗑️ Svinnanalys":
     source_label(_SVINN_FILER, len(food_waste), f"analyserad {_ANALYSIS_DATE}")
 
     units_list = sorted(fw_clean["unit_name"].dropna().unique()) if not fw_clean.empty else []
-    sel = st.multiselect("Filtrera enheter", units_list, default=units_list[:8])
+    sel = st.multiselect("Filtrera enheter", units_list, default=units_list)
     df_fw = fw_clean[fw_clean["unit_name"].isin(sel)] if sel else fw_clean
 
+    all_kg = food_waste["total_waste_kg"].sum() if not food_waste.empty and "total_waste_kg" in food_waste.columns else 0
     c1, c2, c3 = st.columns(3)
     with c1:
-        kpi("Snitt svinn %", f"{df_fw['total_waste_pct'].median()*100:.1f} %", "Median (filtrerat urval)", "#EF4444")
+        valid_pct = df_fw["total_waste_pct"].dropna()
+        pct_val = f"{valid_pct.median()*100:.1f} %" if len(valid_pct) > 0 else "Saknas"
+        n_with = len(valid_pct.index.unique()) if hasattr(valid_pct.index, 'unique') else len(valid_pct)
+        kpi("Snitt svinn %", pct_val, f"Median — {len(sel)} enheter (förskolor saknar %-data)", "#EF4444")
     with c2:
         total_kg = df_fw["total_waste_kg"].sum() if "total_waste_kg" in df_fw.columns else 0
-        kpi("Totalt svinn kg", f"{total_kg:,.0f} kg".replace(",", " "), "Filtrerat urval", "#F97316")
+        sub = "Filtrerat urval" if total_kg < all_kg * 0.99 else "Alla enheter"
+        kpi("Totalt svinn kg", f"{total_kg:,.0f} kg".replace(",", " "), sub, "#F97316")
     with c3:
         worst = df_fw.groupby("unit_name")["total_waste_pct"].median().idxmax() if not df_fw.empty else "–"
         kpi("Högst svinn", worst, "Enhet med högst median", "#8B5CF6")
@@ -342,14 +350,19 @@ elif page == "🗑️ Svinnanalys":
 
     with col_b:
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
-        st.subheader("Svinntyper (medelvärde)")
-        waste_cols = {"kitchen_waste_pct": "Kök", "serving_waste_pct": "Servering", "plate_waste_pct": "Tallrik"}
-        avail = {v: df_fw[k].mean() for k, v in waste_cols.items() if k in df_fw.columns}
-        if avail:
-            fig2 = px.pie(values=list(avail.values()), names=list(avail.keys()), hole=0.45,
+        st.subheader("Svinntyper (kg-fördelning)")
+        # Använder kg-summor direkt från daglig data — ej procent-medelvärde
+        kg_cols = {"kokssvinn_kg": "Kök", "serveringssvinn_kg": "Servering", "tallrikssvinn_kg": "Tallrik"}
+        raw_fw = food_waste_d.copy()
+        if not raw_fw.empty and selected_units:
+            raw_fw = raw_fw[raw_fw["unit_name"].isin(selected_units)]
+        avail_kg = {v: raw_fw[k].sum() for k, v in kg_cols.items() if k in raw_fw.columns and raw_fw[k].sum() > 0}
+        if avail_kg:
+            fig2 = px.pie(values=list(avail_kg.values()), names=list(avail_kg.keys()), hole=0.45,
                           color_discrete_sequence=["#EF4444", "#F97316", "#FBBF24"])
             fig2.update_layout(**PLOT_LAYOUT)
             st.plotly_chart(fig2, use_container_width=True)
+            st.caption("Källa: food_waste_daily_v2.csv — kokssvinn_kg, serveringssvinn_kg, tallrikssvinn_kg (summerat)")
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="chart-box">', unsafe_allow_html=True)
@@ -654,6 +667,20 @@ elif page == "⚠️ Datakvalitet":
         outliers = (food_waste["total_waste_pct"] > 1.0).sum()
         if outliers:
             issues.append({"Typ": "Extremvärde", "Tabell": "Matsvinn", "Beskrivning": f"{outliers} rader med svinn > 100 %", "Allvarlighet": "Kritisk"})
+        # NaN i total_waste_pct — förskolor rapporterar ej svinn-procent
+        nan_pct = food_waste["total_waste_pct"].isna().sum()
+        if nan_pct:
+            nan_units = food_waste[food_waste["total_waste_pct"].isna()]["unit_name"].nunique()
+            issues.append({"Typ": "Saknade värden", "Tabell": "Matsvinn", "Beskrivning": f"{nan_pct} rader ({nan_units} enheter) saknar svinn-procent — förskolor registrerar ej % i svinnbladet. Svinn-kg finns för dessa enheter.", "Allvarlighet": "Varning"})
+        # Felregistreringar: serverade >> beställda (>200%)
+        if "served_portions" in food_waste.columns and "ordered_portions" in food_waste.columns:
+            suspicious = food_waste[
+                food_waste["ordered_portions"] > 0,
+            ].copy() if False else food_waste[food_waste["ordered_portions"] > 0].copy()
+            ratio = suspicious["served_portions"] / suspicious["ordered_portions"]
+            bad_rows = (ratio > 3).sum()
+            if bad_rows:
+                issues.append({"Typ": "Felregistrering", "Tabell": "Matsvinn", "Beskrivning": f"{bad_rows} veckorader där serverade >3× beställda — troliga datainmatningsfel (t.ex. extra nolla)", "Allvarlighet": "Kritisk"})
 
     # Purchases: missing supplier
     if not purchases.empty:

@@ -856,20 +856,14 @@ elif page == "⚠️ Datakvalitet":
     st.markdown("### Exkluderingsöversikt — rader borttagna ur respektive analys")
     if not food_waste_d.empty:
         kg_c = ["kokssvinn_kg", "serveringssvinn_kg", "tallrikssvinn_kg"]
-        if all(c in food_waste_d.columns for c in kg_c):
-            tmp = food_waste_d.copy()
-            tmp["_ks"] = tmp[kg_c].sum(axis=1)
-            tmp["_rd"] = (tmp["_ks"] - tmp["totalt_svinn_kg"].fillna(0)).abs() / tmp["totalt_svinn_kg"].replace(0, float("nan"))
-            n_excl_pie = (tmp["_rd"] >= 0.2).sum()
-            n_incl_pie = (tmp["_rd"] < 0.2).sum()
-        else:
-            n_excl_pie = n_incl_pie = 0
-        n_nan_pct = food_waste_d["total_waste_pct"].isna().sum() if "total_waste_pct" in food_waste_d.columns else 0
+        n_incl_pie = int(food_waste_d.dropna(subset=kg_c).shape[0]) if all(c in food_waste_d.columns for c in kg_c) else 0
+        n_excl_pie = len(food_waste_d) - n_incl_pie
+        n_nan_pct = food_waste_d["totalt_svinn_pct"].isna().sum() if "totalt_svinn_pct" in food_waste_d.columns else 0
         n_tot = len(food_waste_d)
         excl_data = [
-            {"Analys": "Svinn % per vecka", "Inkluderade rader": n_tot - n_nan_pct, "Exkluderade rader": n_nan_pct, "Orsak": "NaN i total_waste_pct (förskolor)"},
-            {"Analys": "Säsongsmönster svinn %", "Inkluderade rader": n_tot - n_nan_pct, "Exkluderade rader": n_nan_pct, "Orsak": "NaN i total_waste_pct (förskolor)"},
-            {"Analys": "Svinntyper pie-chart", "Inkluderade rader": int(n_incl_pie), "Exkluderade rader": int(n_excl_pie), "Orsak": "Komponent-diff ≥ 20% mot totalt_svinn_kg"},
+            {"Analys": "Svinn % per vecka", "Inkluderade rader": n_tot - n_nan_pct, "Exkluderade rader": n_nan_pct, "Orsak": f"{n_nan_pct} rader saknar totalt_svinn_pct (enstaka mätdagar)"},
+            {"Analys": "Säsongsmönster svinn %", "Inkluderade rader": n_tot - n_nan_pct, "Exkluderade rader": n_nan_pct, "Orsak": f"{n_nan_pct} rader saknar totalt_svinn_pct (enstaka mätdagar)"},
+            {"Analys": "Svinntyper pie-chart", "Inkluderade rader": n_incl_pie, "Exkluderade rader": n_excl_pie, "Orsak": "Förskolor saknar separata kök/servering-kolumner — endast skola/ÄO (1 671 rader)"},
             {"Analys": "Totalt svinn kg (KPI)", "Inkluderade rader": n_tot, "Exkluderade rader": 0, "Orsak": "Inga exkluderingar — alla enheter ingår"},
         ]
         st.dataframe(pd.DataFrame(excl_data), use_container_width=True, hide_index=True)

@@ -328,10 +328,10 @@ elif page == "🗑️ Svinnanalys":
 | Förskolor | 11 | ❌ Saknas i rådata | ✅ Finns | ⚠️ Ej tillförlitliga |
 
 **Varför syns inte förskolor i svinn-%-grafer?**
-Förskolor registrerar inte svinn-procent i de digitala svinnbladen. Kolumnen `total_waste_pct` är tom (NaN) för dessa enheter. Svinn i kilogram (`totalt_svinn_kg`) finns och används i alla kg-baserade analyser.
+Förskolor registrerar faktiskt svinn-procent i Excel-filerna. Kolumnen `totalt_svinn_pct` är korrekt inläst och nästan komplett (4 NaN av 2 398 rader). I tidigare version av parsern lästes fel rad pga hårdkodade radnummer — det är nu åtgärdat (label-baserad parser, juni 2025).
 
 **Varför syns förskolor inte i svinntyp-diagrammet (kök/servering/tallrik)?**
-Komponentkolumnerna `kokssvinn_kg`, `serveringssvinn_kg` och `tallrikssvinn_kg` är opålitliga för förskolor — summan av dessa kolumner uppgår till ~8 211 kg för enheter vars `totalt_svinn_kg` bara är 183 kg. Det är ett faktafel i rådata, troligen en registreringsinkonsekvens. Dessa kolumner används **bara** i grafer där de är verifierade (avvikelse < 20 % mot totalt_svinn_kg).
+Förskolor använder ett annat Excel-format: köks- och serveringssvinn registreras **kombinerat** på en rad ("Köks- & serveringssvinn (kg)"), inte uppdelat. Kolumnerna `kokssvinn_kg` och `serveringssvinn_kg` är därför tomma (None) för förskolor — de lagras i stället i fältet `kok_och_serveringssvinn_kg`. Pie-chartet kräver separata värden för alla tre komponenter och exkluderar därför förskolor.
 
 **Vad menas med svinn per portion?**
 `svinn_g_p = totalt_svinn_kg × 1 000 / serverade_portioner` — **serverade** portioner, inte beställda. Detta är ett mått på faktisk matförlust per person som ätit.
@@ -391,16 +391,12 @@ Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen 
         raw_fw = food_waste_d.copy()
         if not raw_fw.empty and sel:
             raw_fw = raw_fw[raw_fw["unit_name"].isin(sel)]
-        # Filtrera till rader med trovärdig komponentdata
+        # Filtrera till rader där ALLA tre komponent-kolumner är non-null.
+        # Förskolor har kokssvinn_kg=None + serveringssvinn_kg=None (de använder
+        # kok_och_serveringssvinn_kg i stället) → exkluderas automatiskt.
         if all(c in raw_fw.columns for c in kg_cols):
-            raw_fw = raw_fw.copy()
-            raw_fw["_komp_sum"] = raw_fw[list(kg_cols.keys())].sum(axis=1)
-            raw_fw["_rel_diff"] = (
-                (raw_fw["_komp_sum"] - raw_fw["totalt_svinn_kg"].fillna(0)).abs()
-                / raw_fw["totalt_svinn_kg"].replace(0, float("nan"))
-            )
-            valid_fw = raw_fw[raw_fw["_rel_diff"] < 0.2]
-            n_valid = len(valid_fw["unit_name"].unique()) if not valid_fw.empty else 0
+            valid_fw = raw_fw.dropna(subset=list(kg_cols.keys()))
+            n_valid  = len(valid_fw["unit_name"].unique()) if not valid_fw.empty else 0
             avail_kg = {v: valid_fw[k].sum() for k, v in kg_cols.items()
                         if k in valid_fw.columns and valid_fw[k].sum() > 0}
             if avail_kg:
@@ -408,8 +404,8 @@ Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen 
                               color_discrete_sequence=["#EF4444", "#F97316", "#FBBF24"])
                 fig2.update_layout(**PLOT_LAYOUT)
                 st.plotly_chart(fig2, use_container_width=True)
-                st.caption(f"Källa: food_waste_daily_v2.csv — kg-komponenter, {n_valid} enheter med verifierad komponentdata. "
-                           f"Förskolor exkluderas (komponentkolumner ej tillförlitliga i rådata).")
+                st.caption(f"Källa: food_waste_daily_v2.csv — kg-komponenter, {n_valid} enheter med separata svinnkolumner (skolor + ÄO). "
+                           f"Förskolor exkluderas — de registrerar köks- och serveringssvinn kombinerat i ett eget fält.")
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="chart-box">', unsafe_allow_html=True)
@@ -835,7 +831,7 @@ elif page == "⚠️ Datakvalitet":
 
 ### Vad kan dashboarden inte visa med säkerhet — och varför?
 
-- **Svinn-procent för förskolor** saknas i rådata. Förskolor registrerar inte svinn i procent i svinnbladen. Det är en brist i datainsamlingen, inte i dashboarden. Svinn i kilogram för förskolor finns och ingår i totalsummorna.
+- **Svinntypsfördelning (kök/servering/tallrik) för förskolor** — förskolor registrerar köks- och serveringssvinn kombinerat i Excel-filerna, inte uppdelat. Det går därför inte att beräkna fördelningen kök/servering/tallrik för förskolor utan att ändra registreringsmallen. Svinn-kg och svinn-procent för förskolor finns och ingår i totalsummorna.
 - **Komponentsvinn (kök/servering/tallrik) för förskolor** — dessa kolumner innehåller felaktiga värden för förskolor i rådata (summan är 44 gånger för hög). Dashboarden exkluderar dem i komponentanalysen.
 - **Beställningsprecision** kan inte fullt ut verifieras — 70 % av beställda portioner är identiska med serverade portioner, vilket tyder på att en kopia används istället för verkliga förhandsbeställningar. Analysen visar ändå mönster i de 26 % av fallen med genuina skillnader.
 - **Koppling leverantör → svinn** — det finns ingen länk i data mellan vilken leverantörs råvaror som användes i en specifik rätt. Det går alltså inte att säga att "leverantör X orsakar mer svinn".

@@ -6,16 +6,20 @@ Genererad: 2026-06-11
 
 ## Sammanfattning
 
-Dashboarden har genomgått tre fullständiga QA-iterationer mot rådatan. 14 automatiserade tester passerar med differens <1%. 8 fel identifierades och korrigerades. Databegränsningar är synliga direkt i dashboarden. Dashboarden är tekniskt verifierad och försvarbar för extern granskning.
+Dashboarden har genomgått fyra fullständiga QA-iterationer mot rådatan. 45 automatiserade tester passerar (15 dashboard-QA + 30 parser-tester). Ett grundläggande parserfel identifierades och åtgärdades i iteration 4 — parsern är nu label-baserad och läser korrekt svinn-% för förskolor.
 
 | Kategori | Antal |
 |----------|-------|
-| Automatiserade tester | 14 |
-| Alla PASS | ✅ 14/14 |
-| Korrigerade fel totalt | 8 |
-| Dokumenterade databegränsningar | 6 |
+| Dashboard QA-tester | 15/15 PASS |
+| Parser-tester | 30/30 PASS |
+| Korrigerade fel totalt | 9 |
+| Dokumenterade databegränsningar | 5 |
 | Analyser fullt verifierade | 4 |
 | Analyser verifierade med avgränsning | 4 |
+
+**Kritisk dataändring (iteration 4):**
+Totalt svinn kg ändrades från 24 420 kg → 28 400 kg efter parser-fix.
+Förskolor bidrar nu med korrekt 4 104 kg (var 184 kg pga fel rad i gammal parser).
 
 ---
 
@@ -158,20 +162,81 @@ Dashboarden har genomgått tre fullständiga QA-iterationer mot rådatan. 14 aut
 
 ### Analyser som INTE bör göras med nuvarande rådata
 
-- **Svinn-% för förskolor** — data saknas i källsystemet
-- **Komponentsvinn (kök/servering/tallrik) för förskolor** — opålitliga värden
+- **Separat kök- och serveringssvinn för förskolor** — förskolor registrerar dessa kombinerat
 - **Svinn per leverantör** — inget råvara→rätt-samband i datan
 - **Prognos beställda portioner** — 70% är kopior, inte verkliga prognoser
 - **Näringsvärden för förskolerätter** — näringsfil täcker ej förskola
 
 ---
 
+---
+
+## Iteration 4 — Parser-fix: label-baserad parsning
+
+**Datum:** 2026-06-11 | **Status:** Godkänd
+
+### Identifierat grundläggande parserfel
+
+Den ursprungliga `parse_waste_daily.py` använde hårdkodade radnummer för mätvärden:
+- Rad 11 (index 10) antogs alltid vara kökssvinn-kg
+- Rad 18 (index 17) antogs alltid vara totalt_svinn_pct
+
+**Problemet:** Förskolor har 16 rader i sitt Excel-blad; skolor har 18. Alla mätrader är förskjutna med 2 rader för förskolor. Resultatet var att parsern läste:
+- `totalt_svinn_kg` för förskolor = `Serveringssvinn (%)` (pct-decimal som kg → ~0.02 kg/dag)
+- `totalt_svinn_pct` för förskolor = NaN (rad 18 finns ej för förskola)
+- `tallrikssvinn_kg` för förskolor = faktiskt `totalt_svinn_kg` (lagrad i fel kolumn)
+
+### Hur label-baserad parsning fungerar
+
+Ny parser bygger en `label→rad`-karta baserad på texten i kolumn A:
+```
+normalize_label("Totalt uppmätt matsvinn (kg):") → "totalt uppmätt matsvinn (kg)"
+```
+Värdena läses sedan från rätt rad oavsett radnummer. Dagkolumner detekteras dynamiskt via "Måndag"/"Tisdag" etc. i header-raden.
+
+### Datakolumner som påverkades
+
+| Kolumn | Gammal parser (förskola) | Ny parser (förskola) |
+|--------|-------------------------|---------------------|
+| `totalt_svinn_kg` | Serveringssvinn-% som kg (~0.02) | Faktisk kg-summa (~1.7 kg/dag) |
+| `totalt_svinn_pct` | NaN (2 405 av 2 398 rader) | Korrekt % (6 NaN totalt) |
+| `kokssvinn_kg` | Kombinerat kök+serv (lagrat fel) | None (korrekt — finns ej separat) |
+| `serveringssvinn_kg` | Tallrikssvinn (fel rad) | None (korrekt — finns ej separat) |
+| `tallrikssvinn_kg` | Faktiska totalt_svinn_kg (fel kolumn!) | Faktiska tallrikssvinn |
+| `kok_och_serveringssvinn_kg` | Saknas | Nytt fält — kombinerat format A |
+
+### Konsekvens för dashboard
+
+| KPI | Före | Efter |
+|-----|------|-------|
+| Totalt svinn kg (alla enheter) | 24 420 kg | **28 400 kg** |
+| Förskola svinn kg | 184 kg | **4 104 kg** |
+| Förskola svinn-pct NaN | 2 405 rader | **6 rader** |
+| Väder-korrelation r | −0.29 | **−0.07** |
+
+Väder-korrelationen sjönk från −0.29 till −0.07 eftersom förskole-svinn nu ingår i dagssumman. Förskolor verkar ej följa samma temperaturmönster som skolor/ÄO — detta är ett äkta datamönster, inte ett fel.
+
+### Tester som verifierar parser-fix
+
+| Test | Verifierar |
+|------|-----------|
+| P4–P5 | förskola totalt_svinn_pct är ej NaN |
+| P6–P7 | förskola totalt_svinn_kg är rimliga kg-värden (ej pct-decimaler) |
+| P8–P9 | kokssvinn_kg / serveringssvinn_kg är None för förskola |
+| P10 | kok_och_serveringssvinn_kg finns för förskola |
+| P12–P16 | Äventyrets förskola v.2 Onsdag: 7 specifika värden mot rådata |
+| S9–S14 | Jonstorpsskolan v.2 Onsdag: 6 specifika värden mot rådata |
+| T2 | Förskolor svinn kg > 1 000 (var ~184 med gammal parser) |
+| T3 | kok_och_serveringssvinn_kg finns i CSV |
+
+---
+
 ## Automatiserade tester
 
-Fil: `tests/test_dashboard_qa.py`
-Kör: `python3 tests/test_dashboard_qa.py`
+Fil: `tests/test_dashboard_qa.py`  (15 dashboard-tester)
+Fil: `tests/test_parser.py`         (30 parser-tester)
+Kör: `python3 tests/test_dashboard_qa.py && python3 tests/test_parser.py`
 
-Testar (14 st): V1, V2, V3, V14, V15, V20, V21, V26, väderkorrelation, pie-chart andelar (3), exkluderingsverifiering (3).
 Returnerar exit code 1 om något FAIL.
 
 ---

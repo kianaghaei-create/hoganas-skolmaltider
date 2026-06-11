@@ -503,6 +503,66 @@ Rätter matchas mot näringsvärden från en separat näringsfil via en transpar
             for r in kv_df[kv_df["kvadrant"]=="lag_svinn_hog_protein"].sort_values("protein", ascending=False).head(6).itertuples():
                 st.markdown(f"- {r.ratt_visning} &nbsp; `{r.svinn_g_p}g svinn` `{r.protein}g prot`")
 
+        # ── Funnel expander ──────────────────────────────────────────────────
+        _funnel_path = Path("Data/analysis/kvadrant_funnel.json")
+        _excl_path   = Path("Data/analysis/kvadrant_exclusion_audit.csv")
+        if _funnel_path.exists():
+            with st.expander(f"🔍 Varför visas bara {len(kv_df)} rätter? — Funnel-analys"):
+                import json as _json
+                _fdata = _json.loads(_funnel_path.read_text())
+                _steps = _fdata.get("steps", [])
+
+                st.markdown("""
+**Scatterdiagrammet visar bara rätter med säker näringsmatch och tillräckligt antal observationer.**
+Tabellen nedan spårar varje steg från alla rättnamn i svinndatan till de som visas i diagrammet.
+""")
+                # Tratt-tabell
+                _funnel_rows = []
+                for _s in _steps:
+                    _funnel_rows.append({
+                        "Steg": _s["step"],
+                        "Beskrivning": _s["label"],
+                        "Rätter": _s["ratter"],
+                        "Obs": _s.get("obs", 0),
+                    })
+                st.dataframe(pd.DataFrame(_funnel_rows).set_index("Steg"),
+                             use_container_width=True)
+
+                # Matchningsstatus
+                _mc = _fdata.get("matching_coverage", {})
+                st.markdown(f"""
+**Matchningsgrad:** {_mc.get('matched', 0)} av {_mc.get('total_obs_ge2', 0)} rätter matchades mot näringsfilen
+({_mc.get('match_rate_pct', 0)}%).
+
+**Varför är matchningsgraden låg?**
+Svinndatan använder förkortade rättnamn (`fisk`, `soppa`, `köttbullar` m.fl.) som inte
+entydigt kan kopplas till ett specifikt näringsvärde. Att gissa "fisk" → en specifik fiskrätt
+vore missvisande. Matchning via `dish_name_mapping.csv` kräver hög konfidens.
+""")
+
+                # Topp 10 exkluderade
+                _top10 = _fdata.get("top10_excluded_by_waste_kg", [])
+                if _top10:
+                    st.markdown("**Topp 10 exkluderade rätter (sorterade på total svinn kg):**")
+                    _top10_df = pd.DataFrame(_top10)[
+                        ["matratt_norm", "obs", "total_kg", "svinn_g_p",
+                         "match_status", "exclusion_reason"]
+                    ].rename(columns={
+                        "matratt_norm": "Rättnamn (svinndata)",
+                        "obs": "Obs",
+                        "total_kg": "Total svinn kg",
+                        "svinn_g_p": "g/portion",
+                        "match_status": "Matchstatus",
+                        "exclusion_reason": "Orsak till exkludering",
+                    })
+                    st.dataframe(_top10_df, use_container_width=True, hide_index=True)
+
+                # Länk till exkluderingslista
+                if _excl_path.exists():
+                    _excl_df = pd.read_csv(_excl_path)
+                    st.markdown(f"**Fullständig exkluderingslista:** {len(_excl_df)} rätter "
+                                f"exkluderade (`Data/analysis/kvadrant_exclusion_audit.csv`)")
+
         st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════

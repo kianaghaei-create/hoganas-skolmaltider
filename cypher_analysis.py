@@ -366,6 +366,123 @@ _n_manual   = sum(1 for r in kv_clean if r["match_status"] == "manual_override")
 print(f"  {len(kv_clean)} rätter: {_n_exact} exact, {_n_norm} normalized, {_n_manual} manual_override")
 save("svinn_naring_kvadrant", kv_clean, f"Svinn+näring kvadrant ({len(kv_clean)} rätter, Python-join)")
 
+# ── 14b. Kvadrant funnel audit ────────────────────────────────────────────────
+print("14b. Kvadrant funnel audit...")
+
+# Alla rader med svinn och portioner (oavsett obs-antal)
+_fw_all = pd.read_csv("Data/processed/food_waste_daily_v2.csv")
+_fw_all_b = _fw_all.dropna(subset=["matratt_norm", "serverade_portioner", "totalt_svinn_kg"]).copy()
+_fw_all_b = _fw_all_b[(_fw_all_b["serverade_portioner"] > 0) & (_fw_all_b["totalt_svinn_kg"] > 0)]
+_fw_all_b["_sgp"] = _fw_all_b["totalt_svinn_kg"] * 1000 / _fw_all_b["serverade_portioner"]
+
+_fw_all_agg = _fw_all_b.groupby("matratt_norm").agg(
+    obs     =("_sgp",            "count"),
+    svinn_g_p=("_sgp",           "mean"),
+    total_kg =("totalt_svinn_kg", "sum"),
+).reset_index()
+_fw_all_agg["nutrition_dish"], _fw_all_agg["match_status"] = zip(
+    *_fw_all_agg["matratt_norm"].apply(_match_dish)
+)
+_nr_dict = _nr_agg.rename(columns={"ratt": "nutrition_dish_name"}).set_index("nutrition_dish_name").to_dict("index")
+_fw_all_agg["protein_g"]   = _fw_all_agg["nutrition_dish"].map(lambda x: _nr_dict.get(x,{}).get("protein_g") if x else None)
+_fw_all_agg["energi_kcal"] = _fw_all_agg["nutrition_dish"].map(lambda x: _nr_dict.get(x,{}).get("energi_kcal") if x else None)
+
+_step_c = _fw_all_agg[_fw_all_agg["obs"] >= 2]
+_d_exact   = _step_c[_step_c["match_status"] == "exact"]
+_d_norm    = _step_c[_step_c["match_status"] == "normalized"]
+_d_manual  = _step_c[_step_c["match_status"] == "manual_override"]
+_d_unmatch = _step_c[_step_c["match_status"] == "unmatched"]
+_d_matched = _step_c[_step_c["match_status"] != "unmatched"]
+_e_fail    = _d_matched[_d_matched["protein_g"].fillna(0) < 5]
+_f_fail    = _d_matched[(_d_matched["protein_g"].fillna(0) >= 5) & (_d_matched["energi_kcal"].fillna(0) < 150)]
+
+_g_names   = {r["komponent"] for r in kv_clean}
+
+_funnel = {
+    "generated": "2026-06-11",
+    "steps": [
+        {"step": "A", "label": "Alla unika matratt_norm i svinndatan",
+         "ratter": int(_fw_all["matratt_norm"].nunique()),
+         "obs":    int(_fw_all["matratt_norm"].notna().sum())},
+        {"step": "B", "label": "Har svinn>0 och portioner>0",
+         "ratter": int(_fw_all_b["matratt_norm"].nunique()),
+         "obs":    int(len(_fw_all_b))},
+        {"step": "C", "label": "Minst 2 observationer",
+         "ratter": int(len(_step_c)),
+         "obs":    int(_step_c["obs"].sum())},
+        {"step": "D_exact",      "label": "Matchad exact",
+         "ratter": int(len(_d_exact)),   "obs": int(_d_exact["obs"].sum())},
+        {"step": "D_normalized", "label": "Matchad normalized",
+         "ratter": int(len(_d_norm)),    "obs": int(_d_norm["obs"].sum())},
+        {"step": "D_manual",     "label": "Matchad manual_override",
+         "ratter": int(len(_d_manual)),  "obs": int(_d_manual["obs"].sum())},
+        {"step": "D_unmatched",  "label": "Omatchad (generisk förkortning)",
+         "ratter": int(len(_d_unmatch)), "obs": int(_d_unmatch["obs"].sum())},
+        {"step": "E_fail",       "label": "Protein < 5g",
+         "ratter": int(len(_e_fail)),    "obs": int(_e_fail["obs"].sum()) if len(_e_fail) else 0},
+        {"step": "F_fail",       "label": "Kcal < 150",
+         "ratter": int(len(_f_fail)),    "obs": int(_f_fail["obs"].sum()) if len(_f_fail) else 0},
+        {"step": "G",            "label": "Visas i kvadrantdiagrammet",
+         "ratter": int(len(kv_clean)),
+         "obs":    int(sum(r["obs"] for r in kv_clean))},
+    ],
+    "matching_coverage": {
+        "total_obs_ge2":    int(len(_step_c)),
+        "matched":          int(len(_d_matched)),
+        "unmatched":        int(len(_d_unmatch)),
+        "match_rate_pct":   round(len(_d_matched) / len(_step_c) * 100, 1) if len(_step_c) else 0,
+    },
+    "top10_excluded_by_waste_kg": [],
+}
+
+# Top 10 exkluderade (obs>=2 men inte i G)
+_excl_c = _step_c[~_step_c["nutrition_dish"].isin(_g_names)].sort_values("total_kg", ascending=False)
+def _exc_reason(row):
+    if row["match_status"] == "unmatched":
+        return "unmatched_nutrition"
+    if (row["protein_g"] or 0) < 5:
+        return "protein_below_5"
+    if (row["energi_kcal"] or 0) < 150:
+        return "energy_below_150"
+    return "aggregated_into_other_dish"
+
+_funnel["top10_excluded_by_waste_kg"] = [
+    {"matratt_norm": r["matratt_norm"], "obs": int(r["obs"]),
+     "total_kg": round(float(r["total_kg"]), 1),
+     "svinn_g_p": round(float(r["svinn_g_p"]), 1),
+     "match_status": r["match_status"],
+     "nutrition_dish": r["nutrition_dish"] or "",
+     "protein_g": round(float(r["protein_g"]), 1) if r["protein_g"] is not None else None,
+     "energi_kcal": round(float(r["energi_kcal"]), 1) if r["energi_kcal"] is not None else None,
+     "exclusion_reason": _exc_reason(r)}
+    for _, r in _excl_c.head(10).iterrows()
+]
+
+save("kvadrant_funnel", _funnel, "Kvadrant funnel audit (A→G)")
+
+# Exkluderingslista CSV
+def _full_exc_reason(row):
+    if row["obs"] < 2:
+        return "fewer_than_2_observations"
+    if row["match_status"] == "unmatched":
+        return "unmatched_nutrition"
+    if (row["protein_g"] or 0) < 5:
+        return "protein_below_5"
+    if (row["energi_kcal"] or 0) < 150:
+        return "energy_below_150"
+    if row["nutrition_dish"] in _g_names:
+        return ""
+    return "aggregated_into_other_dish"
+
+_fw_all_agg["exclusion_reason"] = _fw_all_agg.apply(_full_exc_reason, axis=1)
+_exc_csv = _fw_all_agg[_fw_all_agg["exclusion_reason"] != ""].copy()
+_exc_csv = _exc_csv.sort_values("total_kg", ascending=False)
+_exc_csv.rename(columns={"nutrition_dish": "matched_nutrition_dish"})[
+    ["matratt_norm","obs","total_kg","svinn_g_p","match_status",
+     "matched_nutrition_dish","protein_g","energi_kcal","exclusion_reason"]
+].to_csv(OUT / "kvadrant_exclusion_audit.csv", index=False, float_format="%.1f")
+print(f"  ✅ kvadrant_exclusion_audit.csv: {len(_exc_csv)} exkluderade rätter")
+
 # ── 15. Svinn + näring per rätt (utökad tabell) ──────────────────────────────
 print("15. Svinn + näring per rätt (utökad)...")
 save("svinn_naring_per_ratt", cypher("""

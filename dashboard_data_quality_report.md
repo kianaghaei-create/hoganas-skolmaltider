@@ -15,9 +15,9 @@ Genererad: 2026-06-11
 | Verifierad normaliserad dataset | `Data/processed/food_waste_daily_v2.csv` |
 | Neo4j-status | Synkad mot CSV — 4 660 Dag-noder, 0 orphan-noder |
 | Total verifierad svinnmängd | 28 400 kg |
-| Cypher-analyser | 17 regenererade från synkad Neo4j |
-| Tester | **101/101 PASS** |
-| Kvarvarande avgränsning | Kvadrantanalysen är PASS MED AVGRÄNSNING — täckning begränsad av matratt_norm-täckning i svinndatan (30 rätter med obs≥2, Python-join via dish_name_mapping.csv) |
+| Cypher-analyser | 17+1 (inkl. funnel audit) regenererade från synkad Neo4j |
+| Tester | **alla PASS** (19 dashboard + alla AI/Cypher inkl. 11 funnel-tester) |
+| Kvarvarande avgränsning | Kvadrantanalysen är PASS MED AVGRÄNSNING — 30/220 rätter matchas (18.6%). 179 rätter omatchade pga generiska förkortningar i svinndatan (`fisk`, `soppa` m.fl.). Funnel A→G dokumenterad i `kvadrant_funnel.json`. |
 | Senaste verifieringsdatum | 2026-06-11 |
 
 **Regel:** Följande komponenter är låsta. Varje ändring kräver att hela testsviten (`test_dashboard_qa.py && test_parser.py && test_ai_cypher_qa.py`) körs om och att resultatet dokumenteras i denna rapport med datum och utfall:
@@ -317,6 +317,7 @@ Purchases-kedja: `purchases.csv (råkälla) → Data/analysis/*.json → Dashboa
 | C6b-test förväntade 116 rätter (gammal join) | Test uppdaterat till >=50 rätter (62 rätter via SERVERADE, obs>=2) | ✅ Åtgärdat |
 | Pulled pork försvann ur kvadrantdiagrammet (HAR_NARING-sökvägen missar 499/762 Ratt-noder) | Analys 14 omskriven till Python-join via dish_name_mapping.csv — 30 rätter (inkl. Pulled pork) | ✅ Åtgärdat 2026-06-11 |
 | C6b-test förväntade >=50 rätter (nu 30 via Python-join) | Test uppdaterat till >=20 rätter, nya tester C6e–C6h verifierar Pulled pork och match_status | ✅ Åtgärdat 2026-06-11 |
+| Oklart varför bara 30 rätter visas i kvadranten | Funnel audit A→G: 762→732→220→41→30. 179/220 rätter omatchade pga generiska förkortningar. Dokumenterat i kvadrant_funnel.json + kvadrant_exclusion_audit.csv | ✅ Dokumenterat 2026-06-11 |
 | Ingen Neo4j vs CSV-validering i testssviten | BLOCK 4 (N1–N9) tillagd i test_ai_cypher_qa.py — 9 tester, alla PASS | ✅ Åtgärdat |
 
 ### Neo4j vs CSV — valideringsresultat (Steg 4)

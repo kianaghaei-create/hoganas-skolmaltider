@@ -1,0 +1,694 @@
+matratt_norm,obs,total_kg,svinn_g_p,match_status,matched_nutrition_dish,protein_g,energi_kcal,exclusion_reason
+fisk,131,1152.4,27.1,unmatched,,,,unmatched_nutrition
+soppa,82,622.3,26.4,unmatched,,,,unmatched_nutrition
+fiskgratäng,40,315.8,34.2,unmatched,,,,unmatched_nutrition
+köttbullar,55,309.1,26.0,unmatched,,,,unmatched_nutrition
+lasagne,45,292.4,29.9,unmatched,,,,unmatched_nutrition
+pytt,36,230.7,30.3,unmatched,,,,unmatched_nutrition
+kyckling,22,212.2,29.4,unmatched,,,,unmatched_nutrition
+schnitzel,38,208.6,27.3,unmatched,,,,unmatched_nutrition
+pastabuffe,14,193.7,32.9,unmatched,,,,unmatched_nutrition
+kebabpytt,12,176.8,51.4,unmatched,,,,unmatched_nutrition
+tikka,10,167.5,37.9,unmatched,,,,unmatched_nutrition
+korvgryta,14,159.1,33.5,unmatched,,,,unmatched_nutrition
+köttfärslimpa,19,158.8,30.5,unmatched,,,,unmatched_nutrition
+pastagratäng,21,155.4,44.5,unmatched,,,,unmatched_nutrition
+korv,22,151.9,26.3,unmatched,,,,unmatched_nutrition
+pytt i panna,35,151.4,30.0,unmatched,,,,unmatched_nutrition
+pasta,22,126.0,29.2,unmatched,,,,unmatched_nutrition
+tikka masala,21,125.8,27.6,unmatched,,,,unmatched_nutrition
+tacos,16,123.8,29.9,unmatched,,,,unmatched_nutrition
+färsrätt,18,119.5,32.3,unmatched,,,,unmatched_nutrition
+kassler,15,112.0,28.5,unmatched,,,,unmatched_nutrition
+potatisbullar,18,107.0,30.7,unmatched,,,,unmatched_nutrition
+"fisk,pot",32,104.9,42.7,unmatched,,,,unmatched_nutrition
+korv mos,8,99.0,32.6,unmatched,,,,unmatched_nutrition
+kycklinggryta,12,89.9,29.7,unmatched,,,,unmatched_nutrition
+panerad fisk,15,84.8,20.1,unmatched,,,,unmatched_nutrition
+pasta baconsås,5,83.7,35.8,unmatched,,,,unmatched_nutrition
+köttfärssås,28,81.5,25.9,unmatched,,,,unmatched_nutrition
+ky wok,3,77.8,43.6,unmatched,,,,unmatched_nutrition
+falukorv mos,3,70.8,39.7,unmatched,,,,unmatched_nutrition
+mex köttfärs,4,68.6,37.9,unmatched,,,,unmatched_nutrition
+kycklingfile,7,65.7,38.3,unmatched,,,,unmatched_nutrition
+lasagnette,8,65.6,32.0,unmatched,,,,unmatched_nutrition
+köttsoppa,5,60.6,46.5,manual_override,Kött- och grönsakssoppa ÄO,12.3,134.8,energy_below_150
+chili con carne,12,59.6,28.5,unmatched,,,,unmatched_nutrition
+spaghetti köttfärsås,3,58.0,33.6,unmatched,,,,unmatched_nutrition
+moussaka,6,56.6,38.5,unmatched,,,,unmatched_nutrition
+ky korvgryta,2,52.6,41.3,unmatched,,,,unmatched_nutrition
+chilicon,2,51.6,40.5,unmatched,,,,unmatched_nutrition
+spagetti hetsås,3,50.9,76.4,unmatched,,,,unmatched_nutrition
+"quornbiff, mos",2,50.0,74.7,unmatched,,,,unmatched_nutrition
+qournbiff,3,49.9,33.3,unmatched,,,,unmatched_nutrition
+spag ksås,2,49.7,40.3,unmatched,,,,unmatched_nutrition
+järpar,3,48.2,33.5,unmatched,,,,unmatched_nutrition
+vårrullar,6,47.9,49.6,unmatched,,,,unmatched_nutrition
+"pasta,baconsås",5,47.3,45.7,unmatched,,,,unmatched_nutrition
+fisk kallsås,2,47.0,56.0,unmatched,,,,unmatched_nutrition
+"spenat,fisk",2,45.7,57.6,unmatched,,,,unmatched_nutrition
+pasta papsås,2,45.5,43.2,unmatched,,,,unmatched_nutrition
+korv stroganoff,9,45.0,16.9,unmatched,,,,unmatched_nutrition
+pyttipanna,15,44.9,39.3,unmatched,,,,unmatched_nutrition
+snitzel,9,44.6,23.4,unmatched,,,,unmatched_nutrition
+färssoppa,2,44.2,39.3,unmatched,,,,unmatched_nutrition
+taco,7,43.7,31.4,unmatched,,,,unmatched_nutrition
+bordelaise,3,43.1,49.7,unmatched,,,,unmatched_nutrition
+kött soppa,2,42.8,39.6,unmatched,,,,unmatched_nutrition
+korv pasta,6,42.6,27.3,unmatched,,,,unmatched_nutrition
+skinkstek,6,41.5,29.8,unmatched,,,,unmatched_nutrition
+nobel,4,41.4,33.0,unmatched,,,,unmatched_nutrition
+köttfärsgryta,7,41.3,25.9,unmatched,,,,unmatched_nutrition
+biffstroganoff,3,41.0,31.9,unmatched,,,,unmatched_nutrition
+soppbuffe,2,40.3,17.9,unmatched,,,,unmatched_nutrition
+stekt kyckl,2,40.0,47.6,unmatched,,,,unmatched_nutrition
+sprödbakad fisk,3,39.5,27.2,unmatched,,,,unmatched_nutrition
+pasta paprikasås,2,39.0,35.7,unmatched,,,,unmatched_nutrition
+spaghetti het sås,2,39.0,34.5,unmatched,,,,unmatched_nutrition
+lasagnettegratäng,3,38.9,35.2,unmatched,,,,unmatched_nutrition
+kyckling gryta,3,38.7,34.6,unmatched,,,,unmatched_nutrition
+chiliconcarne,4,37.1,37.1,unmatched,,,,unmatched_nutrition
+"fiskgratäng,pot",2,37.0,39.0,unmatched,,,,unmatched_nutrition
+stekt fisk,2,37.0,32.1,unmatched,,,,unmatched_nutrition
+"pasta,paprikasås",4,36.0,69.8,unmatched,,,,unmatched_nutrition
+hetfärssoppa,1,34.3,92.7,unmatched,,,,fewer_than_2_observations
+korvstroganoff,6,33.5,34.6,unmatched,,,,unmatched_nutrition
+pasta buffe,3,33.2,22.4,unmatched,,,,unmatched_nutrition
+kassler currytäcke,2,33.1,37.1,unmatched,,,,unmatched_nutrition
+stekt kyckling,7,31.7,49.6,unmatched,,,,unmatched_nutrition
+"korv,mos",5,31.4,44.2,unmatched,,,,unmatched_nutrition
+frasig burgare,3,31.4,29.4,unmatched,,,,unmatched_nutrition
+vårrulle,1,30.5,71.3,unmatched,,,,fewer_than_2_observations
+stroganoff,3,30.2,33.8,unmatched,,,,unmatched_nutrition
+"kyckl,gryta",1,30.0,63.0,unmatched,,,,fewer_than_2_observations
+paneradtorsk,1,30.0,69.0,unmatched,,,,fewer_than_2_observations
+"korv, mos",4,29.9,34.9,unmatched,,,,unmatched_nutrition
+mexicanskgr,1,29.2,67.9,unmatched,,,,fewer_than_2_observations
+"pasta,papsås",1,29.0,74.0,unmatched,,,,fewer_than_2_observations
+ost och skinksås,2,29.0,102.4,unmatched,,,,unmatched_nutrition
+burgare,4,28.8,27.2,unmatched,,,,unmatched_nutrition
+"snitzel,sås pot",1,28.7,75.3,unmatched,,,,fewer_than_2_observations
+spaghetti,8,28.3,27.5,unmatched,,,,unmatched_nutrition
+"fisk, dillsås",1,28.0,64.4,unmatched,,,,fewer_than_2_observations
+"cornffisk, gräsl",1,27.9,79.7,unmatched,,,,fewer_than_2_observations
+"stektfaluk,mos",1,27.1,72.1,unmatched,,,,fewer_than_2_observations
+rotpytt,1,27.0,48.4,unmatched,,,,fewer_than_2_observations
+spag köttsås,1,26.8,43.0,unmatched,,,,fewer_than_2_observations
+"kö,grsoppa",1,26.7,70.6,unmatched,,,,fewer_than_2_observations
+biff stroganoff,5,26.6,22.7,unmatched,,,,unmatched_nutrition
+"kassler,potgra",1,26.5,70.1,unmatched,,,,fewer_than_2_observations
+västerhavs,1,26.4,64.9,unmatched,,,,fewer_than_2_observations
+lasangnette,1,26.3,40.0,unmatched,,,,fewer_than_2_observations
+fiskgryta,3,26.2,27.5,unmatched,,,,unmatched_nutrition
+soppbufee,1,26.1,45.4,unmatched,,,,fewer_than_2_observations
+"falafel,couscous",1,26.0,81.2,unmatched,,,,fewer_than_2_observations
+het korvgryta,2,26.0,41.7,unmatched,,,,unmatched_nutrition
+rotfruktspytt,4,26.0,36.9,normalized,Rotfruktspytt med kyckling serveras med mangosås,11.8,78.6,energy_below_150
+korvstrogamoff,1,25.9,40.9,unmatched,,,,fewer_than_2_observations
+cowsoppa,1,25.7,41.4,manual_override,Cowboysoppa,13.8,245.7,fewer_than_2_observations
+husetsfisk,1,25.7,68.9,unmatched,,,,fewer_than_2_observations
+pasta skinksås,1,25.2,39.5,unmatched,,,,fewer_than_2_observations
+korvstrog,1,25.1,37.6,unmatched,,,,fewer_than_2_observations
+spag k sås,1,25.1,38.7,unmatched,,,,fewer_than_2_observations
+cowboy,1,25.1,40.9,unmatched,,,,fewer_than_2_observations
+chili,3,25.0,29.1,unmatched,,,,unmatched_nutrition
+fiskbordelaise,1,25.0,79.4,unmatched,,,,fewer_than_2_observations
+"köttbull,mos",1,24.8,55.7,unmatched,,,,fewer_than_2_observations
+winerkov pasta,1,24.6,40.0,unmatched,,,,fewer_than_2_observations
+thai gryta,1,24.5,49.9,unmatched,,,,fewer_than_2_observations
+pasta brocsås,1,24.5,43.4,unmatched,,,,fewer_than_2_observations
+ky wol,1,24.5,42.0,unmatched,,,,fewer_than_2_observations
+med. lasagne,1,24.5,41.5,unmatched,,,,fewer_than_2_observations
+sv mousaka,1,24.3,39.1,unmatched,,,,fewer_than_2_observations
+kyfajitas,1,24.3,41.2,unmatched,,,,fewer_than_2_observations
+mustigtomatgryt,1,24.2,72.7,unmatched,,,,fewer_than_2_observations
+köttbullar mos,1,24.0,36.2,unmatched,,,,fewer_than_2_observations
+vårullar,1,23.9,37.3,unmatched,,,,fewer_than_2_observations
+"spagetti,köttfärssås",2,23.9,63.6,unmatched,,,,unmatched_nutrition
+cowboysopp,1,23.8,56.7,manual_override,Cowboysoppa,13.8,245.7,fewer_than_2_observations
+falafelbiff,2,23.8,37.9,unmatched,,,,unmatched_nutrition
+wienerkov.mos,1,23.8,60.1,unmatched,,,,fewer_than_2_observations
+köketsval,1,23.4,43.1,unmatched,,,,fewer_than_2_observations
+kyckl lasagne,1,23.4,57.2,unmatched,,,,fewer_than_2_observations
+"wienwrk,makaro",1,23.3,64.9,unmatched,,,,fewer_than_2_observations
+"potbull, korv",1,23.2,43.6,unmatched,,,,fewer_than_2_observations
+kycklingfajitas,4,23.2,40.6,unmatched,,,,unmatched_nutrition
+veg paprikasås pasta,1,23.1,64.3,unmatched,,,,fewer_than_2_observations
+currysoppa,1,23.1,41.7,unmatched,,,,fewer_than_2_observations
+thaigryta med kyckling,1,23.0,38.9,unmatched,,,,fewer_than_2_observations
+lasangette,1,23.0,44.1,unmatched,,,,fewer_than_2_observations
+kyckling curry,5,22.9,37.8,unmatched,,,,unmatched_nutrition
+"fiskburgare,mos",2,22.8,39.3,unmatched,,,,unmatched_nutrition
+kalkonsz,1,22.7,47.8,unmatched,,,,fewer_than_2_observations
+paneradfisk,1,22.7,56.3,unmatched,,,,fewer_than_2_observations
+pasta gratäng,2,22.7,23.4,unmatched,,,,unmatched_nutrition
+"sprödb,fisk",1,22.3,48.9,unmatched,,,,fewer_than_2_observations
+pullrdpork,1,22.3,39.8,unmatched,,,,fewer_than_2_observations
+"pasta,skinksås",2,22.2,42.0,unmatched,,,,unmatched_nutrition
+kalkonsnitzel,1,22.0,32.9,unmatched,,,,fewer_than_2_observations
+ärtsopppa,1,22.0,35.2,unmatched,,,,fewer_than_2_observations
+nasigroreng,1,22.0,37.2,unmatched,,,,fewer_than_2_observations
+corfnflakesfisk,1,22.0,35.3,unmatched,,,,fewer_than_2_observations
+fiskgratänf,1,22.0,45.0,unmatched,,,,fewer_than_2_observations
+pasta bacosås,1,22.0,33.5,unmatched,,,,fewer_than_2_observations
+ky lasagne,1,21.9,36.7,unmatched,,,,fewer_than_2_observations
+lasagnette veg,1,21.8,62.3,unmatched,,,,fewer_than_2_observations
+minestronesop,1,21.8,53.8,manual_override,Minestronesoppa ÄO,9.8,342.5,fewer_than_2_observations
+kr wok,1,21.6,33.4,unmatched,,,,fewer_than_2_observations
+potbullar,2,21.6,33.9,unmatched,,,,unmatched_nutrition
+veg sås,1,21.5,44.9,unmatched,,,,fewer_than_2_observations
+spag. köttf.sås,1,21.4,36.2,unmatched,,,,fewer_than_2_observations
+ostgratinerad korv,2,21.4,21.3,unmatched,,,,unmatched_nutrition
+"köttbullar,pasta",1,21.3,46.2,unmatched,,,,fewer_than_2_observations
+blandat,1,21.3,35.2,unmatched,,,,fewer_than_2_observations
+ky gryta,1,21.3,37.2,unmatched,,,,fewer_than_2_observations
+kycklingkorvgryta,6,21.2,23.6,unmatched,,,,unmatched_nutrition
+sweetchilifisk,2,21.1,39.6,unmatched,,,,unmatched_nutrition
+hetsås,1,21.1,43.5,unmatched,,,,fewer_than_2_observations
+korvstroga,1,21.1,47.6,unmatched,,,,fewer_than_2_observations
+spaghetti köttfärsssås,1,21.0,39.8,unmatched,,,,fewer_than_2_observations
+veg chili con carne,1,21.0,35.5,unmatched,,,,fewer_than_2_observations
+"grat,sej ,pot",1,21.0,52.5,unmatched,,,,fewer_than_2_observations
+korv.mos,6,20.9,27.2,unmatched,,,,unmatched_nutrition
+pasta broccolis,1,20.9,47.2,unmatched,,,,fewer_than_2_observations
+nasigor,1,20.8,62.1,unmatched,,,,fewer_than_2_observations
+järpar sås pot,1,20.7,46.1,unmatched,,,,fewer_than_2_observations
+blomk soppa,1,20.5,89.5,unmatched,,,,fewer_than_2_observations
+fajita,1,20.5,46.3,unmatched,,,,fewer_than_2_observations
+"spaghetti, köttfärssås",3,20.4,35.3,unmatched,,,,unmatched_nutrition
+"fisk,remou",1,20.3,52.2,unmatched,,,,fewer_than_2_observations
+köttf limpa,1,20.3,36.8,unmatched,,,,fewer_than_2_observations
+lillsnitzel,1,20.0,34.7,unmatched,,,,fewer_than_2_observations
+chilifisk,1,20.0,40.3,unmatched,,,,fewer_than_2_observations
+spaghetti och köttfärsås,1,20.0,35.7,unmatched,,,,fewer_than_2_observations
+"spagetti,köttfä",1,20.0,42.6,unmatched,,,,fewer_than_2_observations
+hamburgare med bröd,1,20.0,36.0,unmatched,,,,fewer_than_2_observations
+"köttbullar,pot",1,20.0,35.7,unmatched,,,,fewer_than_2_observations
+fiskrätt,4,19.9,27.2,unmatched,,,,unmatched_nutrition
+kassler m chili,1,19.9,41.4,unmatched,,,,fewer_than_2_observations
+sprödb fisk,1,19.5,43.7,unmatched,,,,fewer_than_2_observations
+"pasta,sås",2,19.3,27.9,unmatched,,,,unmatched_nutrition
+kababpytt,1,19.0,39.6,unmatched,,,,fewer_than_2_observations
+torsk med dillsås,1,19.0,36.0,unmatched,,,,fewer_than_2_observations
+het tomatgryta,1,19.0,36.3,unmatched,,,,fewer_than_2_observations
+"kyckling,sås pot",1,19.0,37.8,unmatched,,,,fewer_than_2_observations
+blomkålssoppa,4,18.9,23.0,unmatched,,,,unmatched_nutrition
+"kyckl,curry",1,18.8,69.6,unmatched,,,,fewer_than_2_observations
+torsk,2,18.8,25.0,unmatched,,,,unmatched_nutrition
+frasigburgare,1,18.6,46.2,unmatched,,,,fewer_than_2_observations
+"kyckl,wok",1,18.4,49.3,unmatched,,,,fewer_than_2_observations
+"falukorv,mos",2,18.3,25.1,unmatched,,,,unmatched_nutrition
+pasta sallad,2,18.1,18.0,unmatched,,,,unmatched_nutrition
+fisk kall sås,1,18.0,37.5,unmatched,,,,fewer_than_2_observations
+fisk spenat,1,18.0,32.1,unmatched,,,,fewer_than_2_observations
+"kcykling,pot",1,18.0,32.1,unmatched,,,,fewer_than_2_observations
+"skinkstek,pot,sås",1,18.0,41.7,unmatched,,,,fewer_than_2_observations
+"blomkål, broccolisoppa",1,18.0,34.9,unmatched,,,,fewer_than_2_observations
+korv potatismos,1,18.0,33.1,unmatched,,,,fewer_than_2_observations
+kött o grönsakssoppa,1,18.0,37.5,unmatched,,,,fewer_than_2_observations
+pasta ost och skinksås,1,18.0,31.5,unmatched,,,,fewer_than_2_observations
+"spagettti,köttfärs",1,18.0,37.5,unmatched,,,,fewer_than_2_observations
+potatisbullar korv,1,18.0,37.5,unmatched,,,,fewer_than_2_observations
+"tikamasala,ris",1,18.0,33.7,unmatched,,,,fewer_than_2_observations
+"spag,köttfsås",1,17.7,35.3,unmatched,,,,fewer_than_2_observations
+pan fisk kallså,1,17.7,36.8,unmatched,,,,fewer_than_2_observations
+mexikansk färs,1,17.7,40.9,unmatched,,,,fewer_than_2_observations
+lasagne kyckling,1,17.7,50.7,unmatched,,,,fewer_than_2_observations
+fiskgratäng mos,1,17.4,47.9,unmatched,,,,fewer_than_2_observations
+torsk remoulade,1,17.4,47.4,unmatched,,,,fewer_than_2_observations
+gratinerad sej,2,17.3,29.8,unmatched,,,,unmatched_nutrition
+lasagnette gratä,1,17.1,59.4,unmatched,,,,fewer_than_2_observations
+pan fisk remolade,1,17.0,32.2,unmatched,,,,fewer_than_2_observations
+"korvgryta,ris",1,17.0,30.4,unmatched,,,,fewer_than_2_observations
+"hamburgare,",1,17.0,30.0,unmatched,,,,fewer_than_2_observations
+lasange,1,17.0,32.2,unmatched,,,,fewer_than_2_observations
+pstagratäng,1,17.0,32.2,unmatched,,,,fewer_than_2_observations
+gulaschsopp,1,17.0,42.2,manual_override,Gulaschsoppa timbal,12.6,232.8,fewer_than_2_observations
+"pasta, paprikasås",1,17.0,35.4,unmatched,,,,fewer_than_2_observations
+nudlar kycklingwok,1,17.0,32.2,unmatched,,,,fewer_than_2_observations
+veg vårrullar,1,17.0,32.2,unmatched,,,,fewer_than_2_observations
+järpar brunsås,1,16.7,46.0,unmatched,,,,fewer_than_2_observations
+veg nasigo,1,16.6,47.2,unmatched,,,,fewer_than_2_observations
+p fisk,1,16.6,45.7,unmatched,,,,fewer_than_2_observations
+spagetti köttf,1,16.6,33.1,unmatched,,,,fewer_than_2_observations
+quornbiffar,2,16.6,20.2,unmatched,,,,unmatched_nutrition
+"falafel,tomatså",1,16.5,49.0,unmatched,,,,fewer_than_2_observations
+blomkål/broccolisoppa,2,16.4,19.6,unmatched,,,,unmatched_nutrition
+"wienerk,pasta",1,16.3,38.6,unmatched,,,,fewer_than_2_observations
+julmat,4,16.2,38.7,unmatched,,,,unmatched_nutrition
+"hamburgare,br",1,16.1,39.6,unmatched,,,,fewer_than_2_observations
+gryta,5,16.0,32.2,unmatched,,,,unmatched_nutrition
+pasta kycklingsås,1,16.0,30.3,unmatched,,,,fewer_than_2_observations
+fiak,1,16.0,32.7,unmatched,,,,fewer_than_2_observations
+buffe,1,15.9,32.2,unmatched,,,,fewer_than_2_observations
+korvgryta ris,1,15.9,42.4,unmatched,,,,fewer_than_2_observations
+fajitas,5,15.5,25.1,unmatched,,,,unmatched_nutrition
+"köttbullar,mos",2,15.3,25.8,unmatched,,,,unmatched_nutrition
+pantorsk kpot,1,15.2,44.4,unmatched,,,,fewer_than_2_observations
+pan fisk kpot,1,15.2,38.9,unmatched,,,,fewer_than_2_observations
+"kb,sås, pot",1,15.1,34.3,unmatched,,,,fewer_than_2_observations
+kyckling gräddsås,1,14.9,40.7,unmatched,,,,fewer_than_2_observations
+bl/br soppa,1,14.7,41.9,unmatched,,,,fewer_than_2_observations
+panko fisk.kpot,1,14.6,42.0,unmatched,,,,fewer_than_2_observations
+veglasagne,1,14.6,41.7,unmatched,,,,fewer_than_2_observations
+"pannbiff,pot",4,14.6,32.5,unmatched,,,,unmatched_nutrition
+spagetti köttfärssås,2,14.3,37.8,unmatched,,,,unmatched_nutrition
+faijitas,1,14.2,38.9,unmatched,,,,fewer_than_2_observations
+veg burger,1,14.1,29.4,unmatched,,,,fewer_than_2_observations
+pytt ipanna,1,14.0,37.4,unmatched,,,,fewer_than_2_observations
+köttbullar makaroner,1,13.8,36.3,unmatched,,,,fewer_than_2_observations
+färsrätt brunsås,1,13.8,37.9,unmatched,,,,fewer_than_2_observations
+ost/skinksås,2,13.7,32.7,unmatched,,,,unmatched_nutrition
+köttfärs sås,1,13.1,26.1,unmatched,,,,fewer_than_2_observations
+veg lasagne,1,12.8,26.3,unmatched,,,,fewer_than_2_observations
+lasagnett,6,12.5,42.9,unmatched,,,,unmatched_nutrition
+kyckling wok,1,12.4,25.2,unmatched,,,,fewer_than_2_observations
+"rotpytt,kyckl",1,12.1,137.5,unmatched,,,,fewer_than_2_observations
+pasta hetsås,1,11.5,28.9,unmatched,,,,fewer_than_2_observations
+spag vegsås,1,11.4,20.3,unmatched,,,,fewer_than_2_observations
+"fisk,mos",4,11.0,38.1,unmatched,,,,unmatched_nutrition
+cowboyssoppa,1,10.6,32.0,manual_override,Cowboysoppa,13.8,245.7,fewer_than_2_observations
+"mos,korv",6,10.5,33.9,unmatched,,,,unmatched_nutrition
+kottbullar,1,10.3,20.8,unmatched,,,,fewer_than_2_observations
+spenat fisk,1,9.9,26.8,unmatched,,,,fewer_than_2_observations
+pasta sås,7,9.7,16.7,unmatched,,,,unmatched_nutrition
+curry,1,9.4,19.3,unmatched,,,,fewer_than_2_observations
+"kalops,pot",1,9.0,20.1,unmatched,,,,fewer_than_2_observations
+ugnspannkaka,7,8.7,39.2,unmatched,,,,unmatched_nutrition
+kalopps,2,8.7,74.4,unmatched,,,,unmatched_nutrition
+mårten gås,1,8.5,23.5,unmatched,,,,fewer_than_2_observations
+"stroanoff,ris",1,8.3,50.3,unmatched,,,,fewer_than_2_observations
+köttbullar.sås.,1,8.0,41.0,unmatched,,,,fewer_than_2_observations
+"korv,  mos",1,8.0,24.3,unmatched,,,,fewer_than_2_observations
+winerkorv,1,8.0,190.5,unmatched,,,,fewer_than_2_observations
+midsommarmat,4,8.0,29.1,unmatched,,,,unmatched_nutrition
+"fisk,spenat",2,7.8,36.1,unmatched,,,,unmatched_nutrition
+al forno,1,7.5,15.5,unmatched,,,,fewer_than_2_observations
+"fiskgratäng,mos",2,7.3,53.7,unmatched,,,,unmatched_nutrition
+kökets val,6,7.2,32.4,unmatched,,,,unmatched_nutrition
+"spag,köttf",5,7.2,32.0,unmatched,,,,unmatched_nutrition
+"kykling,pot",3,7.1,48.3,unmatched,,,,unmatched_nutrition
+"pasta,korv",5,6.8,40.5,unmatched,,,,unmatched_nutrition
+fisk.mos,2,6.8,28.8,unmatched,,,,unmatched_nutrition
+nudelwok,2,6.8,33.9,unmatched,,,,unmatched_nutrition
+"ärtsoppa,pa",1,6.6,140.4,unmatched,,,,fewer_than_2_observations
+kyklingwook,4,6.5,30.0,unmatched,,,,unmatched_nutrition
+"spagetti, köttfärssås",2,6.3,99.7,unmatched,,,,unmatched_nutrition
+kött-och grösakssoppa,1,6.2,79.5,unmatched,,,,fewer_than_2_observations
+färslimpa,2,6.0,35.2,unmatched,,,,unmatched_nutrition
+bruna bönor,2,5.9,26.8,unmatched,,,,unmatched_nutrition
+studiedag,1,5.7,72.2,unmatched,,,,fewer_than_2_observations
+påskmat,2,5.6,49.1,unmatched,,,,unmatched_nutrition
+ris tomatsås,1,5.5,112.2,unmatched,,,,fewer_than_2_observations
+gryta.ris,2,5.3,32.5,unmatched,,,,unmatched_nutrition
+nasigoräng,1,5.3,86.9,unmatched,,,,fewer_than_2_observations
+lassagne,2,5.1,60.0,unmatched,,,,unmatched_nutrition
+lassagnette,1,5.0,111.1,unmatched,,,,fewer_than_2_observations
+grönsakssopp,1,5.0,96.2,manual_override,Redd grönsakssoppa ÄO,6.7,193.2,fewer_than_2_observations
+"fiskg,pot",2,5.0,49.3,unmatched,,,,unmatched_nutrition
+kyckling currysås,1,5.0,96.2,unmatched,,,,fewer_than_2_observations
+sommarmat,1,4.9,76.6,unmatched,,,,fewer_than_2_observations
+pasta med paprikasås,2,4.9,54.1,unmatched,,,,unmatched_nutrition
+panerad torsk,4,4.8,23.0,unmatched,,,,unmatched_nutrition
+"kyckling, currysås",4,4.8,28.0,unmatched,,,,unmatched_nutrition
+"pasta,paprik",1,4.7,95.9,unmatched,,,,fewer_than_2_observations
+korvsoppa,2,4.6,77.8,unmatched,,,,unmatched_nutrition
+"köttfärssås, spaghetti",2,4.6,49.8,unmatched,,,,unmatched_nutrition
+"fläskstek,pot",1,4.6,78.0,unmatched,,,,fewer_than_2_observations
+sweetchillifisk,1,4.5,91.8,unmatched,,,,fewer_than_2_observations
+blomksoppa,1,4.5,100.0,unmatched,,,,fewer_than_2_observations
+"kyklinggryta,ris",1,4.5,90.0,unmatched,,,,fewer_than_2_observations
+"kykling,ris",2,4.4,54.1,unmatched,,,,unmatched_nutrition
+klar grönsakssoppa,1,4.3,86.0,unmatched,,,,fewer_than_2_observations
+fisgratäng,1,4.2,53.2,unmatched,,,,fewer_than_2_observations
+"hamburgare,mo",1,4.2,36.2,unmatched,,,,fewer_than_2_observations
+"limpa,pot",2,4.2,42.6,unmatched,,,,unmatched_nutrition
+fisk.spenat,1,4.1,37.3,unmatched,,,,fewer_than_2_observations
+pasta ost o skinksås,2,4.1,45.6,unmatched,,,,unmatched_nutrition
+mexgryta,2,4.1,39.3,unmatched,,,,unmatched_nutrition
+"järpar,pot",3,4.1,32.0,unmatched,,,,unmatched_nutrition
+stekt sill,2,4.1,18.6,unmatched,,,,unmatched_nutrition
+"spagetti ,köttfärssås",2,4.1,30.1,unmatched,,,,unmatched_nutrition
+"vegburg,stektpot",1,4.0,87.0,unmatched,,,,fewer_than_2_observations
+"spag,het sås",1,4.0,90.9,unmatched,,,,fewer_than_2_observations
+kyckling.curry,1,3.9,29.1,unmatched,,,,fewer_than_2_observations
+"fsikb,mos",1,3.9,69.6,unmatched,,,,fewer_than_2_observations
+v.burgare.mos,1,3.9,29.1,unmatched,,,,fewer_than_2_observations
+nasigorämg,1,3.8,67.9,unmatched,,,,fewer_than_2_observations
+"gryta,ris",1,3.8,41.3,unmatched,,,,fewer_than_2_observations
+lov,1,3.8,86.4,unmatched,,,,fewer_than_2_observations
+curry gryta,1,3.8,79.2,unmatched,,,,fewer_than_2_observations
+avslutning,1,3.8,22.9,unmatched,,,,fewer_than_2_observations
+"kyckling,curry,ris",1,3.7,119.4,unmatched,,,,fewer_than_2_observations
+"thaig,ris",1,3.7,68.5,unmatched,,,,fewer_than_2_observations
+"falafel,coscos",1,3.7,63.8,unmatched,,,,fewer_than_2_observations
+"kassler,gratäng",1,3.7,115.6,unmatched,,,,fewer_than_2_observations
+sprödbakad torsk potatis,1,3.6,80.0,unmatched,,,,fewer_than_2_observations
+kyklinggryta,1,3.6,52.9,unmatched,,,,fewer_than_2_observations
+"kassler,ris",1,3.6,80.0,unmatched,,,,fewer_than_2_observations
+sprödbakad torsk.,1,3.6,81.8,unmatched,,,,fewer_than_2_observations
+"mexgryta,ris",1,3.5,85.4,unmatched,,,,fewer_than_2_observations
+pytt bellman,2,3.5,15.9,unmatched,,,,unmatched_nutrition
+chillipanna,1,3.5,68.6,unmatched,,,,fewer_than_2_observations
+"järpe,ris",1,3.5,29.9,unmatched,,,,fewer_than_2_observations
+"fisk, pot mos",1,3.5,140.0,unmatched,,,,fewer_than_2_observations
+tacogratäng,6,3.5,31.4,unmatched,,,,unmatched_nutrition
+"köttb,pot",3,3.5,39.1,unmatched,,,,unmatched_nutrition
+"kyklingcurry,ris",1,3.5,70.0,unmatched,,,,fewer_than_2_observations
+fiskgratäng bordelaise,1,3.5,49.3,unmatched,,,,fewer_than_2_observations
+potatis bullar,1,3.4,59.6,unmatched,,,,fewer_than_2_observations
+fiskfärsbiff,2,3.4,15.5,unmatched,,,,unmatched_nutrition
+fläskbog,1,3.4,30.9,unmatched,,,,fewer_than_2_observations
+pannkaka,1,3.4,37.8,unmatched,,,,fewer_than_2_observations
+bruna bönor /,1,3.4,30.9,unmatched,,,,fewer_than_2_observations
+"kyckling,curry",1,3.3,30.0,unmatched,,,,fewer_than_2_observations
+"rotfruktspyt,kyk",1,3.3,57.9,unmatched,,,,fewer_than_2_observations
+korv.mackis,1,3.3,31.7,unmatched,,,,fewer_than_2_observations
+cowboysop,1,3.3,55.9,manual_override,Cowboysoppa,13.8,245.7,fewer_than_2_observations
+"torsk, kallsås",1,3.3,73.3,unmatched,,,,fewer_than_2_observations
+"kassler, potgratäng",1,3.3,73.3,unmatched,,,,fewer_than_2_observations
+"toma,linssop",1,3.3,78.6,unmatched,,,,fewer_than_2_observations
+bruksloppet,1,3.2,6.4,unmatched,,,,fewer_than_2_observations
+kyckling ris currysås,1,3.2,65.3,unmatched,,,,fewer_than_2_observations
+fisk/utflykt,1,3.2,27.1,unmatched,,,,fewer_than_2_observations
+"fisk,potatis ,örtsås",1,3.2,47.8,unmatched,,,,fewer_than_2_observations
+veg vårrullar inte populärt,1,3.2,71.1,unmatched,,,,fewer_than_2_observations
+"panerad fisk, potatis, sås",1,3.2,88.9,unmatched,,,,fewer_than_2_observations
+"chilipanna,ris",1,3.2,32.0,unmatched,,,,fewer_than_2_observations
+"köttb,pasta",1,3.2,71.1,unmatched,,,,fewer_than_2_observations
+"kasslergryta, ris",1,3.2,80.0,unmatched,,,,fewer_than_2_observations
+"kykling,pot,sill",1,3.2,69.6,unmatched,,,,fewer_than_2_observations
+biff borgogne,1,3.2,29.1,unmatched,,,,fewer_than_2_observations
+pasta+sås,1,3.2,35.2,unmatched,,,,fewer_than_2_observations
+köttbullar.mos,1,3.2,36.4,unmatched,,,,fewer_than_2_observations
+pasta o ost/skink sås,1,3.1,73.8,unmatched,,,,fewer_than_2_observations
+woknudlar,1,3.1,35.2,unmatched,,,,fewer_than_2_observations
+quorn.mos,1,3.0,26.3,unmatched,,,,fewer_than_2_observations
+kycklingpytt,1,3.0,25.6,unmatched,,,,fewer_than_2_observations
+korv o mos,3,3.0,20.9,unmatched,,,,unmatched_nutrition
+"köttbullar,mak",1,3.0,33.0,unmatched,,,,fewer_than_2_observations
+korvgryta.bulgur,1,3.0,31.6,unmatched,,,,fewer_than_2_observations
+blokålsoppa,1,3.0,53.6,unmatched,,,,fewer_than_2_observations
+pasta.paprikasås,1,3.0,33.3,unmatched,,,,fewer_than_2_observations
+lutfisk,1,3.0,27.3,unmatched,,,,fewer_than_2_observations
+"pasta,het sås",1,3.0,27.3,unmatched,,,,fewer_than_2_observations
+pasta bollo,1,3.0,27.3,unmatched,,,,fewer_than_2_observations
+påskbuffe,1,2.9,25.0,unmatched,,,,fewer_than_2_observations
+färsgryta.ris,1,2.9,34.1,unmatched,,,,fewer_than_2_observations
+snitsel.pot,2,2.9,31.4,unmatched,,,,unmatched_nutrition
+wok.nudlar,1,2.9,32.2,unmatched,,,,fewer_than_2_observations
+"kykling,curry",1,2.8,54.9,unmatched,,,,fewer_than_2_observations
+"potatisb,skinkfräs",1,2.8,56.0,unmatched,,,,fewer_than_2_observations
+pasta.baconsås,1,2.7,26.5,unmatched,,,,fewer_than_2_observations
+"kycklingklubba sås ,potatis",1,2.7,46.6,unmatched,,,,fewer_than_2_observations
+"qornbiff,mos",1,2.7,50.9,unmatched,,,,fewer_than_2_observations
+"pasta,vegsås",1,2.7,49.1,unmatched,,,,fewer_than_2_observations
+vårrullar/kyckling,1,2.7,30.0,unmatched,,,,fewer_than_2_observations
+kyklingfaitas,1,2.7,42.9,unmatched,,,,fewer_than_2_observations
+revben,1,2.6,23.6,unmatched,,,,fewer_than_2_observations
+pot.gratäng,1,2.6,28.3,unmatched,,,,fewer_than_2_observations
+"pasta,ostsås",1,2.6,28.3,unmatched,,,,fewer_than_2_observations
+pasta med ost och skinksås,1,2.6,36.6,unmatched,,,,fewer_than_2_observations
+"chilli,ris",1,2.6,53.1,unmatched,,,,fewer_than_2_observations
+kykling lasagne,1,2.6,45.6,unmatched,,,,fewer_than_2_observations
+tika masala,3,2.5,26.7,unmatched,,,,unmatched_nutrition
+klämdag,1,2.5,61.0,unmatched,,,,fewer_than_2_observations
+biff stroganoff.äppeldessert,1,2.5,33.3,unmatched,,,,fewer_than_2_observations
+ärtsoppa /,1,2.5,22.7,unmatched,,,,fewer_than_2_observations
+"spaghetti, köttfärsås",1,2.5,36.8,unmatched,,,,fewer_than_2_observations
+pasta.parikasås,1,2.4,29.6,unmatched,,,,fewer_than_2_observations
+pasta ost/skinksås,1,2.4,57.1,unmatched,,,,fewer_than_2_observations
+fisk potatis,2,2.4,23.0,unmatched,,,,unmatched_nutrition
+persiljejärpar,1,2.4,21.8,unmatched,,,,fewer_than_2_observations
+"korv,makaroner",2,2.4,27.2,unmatched,,,,unmatched_nutrition
+korv makaroner,2,2.4,54.3,unmatched,,,,unmatched_nutrition
+kokt fisk,1,2.4,21.8,unmatched,,,,fewer_than_2_observations
+stekt spätta,1,2.4,21.8,unmatched,,,,fewer_than_2_observations
+"skinksås ,pasta",1,2.4,36.4,unmatched,,,,fewer_than_2_observations
+"mos,fiskb",1,2.4,40.7,unmatched,,,,fewer_than_2_observations
+korv.makaron,1,2.4,25.5,unmatched,,,,fewer_than_2_observations
+köttbullar.makaron,1,2.3,25.0,unmatched,,,,fewer_than_2_observations
+kåldolmar,1,2.3,20.9,unmatched,,,,fewer_than_2_observations
+viltbiffar,1,2.3,20.9,unmatched,,,,fewer_than_2_observations
+"paprikasås, pasta",2,2.3,27.0,unmatched,,,,unmatched_nutrition
+kökets fiskrätt,1,2.3,41.1,unmatched,,,,fewer_than_2_observations
+"torsk,pot",1,2.3,39.7,unmatched,,,,fewer_than_2_observations
+kycklingsallad,1,2.2,40.0,unmatched,,,,fewer_than_2_observations
+"köttbu,pot",1,2.2,41.5,unmatched,,,,fewer_than_2_observations
+fiskagratäng,1,2.2,24.2,unmatched,,,,fewer_than_2_observations
+flygande jacob,1,2.2,20.0,unmatched,,,,fewer_than_2_observations
+lasagnegratäng,1,2.2,40.7,unmatched,,,,fewer_than_2_observations
+taisoppa,1,2.2,36.1,unmatched,,,,fewer_than_2_observations
+panko fisk /,1,2.2,20.0,unmatched,,,,fewer_than_2_observations
+kycklingklubba,1,2.2,47.8,unmatched,,,,fewer_than_2_observations
+"spaghetti,färssås",1,2.1,25.0,unmatched,,,,fewer_than_2_observations
+korv.bröd,1,2.1,14.8,unmatched,,,,fewer_than_2_observations
+"pasta, kycklingsås",1,2.1,41.2,unmatched,,,,fewer_than_2_observations
+tikkamasala,1,2.1,44.7,unmatched,,,,fewer_than_2_observations
+"mos,fiskbur",1,2.1,47.7,unmatched,,,,fewer_than_2_observations
+"biffst,ris",1,2.1,40.4,unmatched,,,,fewer_than_2_observations
+"thaigryta, nudlar",1,2.1,45.7,unmatched,,,,fewer_than_2_observations
+kalkonschnitzel,2,2.1,20.9,unmatched,,,,unmatched_nutrition
+"wirnerkorv, potmos",1,2.1,60.0,unmatched,,,,fewer_than_2_observations
+"mos, fisk",1,2.1,36.8,unmatched,,,,fewer_than_2_observations
+"pasta, ost/skinksås",1,2.0,52.6,unmatched,,,,fewer_than_2_observations
+kokt torsk,1,2.0,18.2,unmatched,,,,fewer_than_2_observations
+"pasta, baconsås",1,2.0,48.8,unmatched,,,,fewer_than_2_observations
+"kassler, curry",1,2.0,57.1,unmatched,,,,fewer_than_2_observations
+"quorbiff,mos",1,2.0,40.0,unmatched,,,,fewer_than_2_observations
+wallenberg /,1,2.0,18.2,unmatched,,,,fewer_than_2_observations
+tikki malsalsa,1,2.0,42.6,unmatched,,,,fewer_than_2_observations
+hamurgare,1,2.0,57.1,unmatched,,,,fewer_than_2_observations
+"makaroner,korv",2,2.0,24.4,unmatched,,,,unmatched_nutrition
+fisk gryta,1,2.0,18.2,unmatched,,,,fewer_than_2_observations
+gryta.nudlar,1,2.0,26.7,unmatched,,,,fewer_than_2_observations
+"korvg,ris",1,2.0,44.4,unmatched,,,,fewer_than_2_observations
+"mos,järpar",1,2.0,37.0,unmatched,,,,fewer_than_2_observations
+korv.pasta,1,2.0,37.7,unmatched,,,,fewer_than_2_observations
+fritids,1,2.0,51.3,unmatched,,,,fewer_than_2_observations
+"färs,pot",1,2.0,39.2,unmatched,,,,fewer_than_2_observations
+"panerad torskfile ,kall sås,potatis",1,1.9,25.7,unmatched,,,,fewer_than_2_observations
+kålpudding.,1,1.9,41.3,unmatched,,,,fewer_than_2_observations
+"pannbiff m, lök",1,1.9,17.3,unmatched,,,,fewer_than_2_observations
+kycklingcurry,1,1.9,29.7,unmatched,,,,fewer_than_2_observations
+"spaghetti,hetsås",1,1.9,44.2,unmatched,,,,fewer_than_2_observations
+"tacofisk,mos",1,1.9,32.2,unmatched,,,,fewer_than_2_observations
+stekfläsk,1,1.9,17.3,unmatched,,,,fewer_than_2_observations
+"chili,mos",1,1.9,36.5,unmatched,,,,fewer_than_2_observations
+"fiskb,mos",1,1.9,37.3,unmatched,,,,fewer_than_2_observations
+sjömansbiff,1,1.9,17.3,unmatched,,,,fewer_than_2_observations
+spenatsoppa,1,1.9,17.3,unmatched,,,,fewer_than_2_observations
+skolavslutning,1,1.8,37.5,unmatched,,,,fewer_than_2_observations
+pot.bullar,1,1.8,21.2,unmatched,,,,fewer_than_2_observations
+"köttbullar, mos",1,1.8,48.6,unmatched,,,,fewer_than_2_observations
+"pannb,pot",1,1.8,36.7,unmatched,,,,fewer_than_2_observations
+pepparrotkött,1,1.8,16.4,unmatched,,,,fewer_than_2_observations
+köttfärslåda /,1,1.8,16.4,unmatched,,,,fewer_than_2_observations
+fiskpanneter,3,1.8,14.9,unmatched,,,,unmatched_nutrition
+medelh lasagne,1,1.8,31.0,unmatched,,,,fewer_than_2_observations
+"fiskbur,mos",1,1.8,94.7,unmatched,,,,fewer_than_2_observations
+annas ostfisk,1,1.8,16.4,unmatched,,,,fewer_than_2_observations
+"mos,hamburg",1,1.8,32.7,unmatched,,,,fewer_than_2_observations
+grönsak/köttsoppa,1,1.8,45.0,unmatched,,,,fewer_than_2_observations
+fisk o mos,1,1.8,25.0,unmatched,,,,fewer_than_2_observations
+kotlettrad,1,1.8,16.4,unmatched,,,,fewer_than_2_observations
+pasta med kalkonsås,1,1.8,19.6,unmatched,,,,fewer_than_2_observations
+"hamb,mos",1,1.8,52.9,unmatched,,,,fewer_than_2_observations
+bakad pot,2,1.8,24.2,unmatched,,,,unmatched_nutrition
+tikki,1,1.8,39.1,unmatched,,,,fewer_than_2_observations
+mos korv,1,1.8,34.0,unmatched,,,,fewer_than_2_observations
+mexköttsoppa,1,1.8,58.1,unmatched,,,,fewer_than_2_observations
+"stroganof,ris",1,1.8,31.6,unmatched,,,,fewer_than_2_observations
+"pasta,ost och skinksås",1,1.8,24.6,unmatched,,,,fewer_than_2_observations
+het gryta med spaghetti,1,1.7,40.5,unmatched,,,,fewer_than_2_observations
+kycklingkorv,1,1.7,36.2,unmatched,,,,fewer_than_2_observations
+"tomatgryta,ris",1,1.7,35.4,unmatched,,,,fewer_than_2_observations
+"fiskgryta, ris",1,1.7,28.8,unmatched,,,,fewer_than_2_observations
+het sås,2,1.7,15.8,unmatched,,,,unmatched_nutrition
+spag.köttf,1,1.7,29.3,unmatched,,,,fewer_than_2_observations
+"mos,prinskorv",1,1.7,32.1,unmatched,,,,fewer_than_2_observations
+mosaka,1,1.7,34.7,unmatched,,,,fewer_than_2_observations
+"biff,bulgur",1,1.7,30.4,unmatched,,,,fewer_than_2_observations
+chilli concarne,1,1.7,37.0,unmatched,,,,fewer_than_2_observations
+"kyckling,sås",1,1.6,45.7,unmatched,,,,fewer_than_2_observations
+"kinag,nudlar",1,1.6,32.0,unmatched,,,,fewer_than_2_observations
+"skinkstek, potatis sås",1,1.6,29.6,unmatched,,,,fewer_than_2_observations
+kassler ris currysås,1,1.6,39.0,unmatched,,,,fewer_than_2_observations
+broccoli-/kycklingsås,1,1.6,26.2,unmatched,,,,fewer_than_2_observations
+spaghetti och köttfärssås.,1,1.6,59.3,unmatched,,,,fewer_than_2_observations
+spröd.torsk,3,1.6,13.5,unmatched,,,,unmatched_nutrition
+oastgratinerad korv,1,1.6,30.8,unmatched,,,,fewer_than_2_observations
+gryta & ris,1,1.6,18.6,unmatched,,,,fewer_than_2_observations
+"pankofisk, pot kall sås",1,1.6,31.4,unmatched,,,,fewer_than_2_observations
+grönkålsoppa,1,1.6,14.5,unmatched,,,,fewer_than_2_observations
+burgare.mos,1,1.6,26.7,unmatched,,,,fewer_than_2_observations
+"kålpud,pot",1,1.6,29.1,unmatched,,,,fewer_than_2_observations
+broccolisoppa,3,1.6,11.2,unmatched,,,,unmatched_nutrition
+het färssoppa,1,1.6,27.6,unmatched,,,,fewer_than_2_observations
+kött-&grön.soppa,1,1.6,34.8,unmatched,,,,fewer_than_2_observations
+"pasta, skinksås",1,1.6,37.2,unmatched,,,,fewer_than_2_observations
+"pasta,kyklings",1,1.6,31.4,unmatched,,,,fewer_than_2_observations
+fiskgratäng dill,1,1.6,29.1,unmatched,,,,fewer_than_2_observations
+"pasta, skink&ostsås",1,1.5,34.9,unmatched,,,,fewer_than_2_observations
+kassler /,1,1.5,13.6,unmatched,,,,fewer_than_2_observations
+portergryta,1,1.5,13.6,unmatched,,,,fewer_than_2_observations
+"ärtsoppa, pannkaka",1,1.5,26.8,unmatched,,,,fewer_than_2_observations
+kökets fisk potatis sås,1,1.5,31.9,unmatched,,,,fewer_than_2_observations
+fisk.kokt potatis,1,1.5,20.5,unmatched,,,,fewer_than_2_observations
+blomkålsop,1,1.5,28.3,unmatched,,,,fewer_than_2_observations
+kalkonsnitsel,1,1.5,37.5,unmatched,,,,fewer_than_2_observations
+pasta o korv,1,1.5,16.1,unmatched,,,,fewer_than_2_observations
+pasta och korv,1,1.5,19.7,unmatched,,,,fewer_than_2_observations
+viltfärsbiff,1,1.5,13.6,unmatched,,,,fewer_than_2_observations
+jultallrik,1,1.5,13.6,unmatched,,,,fewer_than_2_observations
+"sprödbakad fisk ,potatis,kall sås",1,1.4,19.4,unmatched,,,,fewer_than_2_observations
+spröd torsk,2,1.4,12.0,unmatched,,,,unmatched_nutrition
+3-rätters,1,1.4,12.7,unmatched,,,,fewer_than_2_observations
+fiskburgare med mos,1,1.4,19.4,unmatched,,,,fewer_than_2_observations
+köttfäfssås,1,1.4,31.8,unmatched,,,,fewer_than_2_observations
+"köttb,mos",1,1.4,28.6,unmatched,,,,fewer_than_2_observations
+midsommarfest,1,1.4,31.8,exact,Midsommarfest,30.7,556.6,fewer_than_2_observations
+kycklingfilé,2,1.4,19.9,unmatched,,,,unmatched_nutrition
+kycklingwook,1,1.4,31.8,unmatched,,,,fewer_than_2_observations
+"schnitzel,pot,sås,gurka",1,1.4,35.0,unmatched,,,,fewer_than_2_observations
+"panerad fisk, kall sås , po",1,1.4,18.5,unmatched,,,,fewer_than_2_observations
+pasta och skinksås,1,1.3,31.7,unmatched,,,,fewer_than_2_observations
+köttgryta,1,1.3,11.8,unmatched,,,,fewer_than_2_observations
+kyckling wook,1,1.3,18.1,unmatched,,,,fewer_than_2_observations
+kycklingkorvgryta ris,1,1.3,24.5,unmatched,,,,fewer_than_2_observations
+"kyklingsnitsel,pot",1,1.3,25.0,unmatched,,,,fewer_than_2_observations
+panerad fisk sås pot,1,1.3,26.5,unmatched,,,,fewer_than_2_observations
+panerad fisk potatis kall sås,1,1.3,33.3,unmatched,,,,fewer_than_2_observations
+"spag,kött",1,1.3,26.0,unmatched,,,,fewer_than_2_observations
+kyklingwok,1,1.3,28.9,unmatched,,,,fewer_than_2_observations
+pannkakor,1,1.3,81.2,unmatched,,,,fewer_than_2_observations
+ostsås,2,1.3,69.6,unmatched,,,,unmatched_nutrition
+"potbullar,korv",1,1.3,30.2,unmatched,,,,fewer_than_2_observations
+"stroganoff,ris",1,1.3,26.5,unmatched,,,,fewer_than_2_observations
+"tikkamasala,ris",1,1.3,31.0,unmatched,,,,fewer_than_2_observations
+"mexikanskgryta, ris",1,1.3,59.1,unmatched,,,,fewer_than_2_observations
+snitsel,1,1.3,24.1,unmatched,,,,fewer_than_2_observations
+skollov,1,1.3,22.4,unmatched,,,,fewer_than_2_observations
+isterband,1,1.3,11.8,unmatched,,,,fewer_than_2_observations
+bakad potatis,1,1.3,27.7,unmatched,,,,fewer_than_2_observations
+"frasig burgare,bröd ,stekt potatis",1,1.3,21.3,unmatched,,,,fewer_than_2_observations
+"korv ,mos",1,1.2,21.1,unmatched,,,,fewer_than_2_observations
+kött-grö. soppa,1,1.2,10.9,unmatched,,,,fewer_than_2_observations
+soppa grönsak,1,1.2,26.7,unmatched,,,,fewer_than_2_observations
+"ostgratinerad korv, mos",1,1.2,31.6,unmatched,,,,fewer_than_2_observations
+ch c carne,2,1.2,19.1,unmatched,,,,unmatched_nutrition
+paprikasås,2,1.2,12.1,unmatched,,,,unmatched_nutrition
+blomkål-broccolisoppa,1,1.2,18.2,unmatched,,,,fewer_than_2_observations
+"snitsel,pot",1,1.2,35.3,unmatched,,,,fewer_than_2_observations
+"spag,köttfs",1,1.2,24.5,unmatched,,,,fewer_than_2_observations
+ungspannkaka,1,1.1,16.4,unmatched,,,,fewer_than_2_observations
+"korv,pasta",1,1.1,22.0,unmatched,,,,fewer_than_2_observations
+oposkbuffe,1,1.1,24.4,unmatched,,,,fewer_than_2_observations
+grill,1,1.1,22.0,unmatched,,,,fewer_than_2_observations
+kycklingvok,2,1.1,13.7,unmatched,,,,unmatched_nutrition
+ugnstekt falukorv och mos,1,1.1,25.0,unmatched,,,,fewer_than_2_observations
+mexikansk,1,1.1,26.8,unmatched,,,,fewer_than_2_observations
+"thaigyta,nudl",1,1.1,26.2,unmatched,,,,fewer_than_2_observations
+spaghetti sås,1,1.1,23.4,unmatched,,,,fewer_than_2_observations
+"vårrullar,ris",1,1.1,25.6,unmatched,,,,fewer_than_2_observations
+"fiskpinnar,spenat",1,1.1,26.2,unmatched,,,,fewer_than_2_observations
+"wienerkorv,mos",1,1.1,16.7,unmatched,,,,fewer_than_2_observations
+"tikka masal,ris",1,1.0,18.3,unmatched,,,,fewer_than_2_observations
+"korv,bröd",1,1.0,18.9,unmatched,,,,fewer_than_2_observations
+mex. gryta,1,1.0,66.7,unmatched,,,,fewer_than_2_observations
+kycklingwok med nudlar,1,1.0,35.7,unmatched,,,,fewer_than_2_observations
+lassagnette med kyckling,1,1.0,25.0,unmatched,,,,fewer_than_2_observations
+"fisk,kall sås",1,1.0,12.8,unmatched,,,,fewer_than_2_observations
+"makar,köttb",1,1.0,18.9,unmatched,,,,fewer_than_2_observations
+"quornbiff, potatismos,kall sås",1,1.0,21.3,unmatched,,,,fewer_than_2_observations
+kyckling potatis  m tillbehör,1,1.0,31.2,unmatched,,,,fewer_than_2_observations
+kött- & grön.soppa,1,1.0,17.9,unmatched,,,,fewer_than_2_observations
+fiskgratäng /,1,1.0,9.1,unmatched,,,,fewer_than_2_observations
+kött grön soppa,1,1.0,9.1,unmatched,,,,fewer_than_2_observations
+"potbullar,fläsk",1,1.0,17.5,unmatched,,,,fewer_than_2_observations
+fisk m. remouladsås,1,0.9,13.8,unmatched,,,,fewer_than_2_observations
+cornflakesfisk,1,0.9,16.4,unmatched,,,,fewer_than_2_observations
+blomkål- & broccolisoppa,1,0.9,14.5,unmatched,,,,fewer_than_2_observations
+kött och grönsak soppa,1,0.9,20.9,unmatched,,,,fewer_than_2_observations
+kycklingfaitas,2,0.9,13.9,unmatched,,,,unmatched_nutrition
+"wienekorv, pasta",1,0.9,30.0,unmatched,,,,fewer_than_2_observations
+"schnitzel, sås, potatis",1,0.9,27.3,unmatched,,,,fewer_than_2_observations
+skivad korv,1,0.9,15.8,unmatched,,,,fewer_than_2_observations
+"järpar,mos",1,0.9,16.1,unmatched,,,,fewer_than_2_observations
+baconsås,1,0.9,20.9,unmatched,,,,fewer_than_2_observations
+"korvgryta, ris",1,0.9,26.5,unmatched,,,,fewer_than_2_observations
+lasagnettegrat.,1,0.9,36.0,unmatched,,,,fewer_than_2_observations
+"skinkstek,äppelmos",1,0.9,18.4,unmatched,,,,fewer_than_2_observations
+"ris,korv",1,0.9,18.0,unmatched,,,,fewer_than_2_observations
+mexikansk köttfärsgryta,1,0.9,24.3,unmatched,,,,fewer_than_2_observations
+"stroganoff,bulgur",1,0.9,15.0,unmatched,,,,fewer_than_2_observations
+"pasta, winerkorv",1,0.9,20.5,unmatched,,,,fewer_than_2_observations
+mexikansk föttfärsgryta,1,0.9,20.9,unmatched,,,,fewer_than_2_observations
+"makaroner,kött",1,0.9,20.5,unmatched,,,,fewer_than_2_observations
+sweet chili fisk,1,0.8,14.5,unmatched,,,,fewer_than_2_observations
+"kycklingwok, nudlar",1,0.8,16.0,unmatched,,,,fewer_than_2_observations
+kaslergryta,1,0.8,32.0,unmatched,,,,fewer_than_2_observations
+gratinerad fisk pot,1,0.8,17.8,unmatched,,,,fewer_than_2_observations
+stekt falukorv,2,0.8,10.4,unmatched,,,,unmatched_nutrition
+mex fers,1,0.8,20.5,unmatched,,,,fewer_than_2_observations
+"kyckling,sås,potatis",1,0.8,17.4,unmatched,,,,fewer_than_2_observations
+"fiskgratäng, potatis",1,0.8,17.8,unmatched,,,,fewer_than_2_observations
+köttbullar pasta,1,0.7,14.9,unmatched,,,,fewer_than_2_observations
+chilliconcarne,1,0.7,33.3,unmatched,,,,fewer_than_2_observations
+fiskpinnar,2,0.7,8.9,unmatched,,,,unmatched_nutrition
+korv och mos,1,0.7,13.7,unmatched,,,,fewer_than_2_observations
+"ugnstektkorv, mos",1,0.7,13.7,unmatched,,,,fewer_than_2_observations
+"korvstroganoff,ris",1,0.7,58.3,unmatched,,,,fewer_than_2_observations
+"korv, makaroner",1,0.7,14.6,unmatched,,,,fewer_than_2_observations
+spröd.fisk,2,0.7,6.7,unmatched,,,,unmatched_nutrition
+panerad fisk mos kall sås,1,0.7,14.0,unmatched,,,,fewer_than_2_observations
+"het korvgryta, ris",1,0.7,20.6,unmatched,,,,fewer_than_2_observations
+köttfärslimpa pot sås,1,0.7,15.2,unmatched,,,,fewer_than_2_observations
+medelhavslasagne,1,0.6,15.0,exact,Medelhavslasagne,13.2,354.7,fewer_than_2_observations
+pannfiff,1,0.6,12.8,unmatched,,,,fewer_than_2_observations
+baconfräs,1,0.6,10.9,unmatched,,,,fewer_than_2_observations
+kasslergryta,1,0.6,14.6,unmatched,,,,fewer_than_2_observations
+lasagnettegratä,1,0.6,23.1,unmatched,,,,fewer_than_2_observations
+taco fisk,1,0.6,13.3,unmatched,,,,fewer_than_2_observations
+"köttbullar, pasta, ketchup",1,0.6,16.2,unmatched,,,,fewer_than_2_observations
+"kasslergr,ris",1,0.6,14.3,unmatched,,,,fewer_than_2_observations
+"thaigryta,ris",1,0.6,13.3,unmatched,,,,fewer_than_2_observations
+panerad fisk och mos,1,0.6,15.4,unmatched,,,,fewer_than_2_observations
+tomat/baconsås,1,0.6,13.6,unmatched,,,,fewer_than_2_observations
+brockoli-kycklingsås ärtsoppa,1,0.6,13.0,unmatched,,,,fewer_than_2_observations
+tomatsoppa med linser,1,0.6,11.3,unmatched,,,,fewer_than_2_observations
+korv stroganoff ris,1,0.6,15.4,unmatched,,,,fewer_than_2_observations
+pastasås,1,0.5,8.6,unmatched,,,,fewer_than_2_observations
+korv strog.,1,0.5,19.2,unmatched,,,,fewer_than_2_observations
+ost-&skinksås,1,0.5,11.6,unmatched,,,,fewer_than_2_observations
+blomkålssoppa med curry,1,0.5,9.3,unmatched,,,,fewer_than_2_observations
+köttfärsås,1,0.5,10.4,unmatched,,,,fewer_than_2_observations
+"pasta, skinkoch ost sås",1,0.5,11.1,unmatched,,,,fewer_than_2_observations
+västerhavsfisk,2,0.5,6.7,unmatched,,,,unmatched_nutrition
+pastabuffé,1,0.5,9.1,unmatched,,,,fewer_than_2_observations
+pasta ostsås,1,0.5,20.0,unmatched,,,,fewer_than_2_observations
+veg.burgare,1,0.5,16.1,unmatched,,,,fewer_than_2_observations
+mousaka,1,0.5,12.5,unmatched,,,,fewer_than_2_observations
+"pannkaka,korv",1,0.5,26.3,unmatched,,,,fewer_than_2_observations
+"fisk, potatis kallsås",1,0.4,8.0,unmatched,,,,fewer_than_2_observations
+"köttbullar, makaroner",1,0.4,16.0,unmatched,,,,fewer_than_2_observations
+kickling ris,1,0.4,13.8,unmatched,,,,fewer_than_2_observations
+panerad fiskfisk,1,0.4,44.4,unmatched,,,,fewer_than_2_observations
+"torsk, potatis",1,0.4,6.6,unmatched,,,,fewer_than_2_observations
+snitzel pot.,1,0.4,8.7,unmatched,,,,fewer_than_2_observations
+"köttbullar, potatis,sås",1,0.3,8.0,unmatched,,,,fewer_than_2_observations
+kycklinglasag,1,0.3,7.7,unmatched,,,,fewer_than_2_observations
+pan.fisk,1,0.3,10.3,unmatched,,,,fewer_than_2_observations
+tackogratäng,1,0.3,37.5,unmatched,,,,fewer_than_2_observations
+"korv, bröd",1,0.3,5.0,unmatched,,,,fewer_than_2_observations
+kötfärslimpa,1,0.3,10.0,unmatched,,,,fewer_than_2_observations
+kyckling ris,1,0.3,6.8,unmatched,,,,fewer_than_2_observations
+"korv, pasta",1,0.2,7.4,unmatched,,,,fewer_than_2_observations
+panbiff,1,0.2,22.2,unmatched,,,,fewer_than_2_observations
+lasagneal forno,1,0.2,7.4,normalized,Lasagne al forno,21.8,405.9,fewer_than_2_observations
+potatisbollar,1,0.2,4.7,unmatched,,,,fewer_than_2_observations
+köttbullar pot.,1,0.2,4.3,unmatched,,,,fewer_than_2_observations
+grat.korv,1,0.2,9.1,unmatched,,,,fewer_than_2_observations
+gratin.fisk,1,0.2,6.7,unmatched,,,,fewer_than_2_observations
+mines.soppa,1,0.2,7.4,unmatched,,,,fewer_than_2_observations
+kalkonsnizel,1,0.2,11.8,unmatched,,,,fewer_than_2_observations

@@ -149,6 +149,66 @@ check_paw("C6 svinn_naring_kvadrant",
           f"{len(cyp6)} rätter via Python-join (matratt_norm → dish_name_mapping.csv → naring.parquet). "
           "exact/normalized/manual_override. Kräver matratt_norm i svinndatan.")
 
+# C6_funnel: Kvadrant funnel audit
+print("\nC6_funnel kvadrant_funnel + exclusion_audit")
+funnel_path = ANA / "kvadrant_funnel.json"
+excl_path   = ANA / "kvadrant_exclusion_audit.csv"
+
+check("C6_funnel1 kvadrant_funnel.json finns", funnel_path.exists())
+check("C6_funnel2 kvadrant_exclusion_audit.csv finns", excl_path.exists())
+
+if funnel_path.exists():
+    fdata = json.load(open(funnel_path))
+    steps = {s["step"]: s for s in fdata.get("steps", [])}
+
+    # Steg A: minst 500 unika matratt_norm i svinndatan
+    check("C6_funnel3 steg A >= 500 unika matratt_norm", steps.get("A", {}).get("ratter", 0) >= 500,
+          f"A.ratter={steps.get('A',{}).get('ratter')}")
+
+    # Steg C >= steg G (obs>=2 >= antal i diagram)
+    c_count = steps.get("C", {}).get("ratter", 0)
+    g_count = steps.get("G", {}).get("ratter", 0)
+    check("C6_funnel4 steg C >= steg G", c_count >= g_count,
+          f"C={c_count}, G={g_count}")
+
+    # Steg G matchar faktiska JSON
+    check("C6_funnel5 steg G matchar svinn_naring_kvadrant.json",
+          g_count == len(cyp6),
+          f"funnel G={g_count}, json={len(cyp6)}")
+
+    # Matchninggrad < 100% (förväntat — generiska namn i svinndatan)
+    mc = fdata.get("matching_coverage", {})
+    check("C6_funnel6 matchningsgrad < 100% (generiska namn förväntat)",
+          mc.get("match_rate_pct", 100) < 100,
+          f"match_rate={mc.get('match_rate_pct')}%")
+
+    # Top10 exkluderade finns och sorterade
+    top10 = fdata.get("top10_excluded_by_waste_kg", [])
+    check("C6_funnel7 top10 exkluderade finns (>=5 poster)", len(top10) >= 5,
+          f"{len(top10)} poster")
+    if len(top10) >= 2:
+        check("C6_funnel8 top10 sorterade fallande på total_kg",
+              top10[0]["total_kg"] >= top10[1]["total_kg"],
+              f"{top10[0]['total_kg']} >= {top10[1]['total_kg']}")
+
+if excl_path.exists():
+    excl_df = pd.read_csv(excl_path)
+    # Alla rader har exclusion_reason
+    check("C6_funnel9 alla exkluderade har exclusion_reason",
+          excl_df["exclusion_reason"].notna().all() and (excl_df["exclusion_reason"] != "").all(),
+          f"{excl_df['exclusion_reason'].isna().sum()} saknar orsak")
+    # Korrekt stavade pulled pork-varianter är INTE i exkluderingslistan
+    pp_excl = excl_df[excl_df["matratt_norm"].str.lower().isin(["pulledpork","pulled pork"])]
+    check("C6_funnel10 pulledpork/pulled pork ej exkluderade (inkluderas via manual_override)",
+          len(pp_excl) == 0,
+          f"{len(pp_excl)} korrekt-stavade pulled pork-rader i exkluderingslistan")
+    # Ingen rätt med total_kg > 100 kg saknar exclusion_reason
+    high_waste_excl = excl_df[excl_df["total_kg"] > 100]
+    all_have_reason = all(r.strip() != "" for r in high_waste_excl["exclusion_reason"].fillna(""))
+    check("C6_funnel11 alla rätter >100kg svinn har exclusion_reason",
+          all_have_reason,
+          f"{high_waste_excl['exclusion_reason'].isna().sum()} saknar orsak")
+
 # C7: leverantorer_kostnad
 print("\nC7 leverantorer_kostnad")
 cyp7 = json.load(open(ANA / "leverantorer_kostnad.json"))
@@ -369,6 +429,8 @@ total_tests = len(FAIL) + sum(1 for line in [
     "C4a","C4b","C4c",
     "C5a","C5b","C5c",
     "C6a","C6b","C6c","C6d","C6e","C6f","C6g","C6h",
+    "C6_funnel1","C6_funnel2","C6_funnel3","C6_funnel4","C6_funnel5",
+    "C6_funnel6","C6_funnel7","C6_funnel8","C6_funnel9","C6_funnel10","C6_funnel11",
     "C7","C8a","C8b","C9a","C9b",
     "SP1","SP2","SP3","SP4","SP5","SP6","SP7","SP8","SP9","SP10","SP11","SP12",
     "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","F13","F14","F15",

@@ -1,0 +1,183 @@
+{
+  "generated": "2026-06-11",
+  "steps": [
+    {
+      "step": "A",
+      "label": "Alla unika matratt_norm i svinndatan",
+      "ratter": 762,
+      "obs": 2389
+    },
+    {
+      "step": "B",
+      "label": "Har svinn>0 och portioner>0",
+      "ratter": 732,
+      "obs": 2276
+    },
+    {
+      "step": "C",
+      "label": "Minst 2 observationer",
+      "ratter": 220,
+      "obs": 1764
+    },
+    {
+      "step": "D_exact",
+      "label": "Matchad exact",
+      "ratter": 4,
+      "obs": 25
+    },
+    {
+      "step": "D_normalized",
+      "label": "Matchad normalized",
+      "ratter": 17,
+      "obs": 253
+    },
+    {
+      "step": "D_manual",
+      "label": "Matchad manual_override",
+      "ratter": 20,
+      "obs": 174
+    },
+    {
+      "step": "D_unmatched",
+      "label": "Omatchad (generisk förkortning)",
+      "ratter": 179,
+      "obs": 1312
+    },
+    {
+      "step": "E_fail",
+      "label": "Protein < 5g",
+      "ratter": 0,
+      "obs": 0
+    },
+    {
+      "step": "F_fail",
+      "label": "Kcal < 150",
+      "ratter": 2,
+      "obs": 9
+    },
+    {
+      "step": "G",
+      "label": "Visas i kvadrantdiagrammet",
+      "ratter": 30,
+      "obs": 451
+    }
+  ],
+  "matching_coverage": {
+    "total_obs_ge2": 220,
+    "matched": 41,
+    "unmatched": 179,
+    "match_rate_pct": 18.6
+  },
+  "top10_excluded_by_waste_kg": [
+    {
+      "matratt_norm": "fisk",
+      "obs": 131,
+      "total_kg": 1152.4,
+      "svinn_g_p": 27.1,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "soppa",
+      "obs": 82,
+      "total_kg": 622.3,
+      "svinn_g_p": 26.4,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "fiskgratäng",
+      "obs": 40,
+      "total_kg": 315.8,
+      "svinn_g_p": 34.2,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "köttbullar",
+      "obs": 55,
+      "total_kg": 309.1,
+      "svinn_g_p": 26.0,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "lasagne",
+      "obs": 45,
+      "total_kg": 292.4,
+      "svinn_g_p": 29.9,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "pytt",
+      "obs": 36,
+      "total_kg": 230.7,
+      "svinn_g_p": 30.3,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "kyckling",
+      "obs": 22,
+      "total_kg": 212.2,
+      "svinn_g_p": 29.4,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "schnitzel",
+      "obs": 38,
+      "total_kg": 208.6,
+      "svinn_g_p": 27.3,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "pastabuffe",
+      "obs": 14,
+      "total_kg": 193.7,
+      "svinn_g_p": 32.9,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    },
+    {
+      "matratt_norm": "kebabpytt",
+      "obs": 12,
+      "total_kg": 176.8,
+      "svinn_g_p": 51.4,
+      "match_status": "unmatched",
+      "nutrition_dish": "",
+      "protein_g": NaN,
+      "energi_kcal": NaN,
+      "exclusion_reason": "unmatched_nutrition"
+    }
+  ]
+}

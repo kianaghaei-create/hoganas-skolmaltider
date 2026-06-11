@@ -337,7 +337,7 @@ Förskolor använder ett annat Excel-format: köks- och serveringssvinn registre
 `svinn_g_p = totalt_svinn_kg × 1 000 / serverade_portioner` — **serverade** portioner, inte beställda. Detta är ett mått på faktisk matförlust per person som ätit.
 
 **Vad är kvadrantanalysen?**
-Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen är källad från skolors och äldreomsorgens menyplanering — men **samma meny serveras på alla enheter** (förskolor, skolor och ÄO) samma dag. Näringsvärden är därför tillämpliga på alla verksamhetstyper. Svinndata i nuvarande kvadrantanalys baseras på skolor och ÄO; förskolesvinn inkluderas i en kommande uppdatering. Rätter med protein < 5 g eller energi < 150 kcal är exkluderade som troliga felmatchningar (3 rätter borttagna, 116 kvar).
+Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen är källad från skolors och äldreomsorgens menyplanering — men **samma meny serveras på alla enheter** (förskolor, skolor och ÄO) samma dag. Näringsvärden är därför tillämpliga på alla verksamhetstyper. Svinndata inkluderar alla verksamhetstyper (förskolor, skolor och ÄO). Täckningen begränsas av vilka rätter som har SERVERADE-relationer och näringsmatchning i systemet — 62 rätter uppfyller kraven (minst 2 observationer, protein ≥ 5 g, energi ≥ 150 kcal).
 
 **Beställningsprecision — viktig begränsning**
 70 % av värdena i `bestallda_portioner` är identiska med `serverade_portioner` i rådata — de är alltså en kopia, inte en verklig prognos. Beställningsprecisionsanalysen är fullt trovärdig för de 26 % av rader där det finns en genuin skillnad.
@@ -432,9 +432,8 @@ Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen 
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
         st.subheader("Svinn vs Protein per rätt — kvadrantanalys")
         st.caption("Baserat på matchning av svinndata mot näringsfil. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+). "
-                   "Samma meny serveras på alla enheter — näringsvärden gäller förskolor lika väl som skolor. "
-                   "Svinndata i nuvarande version: skolor och ÄO (förskolesvinn inkluderas i kommande uppdatering). "
-                   "116 rätter efter filtrering (3 borttagna: protein < 5 g eller kcal < 150 som troliga felmatchningar).")
+                   "Samma meny serveras på alla enheter — svinn och näringsvärden inkluderar förskolor, skolor och ÄO. "
+                   "62 rätter efter filtrering (minst 2 observationer, protein ≥ 5 g, energi ≥ 150 kcal).")
 
         kv_color_map = {
             "hog_svinn_lag_protein":  "#EF4444",

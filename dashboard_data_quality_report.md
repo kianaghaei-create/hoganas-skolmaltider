@@ -159,7 +159,7 @@ Source-of-truth-kedja: Excel → CSV (food_waste_daily_v2.csv) → Neo4j → JSO
 | Veckoaggregat | food_waste_daily_v2 aggregeras till enhet+år+vecka för äldre vyer | app.py rad 130–148 |
 | svinn_g_p | totalt_svinn_kg*1000 / serverade_portioner | Används i graf-analyser |
 | pct_utanfor | tkr_utanfor / total_tkr * 100 | avtalstrohet_per_enhet.json, fixad från felaktig avg(pct)*100 |
-| Kvadrant-filter | Rätter med protein<5g eller kcal<150 exkluderas som felmatchningar | svinn_naring_kvadrant.json, 116 rätter kvar av 119 |
+| Kvadrant-filter | Rätter med protein<5g eller kcal<150 exkluderas som felmatchningar, obs<2 exkluderas | svinn_naring_kvadrant.json, 62 rätter (alla verksamhetstyper via SERVERADE→HAR_NARING) |
 | Kalender | Genereras från datum (ej extern källa) — lov baserat på Skånes länskalender 2025 | kalender.csv |
 
 ---

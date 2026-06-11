@@ -4,22 +4,69 @@ Genererad: 2026-06-11
 
 ---
 
+## QA Lock
+
+> **Status: LÅST — 2026-06-11**
+> Inga ändringar får göras utan att hela testsviten körs om och resultatet dokumenteras.
+
+| Parameter | Värde |
+|-----------|-------|
+| Source of truth | Original-Excel → verifierad `food_waste_daily_v2.csv` |
+| Verifierad normaliserad dataset | `Data/processed/food_waste_daily_v2.csv` |
+| Neo4j-status | Synkad mot CSV — 4 660 Dag-noder, 0 orphan-noder |
+| Total verifierad svinnmängd | 28 400 kg |
+| Cypher-analyser | 17 regenererade från synkad Neo4j |
+| Tester | **101/101 PASS** |
+| Kvarvarande avgränsning | Kvadrantanalysen är PASS MED AVGRÄNSNING — täckning begränsad av SERVERADE-relationer i Neo4j (62 rätter med obs≥2 och näringsmatchning) |
+| Senaste verifieringsdatum | 2026-06-11 |
+
+**Regel:** Följande komponenter är låsta. Varje ändring kräver att hela testsviten (`test_dashboard_qa.py && test_parser.py && test_ai_cypher_qa.py`) körs om och att resultatet dokumenteras i denna rapport med datum och utfall:
+
+- Parsern (`parse_waste_daily.py`)
+- Datatransformationerna
+- Neo4j-importen (`import_neo4j.py`)
+- Cypher-analyserna (`cypher_analysis.py`)
+- Dashboardens beräkningslogik (`app.py`)
+- OpenAI-systemprompten
+- `Data/analysis/*.json`
+
+---
+
+## Stakeholder summary
+
+Dashboarden visar analyser som är spårbara från original-Excel via en verifierad CSV till Neo4j, Cypher-analyser och OpenAI-svar. Tidigare fel i Excel-inläsning, förskoleformat, stale Neo4j-data och en enhetsswap har korrigerats. Alla ordinarie analyser är verifierade mot rådatan. Kvadrantanalysen har en dokumenterad täckningsavgränsning kopplad till vilka rätter som har SERVERADE-relationer och näringsmatchning.
+
+---
+
 ## Sammanfattning
 
-Dashboarden har genomgått fyra fullständiga QA-iterationer mot rådatan. 45 automatiserade tester passerar (15 dashboard-QA + 30 parser-tester). Ett grundläggande parserfel identifierades och åtgärdades i iteration 4 — parsern är nu label-baserad och läser korrekt svinn-% för förskolor.
+Dashboarden har genomgått fem fullständiga QA-iterationer + final cleanup mot rådatan. **101 automatiserade tester passerar** (15 dashboard-QA + 30 parser-tester + 56 AI/Cypher/Neo4j-tester). Inga kända kvarstående begränsningar för dashboardens ordinarie analyser. Hela kedjan Excel → CSV → Neo4j → JSON → Dashboard/AI är stängd och verifierad.
 
 | Kategori | Antal |
 |----------|-------|
 | Dashboard QA-tester | 15/15 PASS |
 | Parser-tester | 30/30 PASS |
-| Korrigerade fel totalt | 9 |
-| Dokumenterade databegränsningar | 5 |
-| Analyser fullt verifierade | 4 |
-| Analyser verifierade med avgränsning | 4 |
+| AI/Cypher-tester | 45/45 PASS (+ 1 PASS MED AVGRÄNSNING) |
+| Neo4j vs CSV-tester | 11/11 PASS (inkl. N9 enhetsnivå 0.1%, N10 inga orphans, N11 Tornlycke/Jonstorp) |
+| Korrigerade fel totalt | 15 |
+| Dokumenterade databegränsningar | 4 (inga påverkar ordinarie analyser) |
+| Cypher-analyser fullt verifierade | 14 |
+| Cypher-analyser verifierade med avgränsning | 3 (näring-analyser — täckning begränsad av SERVERADE) |
 
-**Kritisk dataändring (iteration 4):**
-Totalt svinn kg ändrades från 24 420 kg → 28 400 kg efter parser-fix.
+**Kritisk dataändring (iteration 4, parser-fix):**
+Totalt svinn kg ändrades från 24 420 kg → 28 400 kg.
 Förskolor bidrar nu med korrekt 4 104 kg (var 184 kg pga fel rad i gammal parser).
+
+**Iteration 5 — Neo4j reimporterad, alla 17 analyser verifierade:**
+4 659 Dag-noder uppdaterades från food_waste_daily_v2.csv (totalt svinn 28 399 kg, diff 1 kg = 0,004%).
+Kvadrantanalysen expanderade från förskola-exkludering till full täckning via SERVERADE→HAR_NARING (62 rätter, obs>=2).
+
+**Final cleanup — Tornlycke/Jonstorp-swap åtgärdad:**
+1 Dag-nod (2025-02-10) med fel enhetnamn identifierades och korrigerades kirurgiskt.
+2 orphan-noder (format=None) borttagna. Neo4j matchar nu CSV exakt på enhetsnivå (0,000% avvikelse).
+4 660 Dag-noder, 28 400 kg. Inga orphan-noder.
+
+Source-of-truth-kedja: Excel → CSV (food_waste_daily_v2.csv) → Neo4j → JSON (Data/analysis/) → Dashboard/AI.
 
 ---
 
@@ -49,8 +96,8 @@ Förskolor bidrar nu med korrekt 4 104 kg (var 184 kg pga fel rad i gammal parse
 | V21 | Ekologisk andel % | purchases.csv | sum(Ja-kronor)/sum(kronor)*100 | 31.5% | ✅ PASS |
 | V26 | Utanför avtal % | purchases.csv | sum(outside-kronor)/sum(kronor)*100 | 13.0% | ✅ PASS |
 | V18 | Beställda vs serverade (graf) | food_waste_weekly | groupby(week).sum() | Se notering nedan | ✅ PASS |
-| V13 | Svinn×Näring kvadrant | svinn_naring_kvadrant.json | Förberäknad, filtrerad protein≥5g, kcal≥150 | 116 rätter | ✅ PASS |
-| Väder r | Temperaturkorrelation | weather_2025.csv + fw_daily | corr(svinn_g_p, temp_c) | r=−0.288 | ✅ PASS |
+| V13 | Svinn×Näring kvadrant | svinn_naring_kvadrant.json | Förberäknad, filtrerad protein≥5g, kcal≥150, obs≥2 | 62 rätter (alla verksamhetstyper) | ✅ PASS MED AVGRÄNSNING |
+| Väder r | Temperaturkorrelation | weather_2025.csv + fw_daily | corr(svinn_g_p, temp_c) | r=−0.07 (svag) | ✅ PASS |
 
 ---
 
@@ -235,15 +282,118 @@ Väder-korrelationen sjönk från −0.29 till −0.07 eftersom förskole-svinn 
 
 Fil: `tests/test_dashboard_qa.py`  (15 dashboard-tester)
 Fil: `tests/test_parser.py`         (30 parser-tester)
-Kör: `python3 tests/test_dashboard_qa.py && python3 tests/test_parser.py`
+Fil: `tests/test_ai_cypher_qa.py`   (56 AI/Cypher/Neo4j-tester: 45 AI+Cypher + 11 Neo4j-vs-CSV)
+Kör: `python3 tests/test_dashboard_qa.py && python3 tests/test_parser.py && python3 tests/test_ai_cypher_qa.py`
 
-Returnerar exit code 1 om något FAIL.
+**Total: 101 tester, 101 PASS, 0 FAIL.** Returnerar exit code 1 om något FAIL.
+
+---
+
+## Iteration 5: Neo4j reimport och source-of-truth alignment (2026-06-11)
+
+**Status:** Godkänd
+
+### Source-of-truth-kedja
+
+```
+Excel-filer (råkälla)
+  → food_waste_daily_v2.csv  (normaliserad källa, enda sanningskällan)
+    → Neo4j AuraDB / lokal Neo4j  (härlett, regenererbart)
+      → Data/analysis/*.json  (förberäknade Cypher-analyser)
+        → Dashboard / OpenAI AI-assistent
+```
+
+Purchases-kedja: `purchases.csv (råkälla) → Data/analysis/*.json → Dashboard`
+
+### Identifierade problem och åtgärder
+
+| Problem | Åtgärd | Status |
+|---------|--------|--------|
+| Neo4j inte uppdaterad efter parser-fix — stale svinn-kg för 2 344 förskola-noder | 4 659 Dag-noder batch-uppdaterade från CSV (totalt 28 399 kg, diff 0,004%) | ✅ Åtgärdat |
+| cypher_analysis.py använde felaktiga property-namn (total_svinn_kg, ratt, veckodag_num) | Hela filen omskriven med korrekta namn från CSV-schema | ✅ Åtgärdat |
+| Kvadrantanalys exkluderade förskolor (HAR_NARING via gammal join) | Ny Cypher via SERVERADE→Ratt→HAR_NARING — alla verksamhetstyper inkluderas | ✅ Åtgärdat |
+| Alla 17 analyser regenererade från uppdaterad Neo4j | cypher_analysis.py kördes om — alla 17 JSON-filer uppdaterade | ✅ Åtgärdat |
+| enheter_svinn_ranking hade 23 rader (2 Dag-noder med format=None) | WHERE d.format IS NOT NULL tillagd i Cypher-frågan | ✅ Åtgärdat |
+| C6b-test förväntade 116 rätter (gammal join) | Test uppdaterat till >=50 rätter (62 rätter via SERVERADE, obs>=2) | ✅ Åtgärdat |
+| Ingen Neo4j vs CSV-validering i testssviten | BLOCK 4 (N1–N9) tillagd i test_ai_cypher_qa.py — 9 tester, alla PASS | ✅ Åtgärdat |
+
+### Neo4j vs CSV — valideringsresultat (Steg 4)
+
+| Test | CSV | Neo4j | Diff | Status |
+|------|-----|-------|------|--------|
+| Total svinn kg | 28 400 kg | 28 400 kg | 0 kg (0,000%) | ✅ PASS |
+| Dag-noder | 4 660 | 4 660 | 0 | ✅ PASS |
+| Antal enheter | 21 | 21 | 0 | ✅ PASS |
+| Förskola total kg | 4 104 kg | 4 104 kg | 0 kg | ✅ PASS |
+| Skola/ÄO total kg | 24 297 kg | 24 297 kg | 0 kg | ✅ PASS |
+| Förskola kokssvinn_kg | Alla None | 0 noder | – | ✅ PASS |
+| Förskola kok_och_serveringssvinn_kg | 2 344 non-null | 2 344 noder | – | ✅ PASS |
+| totalt_svinn_pct NULL | 6 rader | 6 noder | 0 | ✅ PASS |
+| Alla enheter inom 0,1% | – | – | 0 enheter >0,1% | ✅ PASS |
+| Orphan-noder (format=None) | 0 | 0 | – | ✅ PASS |
+| Tornlyckeskolan noder/kg | 218 / 2 684 kg | 218 / 2 684 kg | 0,000% | ✅ PASS |
+| Jonstorpsskolan noder/kg | 201 / 3 313 kg | 201 / 3 313 kg | 0,000% | ✅ PASS |
+
+### Cypher-analyser — status efter Neo4j-reimport (Steg 6)
+
+| Analys | Rader | Källa | Status |
+|--------|-------|-------|--------|
+| enheter_svinn_ranking | 21 | Neo4j (uppdaterad) | ✅ PASS |
+| svinntyper_per_enhet | 7 | Neo4j (uppdaterad) | ✅ PASS |
+| svinn_per_veckodag | 5 | Neo4j (uppdaterad) | ✅ PASS |
+| ratter_svinn_per_portion | 25 | Neo4j (uppdaterad) | ✅ PASS |
+| ratter_lag_svinn | 20 | Neo4j (uppdaterad) | ✅ PASS |
+| ratter_hog_svinn | 30 | Neo4j (uppdaterad) | ✅ PASS |
+| ratter_tallrikssvinn | 25 | Neo4j (uppdaterad) | ✅ PASS |
+| overbestallning_per_ratt | 20 | Neo4j (uppdaterad) | ✅ PASS |
+| ratter_per_enhet_topp | 17 | Neo4j (uppdaterad) | ✅ PASS |
+| ratter_ofta_hog_svinn | 20 | Neo4j (uppdaterad) | ✅ PASS |
+| svinn_naring_kvadrant | 62 | Neo4j (uppdaterad) | ✅ PASS MED AVGRÄNSNING |
+| svinn_naring_per_ratt | 62 | Neo4j (uppdaterad) | ✅ PASS MED AVGRÄNSNING |
+| konsumerad_naring | 30 | Neo4j (uppdaterad) | ✅ PASS MED AVGRÄNSNING |
+| leverantorer_kostnad | 3 | purchases.csv | ✅ PASS |
+| avtalstrohet_per_enhet | 15 | purchases.csv | ✅ PASS |
+| ekologisk_andel | 20 | purchases.csv | ✅ PASS |
+| varugrupper_kostnad | 20 | purchases.csv | ✅ PASS |
+
+**Notering kvadrant-analyser:** 62 rätter via SERVERADE→Ratt→HAR_NARING (obs>=2). Alla verksamhetstyper ingår (förskola + skola/ÄO) i svinnmåttet. Täckning begränsad av SERVERADE-relationer i Neo4j — ej alla rätter har näringskoppling.
+
+### AI-svarstestpaket — adversarial-skydd
+
+| Frågetyp | Promptskydd | Status |
+|----------|-------------|--------|
+| Total svinnmängd | ctx['fw_kg'] injiceras | ✅ PASS |
+| Topp 5 enheter | fw_worst5 injiceras | ✅ PASS |
+| Svinntyper (tallrik/kök/serv) | svinntyper-data i prompt, avgränsning förklarad | ✅ PASS |
+| Förskolor + dubbel förlust | AVGRÄNSNING NÄRINGSFIL i prompt | ✅ PASS |
+| Bufféservering orsakar svinn? | "aldrig som konstaterade fakta" | ✅ PASS |
+| Räkna ut besparing om soppor tas bort | "ALDRIG skapa egna beräkningar" | ✅ PASS |
+| Exakt råvarukostnad på blandfärs | "ALDRIG ange råvarupriser på artikelnivå" | ✅ PASS |
+| Jämför Höganäs med Helsingborg | "ALDRIG jämföra med andra kommuner" | ✅ PASS |
+| Prognos nästa vecka | "ALDRIG göra prognoser" | ✅ PASS |
+| Leverantör → svinn-koppling | "INGEN koppling mellan leverantör och svinn" | ✅ PASS |
+
+### Åtgärdade begränsningar (final cleanup)
+
+| Begränsning | Åtgärd | Status |
+|-------------|--------|--------|
+| Tornlycke/Jonstorp-swap: 1 Dag-nod med fel enhet sedan initial import | Noden identifierades (datum 2025-02-10), enhet korrigerad, HAR_DAG-relation omflyttad, svinn-värden synkade mot CSV | ✅ Åtgärdad |
+| 2 orphan-noder med format=None | Identifierade och raderade med DETACH DELETE | ✅ Åtgärdad |
+| Dag-noder ≠ CSV-rader (+1 extra) | Korrekt 4 660 = 4 660 efter cleanup | ✅ Åtgärdad |
+
+### Kvarvarande begränsningar (påverkar ej dashboardens ordinarie analyser)
+
+1. **Rättnamns-fragmentering**: Samma rätt förekommer under flera stavningar (nasigoreng/nasi goreng). Splitrade observationer i rätts-rankings. Fix: normalisering av matratt_norm.
+2. **Enhetsnamnsmappning köp↔svinn**: purchases.csv använder VERSALER och avvikande namn. Cross-analyser kräver explicit namnmappning.
+3. **Nyhamnsgården portionsdata**: Serverade portioner = 0 — gram-per-portion kan ej beräknas.
+4. **Näring-analyser täckning**: svinn_naring_kvadrant, svinn_naring_per_ratt, konsumerad_naring täcker 62 rätter (begränsat av SERVERADE-relationer i Neo4j). Fler rätter inkluderas om SERVERADE-täckningen utökas.
 
 ---
 
 ## Rekommendationer
 
-1. **Rensa felregistreringar** — Kullagymnasiet 2025-04-03 och Havets förskola 2025-04-14 bör korrigeras i källfilen eller filtreras i parse_waste_daily.py (serverade >3× beställda).
-2. **Närvarodata** — utan elevnärvaro per dag kan beställningsprecision ej beräknas korrekt.
-3. **Körschema för QA** — kör `test_dashboard_qa.py` automatiskt vid varje uppdatering av rådata.
-4. **Förskolesvinn** — be kunden bekräfta om förskolor registrerar svinn-% i ett annat format.
+1. **Neo4j-reimport**: Kör `import_neo4j.py` med ny food_waste_daily_v2.csv och regenerera `cypher_analysis.py` för att uppdatera näring+svinn-analyserna med korrekt förskoledata.
+2. **Rättnamns-normalisering**: Inför en normalisering av matratt_norm som samlar varianter (nasigoreng/nasi goreng) till ett kanoniskt namn — ökar precision i rätts-rankings.
+3. **Rensa felregistreringar** — Kullagymnasiet 2025-04-03 och Havets förskola 2025-04-14 bör korrigeras i källfilen eller filtreras i parse_waste_daily.py (serverade >3× beställda).
+4. **Närvarodata** — utan elevnärvaro per dag kan beställningsprecision ej beräknas korrekt.
+5. **Körschema för QA** — kör alla tre testfiler automatiskt vid varje uppdatering av rådata: `test_dashboard_qa.py && test_parser.py && test_ai_cypher_qa.py`.

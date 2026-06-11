@@ -2,374 +2,158 @@
   {
     "enhet": "Bruksskolan",
     "topp": [
-      {
-        "gram": 28.4,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 35.0,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 25.2,
-        "ratt": "schnitzel"
-      },
-      {
-        "gram": 30.0,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 29.2,
-        "ratt": "pasta"
-      }
+      "fisk (31.6g/p)",
+      "köttfärssås (33.5g/p)",
+      "nasi goreng (18.5g/p)",
+      "fiskburgare (28.2g/p)",
+      "pasta (32.0g/p)"
     ]
   },
   {
     "enhet": "Eleshults förskola",
     "topp": [
-      {
-        "gram": 0.6,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 0.4,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 1.1,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 1.1,
-        "ratt": "kycklinggryta"
-      },
-      {
-        "gram": 1.1,
-        "ratt": "korvgryta"
-      }
+      "fisk (9.8g/p)",
+      "pytt i panna (28.7g/p)",
+      "thaigryta (16.7g/p)",
+      "köttfärssås (20.9g/p)",
+      "nasi goreng (22.6g/p)"
     ]
   },
   {
     "enhet": "Eric Ruuths förskola",
     "topp": [
-      {
-        "gram": 0.7,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 0.8,
-        "ratt": "pytt"
-      }
+      "pytt (18.1g/p)",
+      "fisk (18.4g/p)"
     ]
   },
   {
     "enhet": "Havets förskola",
     "topp": [
-      {
-        "gram": 2.5,
-        "ratt": "pytt"
-      },
-      {
-        "gram": 0.8,
-        "ratt": "gulaschsoppa"
-      },
-      {
-        "gram": 2.6,
-        "ratt": "pasta ost o skinksås"
-      }
+      "pytt (37.1g/p)",
+      "pasta ost o skinksås (45.6g/p)",
+      "gulaschsoppa (28.7g/p)"
     ]
   },
   {
     "enhet": "Jonstorpsskolan",
     "topp": [
-      {
-        "gram": 35.0,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 33.7,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 34.2,
-        "ratt": "kycklinggryta"
-      },
-      {
-        "gram": 41.7,
-        "ratt": "korvgryta"
-      },
-      {
-        "gram": 35.9,
-        "ratt": "köttbullar"
-      }
+      "spaghetti köttfärsås (33.6g/p)",
+      "fiskburgare (39.5g/p)",
+      "ärtsoppa (31.5g/p)",
+      "tikka masala (34.6g/p)",
+      "spaghetti het sås (34.5g/p)"
     ]
   },
   {
     "enhet": "Klöverängens förskola",
     "topp": [
-      {
-        "gram": 0.9,
-        "ratt": "korv, mos"
-      },
-      {
-        "gram": 1.0,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 0.7,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 1.0,
-        "ratt": "schnitzel"
-      },
-      {
-        "gram": 1.8,
-        "ratt": "lasagne"
-      }
+      "fisk (18.0g/p)",
+      "köttfärssås, spaghetti (49.8g/p)",
+      "nasigoreng (77.1g/p)",
+      "kycklingwok (25.6g/p)",
+      "köttfärslimpa (24.0g/p)"
     ]
   },
   {
     "enhet": "Kullagymnasiet",
     "topp": [
-      {
-        "gram": 33.7,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 61.4,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 34.5,
-        "ratt": "pytt"
-      },
-      {
-        "gram": 43.9,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 53.0,
-        "ratt": "korvgryta"
-      }
+      "nasigoreng (87.2g/p)",
+      "fiskburgare (57.6g/p)",
+      "ärtsoppa (47.3g/p)",
+      "tikka (36.5g/p)",
+      "wok (41.4g/p)"
     ]
   },
   {
     "enhet": "Nyhamnsskolan",
     "topp": [
-      {
-        "gram": 34.6,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 35.3,
-        "ratt": "schnitzel"
-      },
-      {
-        "gram": 38.9,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 37.7,
-        "ratt": "panerad fisk"
-      },
-      {
-        "gram": 39.2,
-        "ratt": "köttfärssås"
-      }
+      "korv mos (36.3g/p)",
+      "soppa (34.6g/p)",
+      "kebabpytt (47.8g/p)",
+      "lasagne (38.8g/p)",
+      "schnitzel (33.9g/p)"
     ]
   },
   {
     "enhet": "Peter Lundhs förskola",
     "topp": [
-      {
-        "gram": 0.5,
-        "ratt": "schnitzel"
-      },
-      {
-        "gram": 1.3,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 0.4,
-        "ratt": "köttbullar"
-      },
-      {
-        "gram": 1.2,
-        "ratt": "lasagnette"
-      },
-      {
-        "gram": 1.5,
-        "ratt": "kalops"
-      }
+      "thaigryta (17.7g/p)",
+      "spröd torsk (12.0g/p)",
+      "köttfärssås (15.6g/p)",
+      "nasi goreng (25.7g/p)",
+      "fiskburgare (8.7g/p)"
     ]
   },
   {
     "enhet": "Revets förskola",
     "topp": [
-      {
-        "gram": 1.8,
-        "ratt": "kålpudding"
-      },
-      {
-        "gram": 1.4,
-        "ratt": "pytt i panna"
-      },
-      {
-        "gram": 2.3,
-        "ratt": "gulaschsoppa"
-      },
-      {
-        "gram": 1.9,
-        "ratt": "kycklingwok"
-      },
-      {
-        "gram": 1.1,
-        "ratt": "spagetti ,köttfärssås"
-      }
+      "gulaschsoppa (49.7g/p)",
+      "kycklingwok (50.0g/p)",
+      "spagetti ,köttfärssås (30.1g/p)",
+      "kålpudding (51.6g/p)",
+      "pytt i panna (33.6g/p)"
     ]
   },
   {
     "enhet": "Solgläntans förskola",
     "topp": [
-      {
-        "gram": 2.3,
-        "ratt": "pyttipanna"
-      }
+      "pyttipanna (29.4g/p)"
     ]
   },
   {
     "enhet": "Svanebäcks förskola",
     "topp": [
-      {
-        "gram": 1.1,
-        "ratt": "pytt"
-      },
-      {
-        "gram": 1.2,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 2.6,
-        "ratt": "pastagratäng"
-      },
-      {
-        "gram": 3.4,
-        "ratt": "pastasallad"
-      },
-      {
-        "gram": 1.4,
-        "ratt": "falafel,ris"
-      }
+      "pasta,paprikasås (82.2g/p)",
+      "fisk,pot (43.3g/p)",
+      "köttb,pot (39.1g/p)",
+      "kykling,ris (54.1g/p)",
+      "järpar,pot (32.0g/p)"
     ]
   },
   {
     "enhet": "Tornlyckeskolan",
     "topp": [
-      {
-        "gram": 107.1,
-        "ratt": "schnitzel"
-      }
+      "schnitzel (107.3g/p)"
     ]
   },
   {
     "enhet": "Vikens Ry förskola",
     "topp": [
-      {
-        "gram": 0.8,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 0.8,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 1.5,
-        "ratt": "pytt"
-      },
-      {
-        "gram": 0.9,
-        "ratt": "lasagne"
-      },
-      {
-        "gram": 1.4,
-        "ratt": "pasta"
-      }
+      "gulashsoppa (14.5g/p)",
+      "lasagne (21.3g/p)",
+      "pasta (27.2g/p)",
+      "fisk (19.8g/p)",
+      "pytt (28.6g/p)"
     ]
   },
   {
     "enhet": "Vikenskolan",
     "topp": [
-      {
-        "gram": 41.2,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 44.9,
-        "ratt": "soppa"
-      },
-      {
-        "gram": 40.8,
-        "ratt": "schnitzel"
-      },
-      {
-        "gram": 40.6,
-        "ratt": "pytt"
-      },
-      {
-        "gram": 43.4,
-        "ratt": "lasagne"
-      }
+      "thaigryta (39.1g/p)",
+      "fisk (41.3g/p)",
+      "nasigoreng (44.2g/p)",
+      "fiskburgare (39.1g/p)",
+      "tikka (39.3g/p)"
     ]
   },
   {
     "enhet": "Väsbyhemmet",
     "topp": [
-      {
-        "gram": 18.6,
-        "ratt": "schnitzel"
-      },
-      {
-        "gram": 16.1,
-        "ratt": "köttbullar"
-      },
-      {
-        "gram": 20.5,
-        "ratt": "pankofisk"
-      },
-      {
-        "gram": 17.6,
-        "ratt": "kassler"
-      },
-      {
-        "gram": 20.0,
-        "ratt": "kålpudding"
-      }
+      "stekt sill (18.6g/p)",
+      "kyckling curry (20.0g/p)",
+      "ärtsoppa (18.4g/p)",
+      "köttbullar (16.1g/p)",
+      "pankofisk (20.5g/p)"
     ]
   },
   {
     "enhet": "Äventyrets förskola",
     "topp": [
-      {
-        "gram": 0.1,
-        "ratt": "fisk,spenat"
-      },
-      {
-        "gram": 0.1,
-        "ratt": "nudelwok"
-      },
-      {
-        "gram": 0.1,
-        "ratt": "färslimpa"
-      },
-      {
-        "gram": 0.1,
-        "ratt": "fisk"
-      },
-      {
-        "gram": 0.1,
-        "ratt": "soppa"
-      }
+      "fisk,spenat (36.1g/p)",
+      "nudelwok (33.9g/p)",
+      "färslimpa (35.2g/p)",
+      "fisk (27.7g/p)",
+      "soppa (18.1g/p)"
     ]
   }
 ]

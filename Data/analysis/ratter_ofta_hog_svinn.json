@@ -1,142 +1,142 @@
 [
   {
-    "ratt": "Kökets val vegetariskt",
-    "menytyp": "skola",
-    "antal_ganger_serverad": 1537,
-    "snitt_svinn_pct": 10.85,
-    "svinn_index": 16682.4
+    "ratt": "fisk",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 131,
+    "snitt_svinn_pct": 7.17,
+    "svinn_index": 939.3
   },
   {
-    "ratt": "Ärtsoppa med fläsk",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 339,
-    "snitt_svinn_pct": 10.24,
-    "svinn_index": 3471.3
+    "ratt": "soppa",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 92,
+    "snitt_svinn_pct": 6.69,
+    "svinn_index": 615.5
   },
   {
-    "ratt": "Kökets val",
-    "menytyp": "skola",
-    "antal_ganger_serverad": 279,
-    "snitt_svinn_pct": 11.05,
-    "svinn_index": 3084.2
+    "ratt": "fisk,pot",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 31,
+    "snitt_svinn_pct": 15.12,
+    "svinn_index": 468.7
   },
   {
-    "ratt": "Ärtsoppa med patéfläsk",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 277,
-    "snitt_svinn_pct": 10.1,
-    "svinn_index": 2799.0
+    "ratt": "köttbullar",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 56,
+    "snitt_svinn_pct": 7.63,
+    "svinn_index": 427.3
   },
   {
-    "ratt": "Ärtsoppa slät med timbalfläsk",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 256,
-    "snitt_svinn_pct": 10.12,
-    "svinn_index": 2590.4
+    "ratt": "lasagne",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 46,
+    "snitt_svinn_pct": 8.89,
+    "svinn_index": 408.9
   },
   {
-    "ratt": "Lasagne med grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 236,
-    "snitt_svinn_pct": 10.92,
-    "svinn_index": 2576.3
+    "ratt": "fiskgratäng",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 40,
+    "snitt_svinn_pct": 10.03,
+    "svinn_index": 401.2
   },
   {
-    "ratt": "Lasagne med sallad",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 236,
-    "snitt_svinn_pct": 10.92,
-    "svinn_index": 2576.3
+    "ratt": "fiskburgare",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 30,
+    "snitt_svinn_pct": 11.53,
+    "svinn_index": 345.9
   },
   {
-    "ratt": "Lasagnetimbal med grönsakstimbal",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 236,
-    "snitt_svinn_pct": 10.92,
-    "svinn_index": 2576.3
+    "ratt": "pytt",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 36,
+    "snitt_svinn_pct": 9.38,
+    "svinn_index": 337.7
   },
   {
-    "ratt": "Spagetti* med köttfärssås och grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 225,
-    "snitt_svinn_pct": 10.11,
-    "svinn_index": 2275.5
+    "ratt": "pytt i panna",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 36,
+    "snitt_svinn_pct": 9.17,
+    "svinn_index": 330.1
   },
   {
-    "ratt": "Spagetti* med köttfärssås och sallad",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 225,
-    "snitt_svinn_pct": 10.11,
-    "svinn_index": 2275.5
+    "ratt": "kycklingwok",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 28,
+    "snitt_svinn_pct": 10.89,
+    "svinn_index": 304.9
   },
   {
-    "ratt": "Pasta* med skaldjurssås och blandad sallad",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 206,
-    "snitt_svinn_pct": 10.76,
-    "svinn_index": 2216.1
+    "ratt": "gulaschsoppa",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 21,
+    "snitt_svinn_pct": 13.81,
+    "svinn_index": 290.0
   },
   {
-    "ratt": "Raggmunk timbal med timbalbacon, grönsaker och lingonsås",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 208,
-    "snitt_svinn_pct": 10.5,
-    "svinn_index": 2183.0
+    "ratt": "schnitzel",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 38,
+    "snitt_svinn_pct": 7.58,
+    "svinn_index": 288.0
   },
   {
-    "ratt": "Kycklingfrikassé med ris* och grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 204,
-    "snitt_svinn_pct": 10.11,
-    "svinn_index": 2063.0
+    "ratt": "pankofisk",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 29,
+    "snitt_svinn_pct": 9.71,
+    "svinn_index": 281.6
   },
   {
-    "ratt": "Kycklingfrikassé timbal med ristimbal och grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 204,
-    "snitt_svinn_pct": 10.11,
-    "svinn_index": 2063.0
+    "ratt": "pastagratäng",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 21,
+    "snitt_svinn_pct": 13.28,
+    "svinn_index": 278.9
   },
   {
-    "ratt": "Kycklingfrikassé paté med ris* och grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 204,
-    "snitt_svinn_pct": 10.11,
-    "svinn_index": 2063.0
+    "ratt": "pannbiff",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 33,
+    "snitt_svinn_pct": 7.79,
+    "svinn_index": 257.1
   },
   {
-    "ratt": "Spagetti timbal med köttfärssås och grönsakstimbal",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 203,
-    "snitt_svinn_pct": 10.13,
-    "svinn_index": 2056.6
+    "ratt": "ärtsoppa",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 24,
+    "snitt_svinn_pct": 10.61,
+    "svinn_index": 254.6
   },
   {
-    "ratt": "Redd grönsakssoppa",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 179,
-    "snitt_svinn_pct": 11.26,
-    "svinn_index": 2015.2
+    "ratt": "köttfärssås",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 28,
+    "snitt_svinn_pct": 8.26,
+    "svinn_index": 231.3
   },
   {
-    "ratt": "Redd grönsakssoppa paté",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 179,
-    "snitt_svinn_pct": 11.26,
-    "svinn_index": 2015.2
+    "ratt": "hamburgare",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 21,
+    "snitt_svinn_pct": 10.94,
+    "svinn_index": 229.7
   },
   {
-    "ratt": "Kycklinglevergryta serveras med ris* och kokta grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 198,
-    "snitt_svinn_pct": 10.04,
-    "svinn_index": 1988.7
+    "ratt": "pasta",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 25,
+    "snitt_svinn_pct": 8.62,
+    "svinn_index": 215.5
   },
   {
-    "ratt": "Kycklinglevergryta paté serveras med ris* och kokta grönsaker",
-    "menytyp": "ao",
-    "antal_ganger_serverad": 198,
-    "snitt_svinn_pct": 10.04,
-    "svinn_index": 1988.7
+    "ratt": "kyckling",
+    "menytyp": "alla",
+    "antal_ganger_serverad": 23,
+    "snitt_svinn_pct": 9.07,
+    "svinn_index": 208.6
   }
 ]

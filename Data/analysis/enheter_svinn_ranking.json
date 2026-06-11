@@ -1,142 +1,191 @@
 [
   {
+    "enhet": "Nyhamnsgården",
+    "format": "skola_ao",
+    "dagar": 259,
+    "total_kg": 916.8,
+    "snitt_kg_per_dag": 3.54,
+    "gram_per_portion": null,
+    "snitt_svinn_pct": 17.1
+  },
+  {
+    "enhet": "Solgläntans förskola",
+    "format": "förskola",
+    "dagar": 230,
+    "total_kg": 352.2,
+    "snitt_kg_per_dag": 1.53,
+    "gram_per_portion": 57.4,
+    "snitt_svinn_pct": 10.1
+  },
+  {
     "enhet": "Kullagymnasiet",
-    "dagar": 178,
-    "total_kg": 3592.1,
-    "gram_per_portion": 47.7,
+    "format": "skola_ao",
+    "dagar": 179,
+    "total_kg": 3617.4,
+    "snitt_kg_per_dag": 20.21,
+    "gram_per_portion": 54.3,
     "snitt_svinn_pct": 7.7
   },
   {
     "enhet": "Tornlyckeskolan",
-    "dagar": 216,
-    "total_kg": 2604.3,
-    "gram_per_portion": 46.8,
-    "snitt_svinn_pct": 19.7
+    "format": "skola_ao",
+    "dagar": 217,
+    "total_kg": 2684.2,
+    "snitt_kg_per_dag": 12.37,
+    "gram_per_portion": 51.3,
+    "snitt_svinn_pct": 12.7
+  },
+  {
+    "enhet": "Svanebäcks förskola",
+    "format": "förskola",
+    "dagar": 234,
+    "total_kg": 509.1,
+    "snitt_kg_per_dag": 2.18,
+    "gram_per_portion": 48.8,
+    "snitt_svinn_pct": 17.4
+  },
+  {
+    "enhet": "Eric Ruuths förskola",
+    "format": "förskola",
+    "dagar": 167,
+    "total_kg": 475.7,
+    "snitt_kg_per_dag": 2.85,
+    "gram_per_portion": 48.4,
+    "snitt_svinn_pct": 17.6
   },
   {
     "enhet": "Lerbergsskolan",
+    "format": "skola_ao",
     "dagar": 234,
     "total_kg": 3709.8,
-    "gram_per_portion": 44.2,
+    "snitt_kg_per_dag": 15.85,
+    "gram_per_portion": 47.0,
     "snitt_svinn_pct": 9.8
   },
   {
+    "enhet": "Revets förskola",
+    "format": "förskola",
+    "dagar": 172,
+    "total_kg": 474.5,
+    "snitt_kg_per_dag": 2.76,
+    "gram_per_portion": 45.7,
+    "snitt_svinn_pct": 16.0
+  },
+  {
     "enhet": "Nyhamnsskolan",
+    "format": "skola_ao",
     "dagar": 210,
     "total_kg": 2695.8,
-    "gram_per_portion": 43.2,
+    "snitt_kg_per_dag": 12.84,
+    "gram_per_portion": 45.2,
     "snitt_svinn_pct": 10.7
   },
   {
     "enhet": "Vikenskolan",
-    "dagar": 188,
-    "total_kg": 4211.2,
+    "format": "skola_ao",
+    "dagar": 190,
+    "total_kg": 4262.6,
+    "snitt_kg_per_dag": 22.43,
     "gram_per_portion": 40.7,
     "snitt_svinn_pct": 9.5
   },
   {
+    "enhet": "Klöverängens förskola",
+    "format": "förskola",
+    "dagar": 212,
+    "total_kg": 331.1,
+    "snitt_kg_per_dag": 1.56,
+    "gram_per_portion": 38.8,
+    "snitt_svinn_pct": 14.5
+  },
+  {
+    "enhet": "Havets förskola",
+    "format": "förskola",
+    "dagar": 232,
+    "total_kg": 352.7,
+    "snitt_kg_per_dag": 1.52,
+    "gram_per_portion": 38.5,
+    "snitt_svinn_pct": 11.5
+  },
+  {
     "enhet": "Jonstorpsskolan",
-    "dagar": 189,
-    "total_kg": 3331.5,
-    "gram_per_portion": 34.9,
+    "format": "skola_ao",
+    "dagar": 188,
+    "total_kg": 3312.5,
+    "snitt_kg_per_dag": 17.62,
+    "gram_per_portion": 35.3,
     "snitt_svinn_pct": 8.8
   },
   {
+    "enhet": "Lärlyckans förskola",
+    "format": "förskola",
+    "dagar": 220,
+    "total_kg": 446.2,
+    "snitt_kg_per_dag": 2.03,
+    "gram_per_portion": 34.5,
+    "snitt_svinn_pct": 12.5
+  },
+  {
     "enhet": "Bruksskolan",
+    "format": "skola_ao",
     "dagar": 223,
     "total_kg": 2357.8,
-    "gram_per_portion": 27.3,
+    "snitt_kg_per_dag": 10.57,
+    "gram_per_portion": 31.1,
     "snitt_svinn_pct": 6.0
   },
   {
+    "enhet": "Äventyrets förskola",
+    "format": "förskola",
+    "dagar": 237,
+    "total_kg": 644.5,
+    "snitt_kg_per_dag": 2.72,
+    "gram_per_portion": 28.6,
+    "snitt_svinn_pct": 10.4
+  },
+  {
+    "enhet": "Vikens Ry förskola",
+    "format": "förskola",
+    "dagar": 215,
+    "total_kg": 237.0,
+    "snitt_kg_per_dag": 1.1,
+    "gram_per_portion": 22.1,
+    "snitt_svinn_pct": 8.0
+  },
+  {
     "enhet": "Väsbyhemmet",
+    "format": "skola_ao",
     "dagar": 260,
     "total_kg": 591.2,
+    "snitt_kg_per_dag": 2.27,
     "gram_per_portion": 20.7,
     "snitt_svinn_pct": 3.8
   },
   {
-    "enhet": "Vikhaga",
-    "dagar": 249,
-    "total_kg": 143.8,
-    "gram_per_portion": 12.5,
-    "snitt_svinn_pct": 2.3
-  },
-  {
-    "enhet": "Solgläntans förskola",
-    "dagar": 22,
-    "total_kg": 3.5,
-    "gram_per_portion": 4.5,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Svanebäcks förskola",
-    "dagar": 234,
-    "total_kg": 28.1,
-    "gram_per_portion": 2.6,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Klöverängens förskola",
-    "dagar": 211,
-    "total_kg": 21.8,
-    "gram_per_portion": 2.4,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Eric Ruuths förskola",
-    "dagar": 169,
-    "total_kg": 18.8,
-    "gram_per_portion": 1.9,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Revets förskola",
-    "dagar": 164,
-    "total_kg": 18.2,
-    "gram_per_portion": 1.8,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Havets förskola",
-    "dagar": 235,
-    "total_kg": 18.1,
-    "gram_per_portion": 1.7,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Lärlyckans förskola",
-    "dagar": 220,
-    "total_kg": 22.2,
-    "gram_per_portion": 1.7,
-    "snitt_svinn_pct": null
-  },
-  {
     "enhet": "Eleshults förskola",
-    "dagar": 237,
-    "total_kg": 9.9,
-    "gram_per_portion": 1.3,
-    "snitt_svinn_pct": null
+    "format": "förskola",
+    "dagar": 236,
+    "total_kg": 115.5,
+    "snitt_kg_per_dag": 0.49,
+    "gram_per_portion": 19.6,
+    "snitt_svinn_pct": 7.0
   },
   {
     "enhet": "Peter Lundhs förskola",
-    "dagar": 210,
-    "total_kg": 11.1,
-    "gram_per_portion": 1.1,
-    "snitt_svinn_pct": null
+    "format": "förskola",
+    "dagar": 209,
+    "total_kg": 165.1,
+    "snitt_kg_per_dag": 0.79,
+    "gram_per_portion": 16.6,
+    "snitt_svinn_pct": 6.0
   },
   {
-    "enhet": "Vikens Ry förskola",
-    "dagar": 215,
-    "total_kg": 10.9,
-    "gram_per_portion": 1.0,
-    "snitt_svinn_pct": null
-  },
-  {
-    "enhet": "Äventyrets förskola",
-    "dagar": 237,
-    "total_kg": 3.3,
-    "gram_per_portion": 0.1,
-    "snitt_svinn_pct": null
+    "enhet": "Vikhaga",
+    "format": "skola_ao",
+    "dagar": 259,
+    "total_kg": 148.6,
+    "snitt_kg_per_dag": 0.57,
+    "gram_per_portion": 12.5,
+    "snitt_svinn_pct": 2.3
   }
 ]

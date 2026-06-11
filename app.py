@@ -337,7 +337,7 @@ Förskolor använder ett annat Excel-format: köks- och serveringssvinn registre
 `svinn_g_p = totalt_svinn_kg × 1 000 / serverade_portioner` — **serverade** portioner, inte beställda. Detta är ett mått på faktisk matförlust per person som ätit.
 
 **Vad är kvadrantanalysen?**
-Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen täcker **enbart skolor och äldreomsorg** — inga förskolor. Rätter med protein < 5 g eller energi < 150 kcal är exkluderade som troliga felmatchningar (3 rätter borttagna, 116 kvar).
+Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen är källad från skolors och äldreomsorgens menyplanering — men **samma meny serveras på alla enheter** (förskolor, skolor och ÄO) samma dag. Näringsvärden är därför tillämpliga på alla verksamhetstyper. Svinndata i nuvarande kvadrantanalys baseras på skolor och ÄO; förskolesvinn inkluderas i en kommande uppdatering. Rätter med protein < 5 g eller energi < 150 kcal är exkluderade som troliga felmatchningar (3 rätter borttagna, 116 kvar).
 
 **Beställningsprecision — viktig begränsning**
 70 % av värdena i `bestallda_portioner` är identiska med `serverade_portioner` i rådata — de är alltså en kopia, inte en verklig prognos. Beställningsprecisionsanalysen är fullt trovärdig för de 26 % av rader där det finns en genuin skillnad.
@@ -416,7 +416,7 @@ Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen 
                    color_discrete_sequence=["#EF4444"])
     fig3.update_layout(**PLOT_LAYOUT)
     st.plotly_chart(fig3, use_container_width=True)
-    st.caption("Baserat på svinn-% — enbart skolor och äldreomsorg. Förskolor saknar svinn-%-data och ingår inte i denna graf.")
+    st.caption("Baserat på svinn-% — enbart skolor och äldreomsorg. Förskolor registrerar svinn-% men har ett eget kombinerat format och visas separat.")
     st.markdown('</div>', unsafe_allow_html=True)
 
     raw_expander(df_fw[["unit_name","week","total_waste_pct","total_waste_kg",
@@ -432,7 +432,8 @@ Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen 
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
         st.subheader("Svinn vs Protein per rätt — kvadrantanalys")
         st.caption("Baserat på matchning av svinndata mot näringsfil. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+). "
-                   "Täcker enbart skolor och äldreomsorg — näringsfilen saknar förskoledata. "
+                   "Samma meny serveras på alla enheter — näringsvärden gäller förskolor lika väl som skolor. "
+                   "Svinndata i nuvarande version: skolor och ÄO (förskolesvinn inkluderas i kommande uppdatering). "
                    "116 rätter efter filtrering (3 borttagna: protein < 5 g eller kcal < 150 som troliga felmatchningar).")
 
         kv_color_map = {
@@ -738,7 +739,7 @@ elif page == "⚠️ Datakvalitet":
         {"Analys": "Svinn % per vecka (linjegraf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (saknar svinn-%-data)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Säsongsmönster (area-graf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (NaN hoppas över i median)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Svinntyper pie-chart", "Inkluderar": "Skolor + ÄO (~10 enheter, komp_diff<20%)", "Exkluderar": "11 förskolor (komponentdata ~44× för hög)", "Mått": "kokssvinn_kg m.fl.", "Status": "✅ Verifierad med avgränsning"},
-        {"Analys": "Svinn vs Näring kvadrant", "Inkluderar": "Skolor + ÄO (näringsfil täcker ej förskola)", "Exkluderar": "Förskolor + 3 felmatchningar", "Mått": "svinn_g_p, protein_g, kcal", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Svinn vs Näring kvadrant", "Inkluderar": "Skolor + ÄO (förskolesvinn tillkommer i uppdatering)", "Exkluderar": "Förskolesvinn (ej ännu Neo4j-importerat) + 3 felmatchningar", "Mått": "svinn_g_p, protein_g, kcal", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Beställningsprecision", "Inkluderar": "Alla 21 enheter", "Exkluderar": "–", "Mått": "ordered_portions, served_portions", "Status": "⚠️ 70% kopia — indikativ"},
         {"Analys": "Inköp & ekonomi", "Inkluderar": "Alla enheter (inköpsdata)", "Exkluderar": "–", "Mått": "kronor, ekologisk", "Status": "✅ Fullt verifierad"},
         {"Analys": "Avtalstrohet", "Inkluderar": "Alla enheter (inköpsdata)", "Exkluderar": "–", "Mått": "procent_utanfor_avtal, kronor", "Status": "✅ Fullt verifierad"},
@@ -835,7 +836,7 @@ elif page == "⚠️ Datakvalitet":
 - **Komponentsvinn (kök/servering/tallrik) för förskolor** — dessa kolumner innehåller felaktiga värden för förskolor i rådata (summan är 44 gånger för hög). Dashboarden exkluderar dem i komponentanalysen.
 - **Beställningsprecision** kan inte fullt ut verifieras — 70 % av beställda portioner är identiska med serverade portioner, vilket tyder på att en kopia används istället för verkliga förhandsbeställningar. Analysen visar ändå mönster i de 26 % av fallen med genuina skillnader.
 - **Koppling leverantör → svinn** — det finns ingen länk i data mellan vilken leverantörs råvaror som användes i en specifik rätt. Det går alltså inte att säga att "leverantör X orsakar mer svinn".
-- **Näring för förskolor** — näringsfilen täcker enbart skolmenyer och äldreomsorgsmenyer. Förskolemat ingår inte i kvadrantanalysen.
+- **Näring och förskolor** — samma meny serveras på alla enheter. Näringsvärden (från skol/ÄO-menyplanering) är tillämpliga på förskoledata. Förskolesvinn saknas i nuvarande kvadrantanalys pga Neo4j-import ej uppdaterad med parser-fix — planeras att åtgärdas.
 
 ### Hur ska man tolka siffrorna?
 
@@ -972,11 +973,19 @@ INSTRUKTIONER:
 - Jämför enheter mot varandra och mot genomsnittet
 - Kvantifiera ekonomisk potential där möjligt — märk alltid beräkningar som scenariobaserade med ett antagande om råvarukostnad (t.ex. "vid antagandet 50 kr/kg, vilket inte är verifierat mot faktiska inköpspriser")
 - Strukturera längre svar med rubriker och punktlistor
-- Om du inte har tillräcklig data för att svara säkert, säg det tydligt
+- Om du inte har tillräcklig data för att svara säkert, säg det tydligt och ange exakt vad som saknas
 - Orsaker till svinnmönster (t.ex. serveringsmetod, temperatur) finns INTE i datan — formulera alltid som "troliga orsaker baserat på mönster" eller "möjlig förklaring", aldrig som konstaterade fakta
 - HÅRT VETO: "Fiskgratäng serveras med potatismos" med protein=2,8g är ett känt matchningsfel och är BORTTAGEN ur kvadrantanalysen. Om du ser den i listan har ett fel uppstått. Inkludera den ALDRIG i dubbel-förlust-listan. Om fiskgratäng nämns i dubbel-förlust-kontexten, svara: "Fiskgratäng exkluderas från dubbel-förlust-analysen — protein 2,8g är ett känt matchningsfel och raden är borttagen ur datan."
 - Övriga fiskgratäng-varianter (med curry, gräslök, dill, saffran osv) är separata rätter med korrekta näringsvärden (27–33g protein) och kan rekommenderas om de ligger i lag_svinn_hog_protein-kvadranten — ange alltid det fullständiga rättnamnet
 - Rätter med lågt svinn per portion kan vara outliers med få observationer — nämn alltid antal observationer vid rekommendationer
+- AVGRÄNSNING SVINNTYPER: svinntypsanalysen (tallrik/kök/servering) gäller enbart skolor och äldreomsorg. Förskolor registrerar köks- och serveringssvinn kombinerat — separata komponentvärden finns INTE för förskolor. Ange alltid denna avgränsning när svinntyper diskuteras.
+- AVGRÄNSNING NÄRINGSFIL: kvadrantanalysen bygger på svinndata från skolor och ÄO. Samma meny serveras på alla enheter, så näringsvärden är principiellt tillämpliga för alla — men förskolesvinndata är INTE inkluderat i nuvarande kvadrantanalys.
+- ALDRIG skapa egna beräkningar eller uppskattningar som inte direkt följer av redovisad data. Om en beräkning kräver antaganden: ange antagandena explicit.
+- ALDRIG dra kausala slutsatser. Korrelationer och mönster ska alltid beskrivas som observerade samband, inte orsak-verkan.
+- ALDRIG jämföra med andra kommuner — ingen jämförelsedata finns i systemet.
+- ALDRIG göra prognoser — ingen prediktionsmodell finns.
+- ALDRIG ange råvarupriser på artikelnivå — inköpsdatan är på aggregerad leverantörsnivå, inte per råvara eller artikel.
+- ALDRIG bekräfta att en specifik serveringsmetod "orsakar" svinn — det kan observeras som mönster men inte verifieras som orsak från denna data.
 
 KONTEXT — Höganäs kommuns kostverksamhet 2025:
 """
@@ -1032,10 +1041,10 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
 
         if not weather.empty:
             p += "\n## Väderdata — SMHI Helsingborg A 2025\n"
-            p += f"- Temperaturkorrelation mot svinn: r≈−0.29 (kalla dagar ger mer svinn)\n"
+            p += f"- Temperaturkorrelation mot svinn: r≈−0.07 (svag negativ korrelation, ej statistiskt robust)\n"
             p += f"- Nederbördskorrelation: r≈+0.03 (ingen effekt)\n"
             p += f"- Temperaturspann 2025: {weather['temp_c'].min():.1f}°C till {weather['temp_c'].max():.1f}°C\n"
-            p += "- Kalla dagar (<3°C) ger ca 5g mer svinn/portion än varma dagar (>16°C)\n"
+            p += "- OBS: vädereffekt på svinn är svag och bör formuleras som 'möjligt mönster', aldrig som konstaterat samband\n"
 
         # ── Grafanalys (verifierade Cypher-resultat från Neo4j) ───────────────
         ga = graph_analysis

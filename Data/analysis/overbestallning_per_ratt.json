@@ -42,12 +42,6 @@
     "total_over_portioner": 285.0
   },
   {
-    "ratt": "korv, mos",
-    "obs": 3,
-    "snitt_over_pct": 11.6,
-    "total_over_portioner": 182.0
-  },
-  {
     "ratt": "nasigoreng",
     "obs": 8,
     "snitt_over_pct": 11.4,
@@ -58,12 +52,6 @@
     "obs": 6,
     "snitt_over_pct": 11.3,
     "total_over_portioner": 68.0
-  },
-  {
-    "ratt": "moussaka",
-    "obs": 5,
-    "snitt_over_pct": 11.1,
-    "total_over_portioner": 306.0
   },
   {
     "ratt": "kyckling curry",
@@ -118,5 +106,17 @@
     "obs": 10,
     "snitt_over_pct": 8.7,
     "total_over_portioner": 490.0
+  },
+  {
+    "ratt": "pulled pork",
+    "obs": 4,
+    "snitt_over_pct": 8.3,
+    "total_over_portioner": 30.0
+  },
+  {
+    "ratt": "wok",
+    "obs": 12,
+    "snitt_over_pct": 8.1,
+    "total_over_portioner": 539.0
   }
 ]

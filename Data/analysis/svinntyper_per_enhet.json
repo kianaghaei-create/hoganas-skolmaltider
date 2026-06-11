@@ -1,142 +1,51 @@
 [
   {
-    "enhet": "Solgläntans förskola",
-    "tallrik_g_p": 54.8,
-    "servering_g_p": 9.7,
-    "koks_g_p": 45.1,
-    "dagar": 22
-  },
-  {
-    "enhet": "Eric Ruuths förskola",
-    "tallrik_g_p": 48.2,
-    "servering_g_p": 17.0,
-    "koks_g_p": 31.3,
+    "enhet": "Kullagymnasiet",
+    "tallrik_g_p": 34.0,
+    "servering_g_p": 4.8,
+    "koks_g_p": 17.1,
     "dagar": 169
   },
   {
-    "enhet": "Svanebäcks förskola",
-    "tallrik_g_p": 46.3,
-    "servering_g_p": 14.2,
-    "koks_g_p": 32.1,
-    "dagar": 234
-  },
-  {
-    "enhet": "Revets förskola",
-    "tallrik_g_p": 44.3,
-    "servering_g_p": 14.9,
-    "koks_g_p": 29.3,
-    "dagar": 164
-  },
-  {
-    "enhet": "Klöverängens förskola",
-    "tallrik_g_p": 36.9,
-    "servering_g_p": 10.8,
-    "koks_g_p": 26.1,
+    "enhet": "Tornlyckeskolan",
+    "tallrik_g_p": 30.6,
+    "servering_g_p": 10.9,
+    "koks_g_p": 10.2,
     "dagar": 211
   },
   {
-    "enhet": "Lärlyckans förskola",
-    "tallrik_g_p": 35.2,
-    "servering_g_p": 5.7,
-    "koks_g_p": 29.5,
-    "dagar": 220
-  },
-  {
-    "enhet": "Havets förskola",
-    "tallrik_g_p": 33.5,
-    "servering_g_p": 13.2,
-    "koks_g_p": 20.4,
-    "dagar": 235
-  },
-  {
-    "enhet": "Tornlyckeskolan",
-    "tallrik_g_p": 30.5,
-    "servering_g_p": 9.4,
-    "koks_g_p": 9.0,
-    "dagar": 216
-  },
-  {
-    "enhet": "Kullagymnasiet",
-    "tallrik_g_p": 29.0,
-    "servering_g_p": 4.1,
-    "koks_g_p": 14.5,
-    "dagar": 178
-  },
-  {
-    "enhet": "Äventyrets förskola",
-    "tallrik_g_p": 28.6,
-    "servering_g_p": 24.7,
-    "koks_g_p": 3.8,
-    "dagar": 237
-  },
-  {
     "enhet": "Lerbergsskolan",
-    "tallrik_g_p": 23.7,
-    "servering_g_p": 9.8,
-    "koks_g_p": 10.8,
-    "dagar": 237
+    "tallrik_g_p": 23.5,
+    "servering_g_p": 12.2,
+    "koks_g_p": 13.0,
+    "dagar": 219
   },
   {
     "enhet": "Bruksskolan",
-    "tallrik_g_p": 20.8,
-    "servering_g_p": 4.8,
-    "koks_g_p": 1.9,
-    "dagar": 223
-  },
-  {
-    "enhet": "Vikens Ry förskola",
-    "tallrik_g_p": 20.8,
-    "servering_g_p": 7.6,
-    "koks_g_p": 13.2,
-    "dagar": 215
+    "tallrik_g_p": 21.5,
+    "servering_g_p": 6.9,
+    "koks_g_p": 2.9,
+    "dagar": 222
   },
   {
     "enhet": "Vikenskolan",
-    "tallrik_g_p": 19.3,
-    "servering_g_p": 10.5,
-    "koks_g_p": 10.7,
-    "dagar": 190
+    "tallrik_g_p": 19.4,
+    "servering_g_p": 10.7,
+    "koks_g_p": 10.8,
+    "dagar": 188
   },
   {
     "enhet": "Jonstorpsskolan",
     "tallrik_g_p": 18.0,
-    "servering_g_p": 8.6,
-    "koks_g_p": 8.3,
-    "dagar": 189
+    "servering_g_p": 9.0,
+    "koks_g_p": 8.6,
+    "dagar": 184
   },
   {
     "enhet": "Nyhamnsskolan",
     "tallrik_g_p": 17.7,
-    "servering_g_p": 11.8,
-    "koks_g_p": 13.7,
+    "servering_g_p": 12.8,
+    "koks_g_p": 14.8,
     "dagar": 210
-  },
-  {
-    "enhet": "Peter Lundhs förskola",
-    "tallrik_g_p": 16.3,
-    "servering_g_p": 1.9,
-    "koks_g_p": 14.3,
-    "dagar": 210
-  },
-  {
-    "enhet": "Eleshults förskola",
-    "tallrik_g_p": 15.3,
-    "servering_g_p": 6.1,
-    "koks_g_p": 9.3,
-    "dagar": 237
-  },
-  {
-    "enhet": "Vikhaga",
-    "tallrik_g_p": 12.5,
-    "servering_g_p": 0.0,
-    "koks_g_p": 0.0,
-    "dagar": 250
-  },
-  {
-    "enhet": "Väsbyhemmet",
-    "tallrik_g_p": 0.9,
-    "servering_g_p": 0.0,
-    "koks_g_p": 19.8,
-    "dagar": 260
   }
 ]

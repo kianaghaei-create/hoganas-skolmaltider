@@ -1,212 +1,212 @@
 [
   {
     "ratt": "fisk",
-    "antal_dagar": 119,
-    "snitt_svinn_kg": 9.03,
-    "totalt_svinn_kg": 1075.1,
-    "svinn_gram_per_portion": 27.2
+    "antal_dagar": 131,
+    "snitt_svinn_kg": 8.8,
+    "totalt_svinn_kg": 1152.4,
+    "svinn_gram_per_portion": 27.1
   },
   {
     "ratt": "soppa",
-    "antal_dagar": 79,
-    "snitt_svinn_kg": 7.76,
-    "totalt_svinn_kg": 612.9,
-    "svinn_gram_per_portion": 26.7
-  },
-  {
-    "ratt": "Spaghetti med köttfärssås; Spaghetti med färssås",
-    "antal_dagar": 33,
-    "snitt_svinn_kg": 7.82,
-    "totalt_svinn_kg": 258.0,
-    "svinn_gram_per_portion": 35.6
-  },
-  {
-    "ratt": "Thaigryta med kyckling serveras med nudlar; Choladesgryta serveras med nudlar",
-    "antal_dagar": 26,
-    "snitt_svinn_kg": 8.66,
-    "totalt_svinn_kg": 225.1,
-    "svinn_gram_per_portion": 35.8
-  },
-  {
-    "ratt": "Kycklingwok med nudlar och kall currysås; Grönsakswok med nudlar och kall currysås",
-    "antal_dagar": 25,
-    "snitt_svinn_kg": 8.53,
-    "totalt_svinn_kg": 213.2,
-    "svinn_gram_per_portion": 42.3
-  },
-  {
-    "ratt": "fiskburgare",
-    "antal_dagar": 25,
-    "snitt_svinn_kg": 8.18,
-    "totalt_svinn_kg": 204.6,
-    "svinn_gram_per_portion": 40.5
-  },
-  {
-    "ratt": "lasagne",
-    "antal_dagar": 37,
-    "snitt_svinn_kg": 5.52,
-    "totalt_svinn_kg": 204.4,
-    "svinn_gram_per_portion": 29.3
+    "antal_dagar": 92,
+    "snitt_svinn_kg": 6.85,
+    "totalt_svinn_kg": 630.2,
+    "svinn_gram_per_portion": 26.4
   },
   {
     "ratt": "fiskgratäng",
-    "antal_dagar": 32,
-    "snitt_svinn_kg": 6.33,
-    "totalt_svinn_kg": 202.6,
-    "svinn_gram_per_portion": 30.8
-  },
-  {
-    "ratt": "pytt",
-    "antal_dagar": 31,
-    "snitt_svinn_kg": 6.36,
-    "totalt_svinn_kg": 197.1,
-    "svinn_gram_per_portion": 30.5
-  },
-  {
-    "ratt": "Kökets val; Kökets val vegetariskt",
-    "antal_dagar": 64,
-    "snitt_svinn_kg": 3.03,
-    "totalt_svinn_kg": 193.6,
-    "svinn_gram_per_portion": 44.6
-  },
-  {
-    "ratt": "schnitzel",
-    "antal_dagar": 31,
-    "snitt_svinn_kg": 5.44,
-    "totalt_svinn_kg": 168.6,
-    "svinn_gram_per_portion": 24.8
-  },
-  {
-    "ratt": "kyckling",
-    "antal_dagar": 19,
-    "snitt_svinn_kg": 8.81,
-    "totalt_svinn_kg": 167.4,
-    "svinn_gram_per_portion": 29.2
-  },
-  {
-    "ratt": "pannbiff",
-    "antal_dagar": 27,
-    "snitt_svinn_kg": 5.97,
-    "totalt_svinn_kg": 161.3,
-    "svinn_gram_per_portion": 26.9
-  },
-  {
-    "ratt": "kalops",
-    "antal_dagar": 16,
-    "snitt_svinn_kg": 9.74,
-    "totalt_svinn_kg": 155.8,
-    "svinn_gram_per_portion": 32.1
+    "antal_dagar": 40,
+    "snitt_svinn_kg": 7.89,
+    "totalt_svinn_kg": 315.8,
+    "svinn_gram_per_portion": 34.2
   },
   {
     "ratt": "köttbullar",
-    "antal_dagar": 40,
-    "snitt_svinn_kg": 3.87,
-    "totalt_svinn_kg": 154.7,
-    "svinn_gram_per_portion": 23.0
+    "antal_dagar": 56,
+    "snitt_svinn_kg": 5.53,
+    "totalt_svinn_kg": 309.5,
+    "svinn_gram_per_portion": 26.0
   },
   {
-    "ratt": "Köttbullar",
-    "antal_dagar": 15,
-    "snitt_svinn_kg": 10.29,
-    "totalt_svinn_kg": 154.4,
-    "svinn_gram_per_portion": 33.9
+    "ratt": "lasagne",
+    "antal_dagar": 46,
+    "snitt_svinn_kg": 6.38,
+    "totalt_svinn_kg": 293.6,
+    "svinn_gram_per_portion": 29.9
   },
   {
-    "ratt": "pastagratäng",
-    "antal_dagar": 20,
-    "snitt_svinn_kg": 7.66,
-    "totalt_svinn_kg": 153.1,
-    "svinn_gram_per_portion": 44.1
+    "ratt": "fiskburgare",
+    "antal_dagar": 30,
+    "snitt_svinn_kg": 9.05,
+    "totalt_svinn_kg": 271.4,
+    "svinn_gram_per_portion": 39.6
   },
   {
-    "ratt": "korv",
-    "antal_dagar": 21,
-    "snitt_svinn_kg": 7.16,
-    "totalt_svinn_kg": 150.3,
-    "svinn_gram_per_portion": 26.5
+    "ratt": "pannbiff",
+    "antal_dagar": 33,
+    "snitt_svinn_kg": 8.18,
+    "totalt_svinn_kg": 269.8,
+    "svinn_gram_per_portion": 28.3
   },
   {
     "ratt": "pankofisk",
+    "antal_dagar": 29,
+    "snitt_svinn_kg": 8.16,
+    "totalt_svinn_kg": 236.6,
+    "svinn_gram_per_portion": 35.7
+  },
+  {
+    "ratt": "pytt",
+    "antal_dagar": 36,
+    "snitt_svinn_kg": 6.41,
+    "totalt_svinn_kg": 230.7,
+    "svinn_gram_per_portion": 30.3
+  },
+  {
+    "ratt": "kyckling",
     "antal_dagar": 23,
-    "snitt_svinn_kg": 6.4,
-    "totalt_svinn_kg": 147.1,
-    "svinn_gram_per_portion": 31.8
+    "snitt_svinn_kg": 9.33,
+    "totalt_svinn_kg": 214.7,
+    "svinn_gram_per_portion": 29.4
   },
   {
-    "ratt": "ärtsoppa",
-    "antal_dagar": 17,
-    "snitt_svinn_kg": 8.55,
-    "totalt_svinn_kg": 145.3,
-    "svinn_gram_per_portion": 34.1
-  },
-  {
-    "ratt": "tikka",
-    "antal_dagar": 9,
-    "snitt_svinn_kg": 15.96,
-    "totalt_svinn_kg": 143.6,
-    "svinn_gram_per_portion": 37.9
-  },
-  {
-    "ratt": "kebabpytt",
-    "antal_dagar": 9,
-    "snitt_svinn_kg": 15.32,
-    "totalt_svinn_kg": 137.9,
-    "svinn_gram_per_portion": 56.1
-  },
-  {
-    "ratt": "korvgryta",
-    "antal_dagar": 12,
-    "snitt_svinn_kg": 11.31,
-    "totalt_svinn_kg": 135.7,
-    "svinn_gram_per_portion": 33.7
-  },
-  {
-    "ratt": "thaigryta",
-    "antal_dagar": 12,
-    "snitt_svinn_kg": 10.67,
-    "totalt_svinn_kg": 128.0,
-    "svinn_gram_per_portion": 33.5
-  },
-  {
-    "ratt": "wok",
-    "antal_dagar": 11,
-    "snitt_svinn_kg": 11.3,
-    "totalt_svinn_kg": 124.3,
-    "svinn_gram_per_portion": 34.6
+    "ratt": "schnitzel",
+    "antal_dagar": 38,
+    "snitt_svinn_kg": 5.49,
+    "totalt_svinn_kg": 208.6,
+    "svinn_gram_per_portion": 27.3
   },
   {
     "ratt": "pastabuffe",
-    "antal_dagar": 10,
-    "snitt_svinn_kg": 12.27,
-    "totalt_svinn_kg": 122.7,
-    "svinn_gram_per_portion": 31.9
+    "antal_dagar": 14,
+    "snitt_svinn_kg": 13.84,
+    "totalt_svinn_kg": 193.7,
+    "svinn_gram_per_portion": 32.9
   },
   {
-    "ratt": "nasigoreng",
-    "antal_dagar": 8,
-    "snitt_svinn_kg": 15.16,
-    "totalt_svinn_kg": 121.3,
-    "svinn_gram_per_portion": 61.3
+    "ratt": "thaigryta",
+    "antal_dagar": 16,
+    "snitt_svinn_kg": 11.88,
+    "totalt_svinn_kg": 190.1,
+    "svinn_gram_per_portion": 33.1
   },
   {
-    "ratt": "Tacos med tillbehör; Vegetarisk tacos med tillbehör",
-    "antal_dagar": 13,
-    "snitt_svinn_kg": 9.29,
-    "totalt_svinn_kg": 120.8,
-    "svinn_gram_per_portion": 38.4
+    "ratt": "ärtsoppa",
+    "antal_dagar": 24,
+    "snitt_svinn_kg": 7.82,
+    "totalt_svinn_kg": 187.7,
+    "svinn_gram_per_portion": 37.0
   },
   {
-    "ratt": "Chili con Carne serveras med ris; Chili sin Carne serveras med ris",
+    "ratt": "kalops",
+    "antal_dagar": 21,
+    "snitt_svinn_kg": 8.7,
+    "totalt_svinn_kg": 182.6,
+    "svinn_gram_per_portion": 31.4
+  },
+  {
+    "ratt": "kebabpytt",
     "antal_dagar": 12,
-    "snitt_svinn_kg": 9.97,
-    "totalt_svinn_kg": 119.7,
-    "svinn_gram_per_portion": 47.2
+    "snitt_svinn_kg": 14.73,
+    "totalt_svinn_kg": 176.8,
+    "svinn_gram_per_portion": 51.4
   },
   {
-    "ratt": "färsrätt",
-    "antal_dagar": 17,
-    "snitt_svinn_kg": 6.99,
-    "totalt_svinn_kg": 118.9,
-    "svinn_gram_per_portion": 33.2
+    "ratt": "tikka",
+    "antal_dagar": 10,
+    "snitt_svinn_kg": 16.75,
+    "totalt_svinn_kg": 167.5,
+    "svinn_gram_per_portion": 37.9
+  },
+  {
+    "ratt": "korvgryta",
+    "antal_dagar": 15,
+    "snitt_svinn_kg": 10.74,
+    "totalt_svinn_kg": 161.1,
+    "svinn_gram_per_portion": 33.5
+  },
+  {
+    "ratt": "köttfärslimpa",
+    "antal_dagar": 19,
+    "snitt_svinn_kg": 8.36,
+    "totalt_svinn_kg": 158.8,
+    "svinn_gram_per_portion": 30.5
+  },
+  {
+    "ratt": "pytt i panna",
+    "antal_dagar": 37,
+    "snitt_svinn_kg": 4.24,
+    "totalt_svinn_kg": 156.8,
+    "svinn_gram_per_portion": 30.0
+  },
+  {
+    "ratt": "pastagratäng",
+    "antal_dagar": 21,
+    "snitt_svinn_kg": 7.4,
+    "totalt_svinn_kg": 155.4,
+    "svinn_gram_per_portion": 44.5
+  },
+  {
+    "ratt": "korv",
+    "antal_dagar": 22,
+    "snitt_svinn_kg": 6.9,
+    "totalt_svinn_kg": 151.9,
+    "svinn_gram_per_portion": 26.3
+  },
+  {
+    "ratt": "kycklingwok",
+    "antal_dagar": 28,
+    "snitt_svinn_kg": 5.15,
+    "totalt_svinn_kg": 144.2,
+    "svinn_gram_per_portion": 33.3
+  },
+  {
+    "ratt": "wok",
+    "antal_dagar": 12,
+    "snitt_svinn_kg": 11.27,
+    "totalt_svinn_kg": 135.2,
+    "svinn_gram_per_portion": 33.6
+  },
+  {
+    "ratt": "pasta",
+    "antal_dagar": 25,
+    "snitt_svinn_kg": 5.24,
+    "totalt_svinn_kg": 131.1,
+    "svinn_gram_per_portion": 29.2
+  },
+  {
+    "ratt": "tikka masala",
+    "antal_dagar": 21,
+    "snitt_svinn_kg": 5.99,
+    "totalt_svinn_kg": 125.8,
+    "svinn_gram_per_portion": 27.6
+  },
+  {
+    "ratt": "gulaschsoppa",
+    "antal_dagar": 21,
+    "snitt_svinn_kg": 5.98,
+    "totalt_svinn_kg": 125.6,
+    "svinn_gram_per_portion": 40.3
+  },
+  {
+    "ratt": "falafel",
+    "antal_dagar": 15,
+    "snitt_svinn_kg": 8.29,
+    "totalt_svinn_kg": 124.3,
+    "svinn_gram_per_portion": 41.1
+  },
+  {
+    "ratt": "tacos",
+    "antal_dagar": 16,
+    "snitt_svinn_kg": 7.74,
+    "totalt_svinn_kg": 123.8,
+    "svinn_gram_per_portion": 29.9
+  },
+  {
+    "ratt": "pastasallad",
+    "antal_dagar": 15,
+    "snitt_svinn_kg": 8.23,
+    "totalt_svinn_kg": 123.4,
+    "svinn_gram_per_portion": 40.9
   }
 ]

@@ -1,21 +1,21 @@
 [
   {
     "enhet": "Väsbyhemmet",
-    "total_tkr": 2270.6,
-    "tkr_utanfor": 682.0,
+    "total_tkr": 2266.6,
+    "tkr_utanfor": 678.9,
     "pct_utanfor": 30.0
   },
   {
     "enhet": "Vikhaga",
-    "total_tkr": 1059.5,
-    "tkr_utanfor": 208.7,
-    "pct_utanfor": 19.7
+    "total_tkr": 1042.1,
+    "tkr_utanfor": 191.3,
+    "pct_utanfor": 18.4
   },
   {
     "enhet": "Nyhamnsgården",
-    "total_tkr": 1047.3,
-    "tkr_utanfor": 170.4,
-    "pct_utanfor": 16.3
+    "total_tkr": 1041.8,
+    "tkr_utanfor": 164.9,
+    "pct_utanfor": 15.8
   },
   {
     "enhet": "Äventyrets förskola",
@@ -31,39 +31,39 @@
   },
   {
     "enhet": "Klöverängens förskola",
-    "total_tkr": 123.1,
-    "tkr_utanfor": 14.6,
-    "pct_utanfor": 11.9
-  },
-  {
-    "enhet": "Kullagymnasiet",
-    "total_tkr": 2298.8,
-    "tkr_utanfor": 259.5,
+    "total_tkr": 122.0,
+    "tkr_utanfor": 13.8,
     "pct_utanfor": 11.3
   },
   {
-    "enhet": "Jonstorpsskolan",
-    "total_tkr": 2103.4,
-    "tkr_utanfor": 229.9,
-    "pct_utanfor": 10.9
-  },
-  {
-    "enhet": "Nyhamnsskolan",
-    "total_tkr": 985.6,
-    "tkr_utanfor": 105.0,
+    "enhet": "Kullagymnasiet",
+    "total_tkr": 2272.3,
+    "tkr_utanfor": 244.2,
     "pct_utanfor": 10.7
   },
   {
+    "enhet": "Jonstorpsskolan",
+    "total_tkr": 2091.7,
+    "tkr_utanfor": 218.2,
+    "pct_utanfor": 10.4
+  },
+  {
+    "enhet": "Nyhamnsskolan",
+    "total_tkr": 979.5,
+    "tkr_utanfor": 99.0,
+    "pct_utanfor": 10.1
+  },
+  {
     "enhet": "Eleshults förskola",
-    "total_tkr": 90.5,
-    "tkr_utanfor": 9.3,
-    "pct_utanfor": 10.3
+    "total_tkr": 90.2,
+    "tkr_utanfor": 9.0,
+    "pct_utanfor": 10.0
   },
   {
     "enhet": "Vikenskolan",
-    "total_tkr": 2081.1,
-    "tkr_utanfor": 210.2,
-    "pct_utanfor": 10.1
+    "total_tkr": 2072.2,
+    "tkr_utanfor": 202.8,
+    "pct_utanfor": 9.8
   },
   {
     "enhet": "Havets förskola",
@@ -73,20 +73,20 @@
   },
   {
     "enhet": "Tornlyckeskolan",
-    "total_tkr": 1141.8,
-    "tkr_utanfor": 94.1,
-    "pct_utanfor": 8.2
-  },
-  {
-    "enhet": "Bruksskolan",
-    "total_tkr": 1255.4,
-    "tkr_utanfor": 101.3,
-    "pct_utanfor": 8.1
+    "total_tkr": 1137.0,
+    "tkr_utanfor": 89.5,
+    "pct_utanfor": 7.9
   },
   {
     "enhet": "Peter Lundhs förskola",
-    "total_tkr": 102.0,
-    "tkr_utanfor": 8.3,
-    "pct_utanfor": 8.1
+    "total_tkr": 101.2,
+    "tkr_utanfor": 7.7,
+    "pct_utanfor": 7.6
+  },
+  {
+    "enhet": "Bruksskolan",
+    "total_tkr": 1249.7,
+    "tkr_utanfor": 95.6,
+    "pct_utanfor": 7.6
   }
 ]

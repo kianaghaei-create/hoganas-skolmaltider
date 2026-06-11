@@ -1,122 +1,122 @@
 [
   {
-    "ratt": "gryta",
-    "obs": 5,
-    "gram_per_portion": 0.2,
-    "totalt_kg": 0.1
-  },
-  {
-    "ratt": "kökets val",
-    "obs": 6,
-    "gram_per_portion": 1.2,
-    "totalt_kg": 0.3
-  },
-  {
-    "ratt": "mos,korv",
-    "obs": 5,
-    "gram_per_portion": 1.6,
-    "totalt_kg": 0.4
-  },
-  {
-    "ratt": "lasagnett",
-    "obs": 6,
-    "gram_per_portion": 1.9,
-    "totalt_kg": 0.5
-  },
-  {
-    "ratt": "spag,köttf",
-    "obs": 5,
-    "gram_per_portion": 2.0,
-    "totalt_kg": 0.4
-  },
-  {
-    "ratt": "pasta,korv",
-    "obs": 5,
-    "gram_per_portion": 2.8,
-    "totalt_kg": 0.5
-  },
-  {
-    "ratt": "tacogratäng",
-    "obs": 6,
-    "gram_per_portion": 5.9,
-    "totalt_kg": 0.8
+    "ratt": "falukorv",
+    "obs": 11,
+    "gram_per_portion": 15.4,
+    "totalt_kg": 52.0
   },
   {
     "ratt": "pasta sås",
     "obs": 7,
-    "gram_per_portion": 8.9,
-    "totalt_kg": 6.2
+    "gram_per_portion": 16.7,
+    "totalt_kg": 9.7
   },
   {
-    "ratt": "spaghetti",
-    "obs": 8,
-    "gram_per_portion": 9.4,
-    "totalt_kg": 10.3
+    "ratt": "korv stroganoff",
+    "obs": 9,
+    "gram_per_portion": 16.9,
+    "totalt_kg": 45.0
   },
   {
-    "ratt": "korv.mos",
-    "obs": 6,
-    "gram_per_portion": 9.8,
-    "totalt_kg": 8.1
-  },
-  {
-    "ratt": "fajitas",
-    "obs": 5,
-    "gram_per_portion": 11.6,
-    "totalt_kg": 8.7
-  },
-  {
-    "ratt": "fisk,pot",
-    "obs": 31,
-    "gram_per_portion": 15.7,
-    "totalt_kg": 41.1
-  },
-  {
-    "ratt": "grönsakssoppa",
-    "obs": 5,
-    "gram_per_portion": 20.3,
-    "totalt_kg": 15.4
-  },
-  {
-    "ratt": "pyttipanna",
+    "ratt": "panerad fisk",
     "obs": 15,
-    "gram_per_portion": 20.9,
-    "totalt_kg": 29.5
+    "gram_per_portion": 20.1,
+    "totalt_kg": 84.8
+  },
+  {
+    "ratt": "snitzel",
+    "obs": 8,
+    "gram_per_portion": 21.4,
+    "totalt_kg": 44.4
   },
   {
     "ratt": "biff stroganoff",
     "obs": 5,
-    "gram_per_portion": 21.1,
-    "totalt_kg": 23.9
+    "gram_per_portion": 22.7,
+    "totalt_kg": 26.6
   },
   {
-    "ratt": "ugnspannkaka",
+    "ratt": "kycklingkorvgryta",
     "obs": 6,
-    "gram_per_portion": 21.3,
-    "totalt_kg": 5.0
+    "gram_per_portion": 23.6,
+    "totalt_kg": 21.3
   },
   {
     "ratt": "köttfärssås",
-    "obs": 26,
-    "gram_per_portion": 21.7,
-    "totalt_kg": 62.3
+    "obs": 27,
+    "gram_per_portion": 24.4,
+    "totalt_kg": 80.9
+  },
+  {
+    "ratt": "fajitas",
+    "obs": 5,
+    "gram_per_portion": 25.1,
+    "totalt_kg": 15.5
+  },
+  {
+    "ratt": "köttbullar",
+    "obs": 53,
+    "gram_per_portion": 25.1,
+    "totalt_kg": 308.4
+  },
+  {
+    "ratt": "wienerkorv",
+    "obs": 11,
+    "gram_per_portion": 25.5,
+    "totalt_kg": 107.1
   },
   {
     "ratt": "köttfärsgryta",
     "obs": 7,
-    "gram_per_portion": 22.8,
-    "totalt_kg": 36.6
+    "gram_per_portion": 25.9,
+    "totalt_kg": 41.3
   },
   {
-    "ratt": "pasta",
+    "ratt": "quornbiff",
+    "obs": 6,
+    "gram_per_portion": 26.2,
+    "totalt_kg": 48.9
+  },
+  {
+    "ratt": "korv",
     "obs": 22,
-    "gram_per_portion": 23.4,
-    "totalt_kg": 102.6
+    "gram_per_portion": 26.3,
+    "totalt_kg": 151.9
   },
   {
-    "ratt": "hamburgare",
-    "obs": 19,
-    "gram_per_portion": 24.0,
-    "totalt_kg": 47.3
+    "ratt": "soppa",
+    "obs": 82,
+    "gram_per_portion": 26.4,
+    "totalt_kg": 622.3
+  },
+  {
+    "ratt": "pytt i panna",
+    "obs": 32,
+    "gram_per_portion": 26.4,
+    "totalt_kg": 149.9
+  },
+  {
+    "ratt": "fisk",
+    "obs": 131,
+    "gram_per_portion": 27.1,
+    "totalt_kg": 1152.4
+  },
+  {
+    "ratt": "korv.mos",
+    "obs": 6,
+    "gram_per_portion": 27.2,
+    "totalt_kg": 20.9
+  },
+  {
+    "ratt": "korv pasta",
+    "obs": 6,
+    "gram_per_portion": 27.3,
+    "totalt_kg": 42.6
+  },
+  {
+    "ratt": "schnitzel",
+    "obs": 38,
+    "gram_per_portion": 27.3,
+    "totalt_kg": 208.6
   }
 ]

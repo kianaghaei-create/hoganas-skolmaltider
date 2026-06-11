@@ -822,7 +822,7 @@ elif page == "⚠️ Datakvalitet":
         st.markdown("""
 ### Vad kan dashboarden visa med säkerhet?
 
-- **Totalt matsvinn i kilogram** för alla 21 enheter i Höganäs kommuns kostverksamhet 2025. Summan är 24 420 kg och har verifierats direkt mot rådatan.
+- **Totalt matsvinn i kilogram** för alla 21 enheter i Höganäs kommuns kostverksamhet 2025. Summan är 28 400 kg och har verifierats direkt mot rådatan.
 - **Inköpskostnad** på 16,9 Mkr fördelat på tre leverantörer, varugrupper och enheter — fullt spårbar mot inköpsfiler.
 - **Avtalstrohet** — andelen inköp utanför upphandlade avtal är 13,0 % totalt. Kullagymnasiet, Vikhaga och Nyhamnsgården sticker ut.
 - **Ekologisk andel** — 31,5 % av inköpsvärdet är ekologiskt certifierat.
@@ -835,7 +835,7 @@ elif page == "⚠️ Datakvalitet":
 - **Komponentsvinn (kök/servering/tallrik) för förskolor** — dessa kolumner innehåller felaktiga värden för förskolor i rådata (summan är 44 gånger för hög). Dashboarden exkluderar dem i komponentanalysen.
 - **Beställningsprecision** kan inte fullt ut verifieras — 70 % av beställda portioner är identiska med serverade portioner, vilket tyder på att en kopia används istället för verkliga förhandsbeställningar. Analysen visar ändå mönster i de 26 % av fallen med genuina skillnader.
 - **Koppling leverantör → svinn** — det finns ingen länk i data mellan vilken leverantörs råvaror som användes i en specifik rätt. Det går alltså inte att säga att "leverantör X orsakar mer svinn".
-- **Näring och förskolor** — samma meny serveras på alla enheter. Näringsvärden (från skol/ÄO-menyplanering) är tillämpliga på förskoledata. Förskolesvinn saknas i nuvarande kvadrantanalys pga Neo4j-import ej uppdaterad med parser-fix — planeras att åtgärdas.
+- **Näring och förskolor** — samma meny serveras på alla enheter. Näringsvärden (från skol/ÄO-menyplanering) är tillämpliga på förskoledata. Svinndata för alla verksamhetstyper (inkl. förskolor) ingår i kvadrantanalysen — täckning begränsas av vilka rätter som har SERVERADE-relationer och näringsmatchning (62 rätter).
 
 ### Hur ska man tolka siffrorna?
 
@@ -846,7 +846,7 @@ elif page == "⚠️ Datakvalitet":
 
 ### Rekommendationer för dataförbättring
 
-1. Be förskoleköken börja registrera svinn-procent i svinnbladen — samma format som skolorna.
+1. Be förskoleköken börja registrera köks- och serveringssvinn uppdelat (separata rader) i svinnbladen — förskolor registrerar dessa kombinerat idag, vilket omöjliggör svinntypsanalys (kök/servering/tallrik) för förskolor.
 2. Granska beställningsrutinen för portioner — varför är 70 % av beställda portioner identiska med serverade?
 3. Korrigera de 2 kända felregistreringarna (Kullagymnasiet v14, Havets förskola v16) i källsystemet.
         """)

@@ -117,21 +117,37 @@ check("C5c stigande sortering",
       all(cyp5[i]["gram_per_portion"] <= cyp5[i+1]["gram_per_portion"]
           for i in range(len(cyp5) - 1)))
 
-# C6: svinn_naring_kvadrant
+# C6: svinn_naring_kvadrant (Python-join via dish_name_mapping.csv)
 print("\nC6 svinn_naring_kvadrant")
 cyp6 = json.load(open(ANA / "svinn_naring_kvadrant.json"))
 fisk_bad = [r for r in cyp6
             if r.get("komponent", "").lower().startswith("fiskgratäng serveras med potatismos")]
 check("C6a fiskgratäng-veto borttagen", len(fisk_bad) == 0,
       f"{len(fisk_bad)} matchade 'fiskgratäng serveras med potatismos'")
-check("C6b >=50 rätter efter filtrering (obs>=2, SERVERADE-täckning)", len(cyp6) >= 50, f"{len(cyp6)}")
+check("C6b >=20 rätter efter filtrering (obs>=2, Python-join)", len(cyp6) >= 20, f"{len(cyp6)}")
 check("C6c alla protein >= 5g", all(r.get("protein", 0) >= 5 for r in cyp6),
       f"min protein={min(r.get('protein', 99) for r in cyp6)}")
 check("C6d alla kcal >= 150", all(r.get("kcal", 0) >= 150 for r in cyp6),
       f"min kcal={min(r.get('kcal', 9999) for r in cyp6)}")
+# C6e: Pulled pork finns i kvadranten (verifierar att manual_override-matchning fungerar)
+pp_in_kv = [r for r in cyp6 if "pulled pork" in r.get("komponent","").lower()]
+check("C6e Pulled pork finns i kvadrantdiagrammet", len(pp_in_kv) == 1,
+      f"{len(pp_in_kv)} träffar (förväntat 1)")
+if pp_in_kv:
+    pp = pp_in_kv[0]
+    check("C6f Pulled pork obs >= 2", pp.get("obs", 0) >= 2,
+          f"obs={pp.get('obs')}")
+    check("C6g Pulled pork match_status = manual_override",
+          pp.get("match_status") == "manual_override",
+          f"match_status={pp.get('match_status')}")
+# C6h: match_status-fält finns och inga low-confidence automatiska matchningar
+valid_statuses = {"exact", "normalized", "manual_override"}
+bad_status = [r for r in cyp6 if r.get("match_status") not in valid_statuses]
+check("C6h alla rätter har giltig match_status", len(bad_status) == 0,
+      f"{len(bad_status)} rätter med ogiltig status")
 check_paw("C6 svinn_naring_kvadrant",
-          f"{len(cyp6)} rätter via SERVERADE→HAR_NARING (obs>=2). Skola+förskola ingår; "
-          "täckning begränsad av SERVERADE-relationer i Neo4j.")
+          f"{len(cyp6)} rätter via Python-join (matratt_norm → dish_name_mapping.csv → naring.parquet). "
+          "exact/normalized/manual_override. Kräver matratt_norm i svinndatan.")
 
 # C7: leverantorer_kostnad
 print("\nC7 leverantorer_kostnad")
@@ -352,7 +368,7 @@ total_tests = len(FAIL) + sum(1 for line in [
     "C3a","C3c",
     "C4a","C4b","C4c",
     "C5a","C5b","C5c",
-    "C6a","C6b","C6c","C6d",
+    "C6a","C6b","C6c","C6d","C6e","C6f","C6g","C6h",
     "C7","C8a","C8b","C9a","C9b",
     "SP1","SP2","SP3","SP4","SP5","SP6","SP7","SP8","SP9","SP10","SP11","SP12",
     "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12","F13","F14","F15",

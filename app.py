@@ -337,7 +337,7 @@ Förskolor använder ett annat Excel-format: köks- och serveringssvinn registre
 `svinn_g_p = totalt_svinn_kg × 1 000 / serverade_portioner` — **serverade** portioner, inte beställda. Detta är ett mått på faktisk matförlust per person som ätit.
 
 **Vad är kvadrantanalysen?**
-Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen är källad från skolors och äldreomsorgens menyplanering — men **samma meny serveras på alla enheter** (förskolor, skolor och ÄO) samma dag. Näringsvärden är därför tillämpliga på alla verksamhetstyper. Svinndata inkluderar alla verksamhetstyper (förskolor, skolor och ÄO). Täckningen begränsas av vilka rätter som har SERVERADE-relationer och näringsmatchning i systemet — 62 rätter uppfyller kraven (minst 2 observationer, protein ≥ 5 g, energi ≥ 150 kcal).
+Rätter matchas mot näringsvärden från en separat näringsfil via en transparent matchningstabellen (`dish_name_mapping.csv`). Matchningen sker i tre steg: (1) exakt träff på rättnamn, (2) normaliserad träff (gemen + utan mellanslag), (3) manuell override i mappningstabellen. Näringsfilen är källad från skolors och äldreomsorgens menyplanering — men **samma meny serveras på alla enheter** (förskolor, skolor och ÄO) samma dag. Näringsvärden är därför tillämpliga på alla verksamhetstyper. Svinndata inkluderar alla verksamhetstyper. Täckningen begränsas av vilka rätter som har rättnamn (`matratt_norm`) i svinndatan och en matchning i näringsfilen — 30 rätter uppfyller kraven (minst 2 observationer, protein ≥ 5 g, energi ≥ 150 kcal).
 
 **Beställningsprecision — viktig begränsning**
 70 % av värdena i `bestallda_portioner` är identiska med `serverade_portioner` i rådata — de är alltså en kopia, inte en verklig prognos. Beställningsprecisionsanalysen är fullt trovärdig för de 26 % av rader där det finns en genuin skillnad.
@@ -431,9 +431,9 @@ Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen 
     if _kv_path.exists():
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
         st.subheader("Svinn vs Protein per rätt — kvadrantanalys")
-        st.caption("Baserat på matchning av svinndata mot näringsfil. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+). "
+        st.caption("Baserat på Python-join: matratt_norm → dish_name_mapping.csv → naring.parquet. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+). "
                    "Samma meny serveras på alla enheter — svinn och näringsvärden inkluderar förskolor, skolor och ÄO. "
-                   "62 rätter efter filtrering (minst 2 observationer, protein ≥ 5 g, energi ≥ 150 kcal).")
+                   "30 rätter efter filtrering (minst 2 observationer, protein ≥ 5 g, energi ≥ 150 kcal).")
 
         kv_color_map = {
             "hog_svinn_lag_protein":  "#EF4444",
@@ -738,7 +738,7 @@ elif page == "⚠️ Datakvalitet":
         {"Analys": "Svinn % per vecka (linjegraf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (registrerar svinn-% men har eget kombinerat format — exkluderas tills vyn anpassats)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Säsongsmönster (area-graf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (NaN hoppas över i median)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Svinntyper pie-chart", "Inkluderar": "Skolor + ÄO (~10 enheter, komp_diff<20%)", "Exkluderar": "11 förskolor (komponentdata ~44× för hög)", "Mått": "kokssvinn_kg m.fl.", "Status": "✅ Verifierad med avgränsning"},
-        {"Analys": "Svinn vs Näring kvadrant", "Inkluderar": "Skolor + ÄO (förskolesvinn tillkommer i uppdatering)", "Exkluderar": "Förskolesvinn (ej ännu Neo4j-importerat) + 3 felmatchningar", "Mått": "svinn_g_p, protein_g, kcal", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Svinn vs Näring kvadrant", "Inkluderar": "Alla verksamhetstyper (Python-join via dish_name_mapping.csv)", "Exkluderar": "Rätter utan matratt_norm i svinndatan (30 av ~300+ unika rätter matchas)", "Mått": "svinn_g_p, protein_g, kcal, match_status", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Beställningsprecision", "Inkluderar": "Alla 21 enheter", "Exkluderar": "–", "Mått": "ordered_portions, served_portions", "Status": "⚠️ 70% kopia — indikativ"},
         {"Analys": "Inköp & ekonomi", "Inkluderar": "Alla enheter (inköpsdata)", "Exkluderar": "–", "Mått": "kronor, ekologisk", "Status": "✅ Fullt verifierad"},
         {"Analys": "Avtalstrohet", "Inkluderar": "Alla enheter (inköpsdata)", "Exkluderar": "–", "Mått": "procent_utanfor_avtal, kronor", "Status": "✅ Fullt verifierad"},
@@ -972,7 +972,7 @@ INSTRUKTIONER:
 - Övriga fiskgratäng-varianter (med curry, gräslök, dill, saffran osv) är separata rätter med korrekta näringsvärden (27–33g protein) och kan rekommenderas om de ligger i lag_svinn_hog_protein-kvadranten — ange alltid det fullständiga rättnamnet
 - Rätter med lågt svinn per portion kan vara outliers med få observationer — nämn alltid antal observationer vid rekommendationer
 - AVGRÄNSNING SVINNTYPER: svinntypsanalysen (tallrik/kök/servering) gäller enbart skolor och äldreomsorg. Förskolor registrerar köks- och serveringssvinn kombinerat — separata komponentvärden finns INTE för förskolor. Ange alltid denna avgränsning när svinntyper diskuteras.
-- AVGRÄNSNING NÄRINGSFIL: kvadrantanalysen bygger på svinndata från skolor och ÄO. Samma meny serveras på alla enheter, så näringsvärden är principiellt tillämpliga för alla — men förskolesvinndata är INTE inkluderat i nuvarande kvadrantanalys.
+- AVGRÄNSNING NÄRINGSFIL: kvadrantanalysen bygger på Python-join (matratt_norm → dish_name_mapping.csv → naring.parquet). Matchningen sker i tre steg: exakt, normaliserad, och manuell override. 30 rätter matchas (obs≥2, protein≥5g, kcal≥150). Samma meny serveras på alla enheter — svinndata inkluderar förskolor, skolor och ÄO. Täckningen begränsas av vilka rätter som har matratt_norm i svinndatan.
 - ALDRIG skapa egna beräkningar eller uppskattningar som inte direkt följer av redovisad data. Om en beräkning kräver antaganden: ange antagandena explicit.
 - ALDRIG dra kausala slutsatser. Korrelationer och mönster ska alltid beskrivas som observerade samband, inte orsak-verkan.
 - ALDRIG jämföra med andra kommuner — ingen jämförelsedata finns i systemet.

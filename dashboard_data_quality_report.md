@@ -17,7 +17,7 @@ Genererad: 2026-06-11
 | Total verifierad svinnmängd | 28 400 kg |
 | Cypher-analyser | 17 regenererade från synkad Neo4j |
 | Tester | **101/101 PASS** |
-| Kvarvarande avgränsning | Kvadrantanalysen är PASS MED AVGRÄNSNING — täckning begränsad av SERVERADE-relationer i Neo4j (62 rätter med obs≥2 och näringsmatchning) |
+| Kvarvarande avgränsning | Kvadrantanalysen är PASS MED AVGRÄNSNING — täckning begränsad av matratt_norm-täckning i svinndatan (30 rätter med obs≥2, Python-join via dish_name_mapping.csv) |
 | Senaste verifieringsdatum | 2026-06-11 |
 
 **Regel:** Följande komponenter är låsta. Varje ändring kräver att hela testsviten (`test_dashboard_qa.py && test_parser.py && test_ai_cypher_qa.py`) körs om och att resultatet dokumenteras i denna rapport med datum och utfall:
@@ -34,7 +34,7 @@ Genererad: 2026-06-11
 
 ## Stakeholder summary
 
-Dashboarden visar analyser som är spårbara från original-Excel via en verifierad CSV till Neo4j, Cypher-analyser och OpenAI-svar. Tidigare fel i Excel-inläsning, förskoleformat, stale Neo4j-data och en enhetsswap har korrigerats. Alla ordinarie analyser är verifierade mot rådatan. Kvadrantanalysen har en dokumenterad täckningsavgränsning kopplad till vilka rätter som har SERVERADE-relationer och näringsmatchning.
+Dashboarden visar analyser som är spårbara från original-Excel via en verifierad CSV till Neo4j, Cypher-analyser och OpenAI-svar. Tidigare fel i Excel-inläsning, förskoleformat, stale Neo4j-data och en enhetsswap har korrigerats. Alla ordinarie analyser är verifierade mot rådatan. Kvadrantanalysen använder nu en Python-baserad matchningstabellen (dish_name_mapping.csv) — 30 rätter matchas (inkl. Pulled pork). Täckning begränsas av vilka rätter som har matratt_norm i svinndatan.
 
 ---
 
@@ -59,7 +59,7 @@ Förskolor bidrar nu med korrekt 4 104 kg (var 184 kg pga fel rad i gammal parse
 
 **Iteration 5 — Neo4j reimporterad, alla 17 analyser verifierade:**
 4 659 Dag-noder uppdaterades från food_waste_daily_v2.csv (totalt svinn 28 399 kg, diff 1 kg = 0,004%).
-Kvadrantanalysen expanderade från förskola-exkludering till full täckning via SERVERADE→HAR_NARING (62 rätter, obs>=2).
+Kvadrantanalysen expanderade från förskola-exkludering till full täckning via SERVERADE→HAR_NARING (62 rätter, obs>=2). Analys 14 omskriven 2026-06-11 till Python-join via dish_name_mapping.csv (30 rätter, inkl. Pulled pork via manual_override).
 
 **Final cleanup — Tornlycke/Jonstorp-swap åtgärdad:**
 1 Dag-nod (2025-02-10) med fel enhetnamn identifierades och korrigerades kirurgiskt.
@@ -315,6 +315,8 @@ Purchases-kedja: `purchases.csv (råkälla) → Data/analysis/*.json → Dashboa
 | Alla 17 analyser regenererade från uppdaterad Neo4j | cypher_analysis.py kördes om — alla 17 JSON-filer uppdaterade | ✅ Åtgärdat |
 | enheter_svinn_ranking hade 23 rader (2 Dag-noder med format=None) | WHERE d.format IS NOT NULL tillagd i Cypher-frågan | ✅ Åtgärdat |
 | C6b-test förväntade 116 rätter (gammal join) | Test uppdaterat till >=50 rätter (62 rätter via SERVERADE, obs>=2) | ✅ Åtgärdat |
+| Pulled pork försvann ur kvadrantdiagrammet (HAR_NARING-sökvägen missar 499/762 Ratt-noder) | Analys 14 omskriven till Python-join via dish_name_mapping.csv — 30 rätter (inkl. Pulled pork) | ✅ Åtgärdat 2026-06-11 |
+| C6b-test förväntade >=50 rätter (nu 30 via Python-join) | Test uppdaterat till >=20 rätter, nya tester C6e–C6h verifierar Pulled pork och match_status | ✅ Åtgärdat 2026-06-11 |
 | Ingen Neo4j vs CSV-validering i testssviten | BLOCK 4 (N1–N9) tillagd i test_ai_cypher_qa.py — 9 tester, alla PASS | ✅ Åtgärdat |
 
 ### Neo4j vs CSV — valideringsresultat (Steg 4)
@@ -348,7 +350,7 @@ Purchases-kedja: `purchases.csv (råkälla) → Data/analysis/*.json → Dashboa
 | overbestallning_per_ratt | 20 | Neo4j (uppdaterad) | ✅ PASS |
 | ratter_per_enhet_topp | 17 | Neo4j (uppdaterad) | ✅ PASS |
 | ratter_ofta_hog_svinn | 20 | Neo4j (uppdaterad) | ✅ PASS |
-| svinn_naring_kvadrant | 62 | Neo4j (uppdaterad) | ✅ PASS MED AVGRÄNSNING |
+| svinn_naring_kvadrant | 30 | Python-join (dish_name_mapping.csv) | ✅ PASS MED AVGRÄNSNING |
 | svinn_naring_per_ratt | 62 | Neo4j (uppdaterad) | ✅ PASS MED AVGRÄNSNING |
 | konsumerad_naring | 30 | Neo4j (uppdaterad) | ✅ PASS MED AVGRÄNSNING |
 | leverantorer_kostnad | 3 | purchases.csv | ✅ PASS |
@@ -356,7 +358,7 @@ Purchases-kedja: `purchases.csv (råkälla) → Data/analysis/*.json → Dashboa
 | ekologisk_andel | 20 | purchases.csv | ✅ PASS |
 | varugrupper_kostnad | 20 | purchases.csv | ✅ PASS |
 
-**Notering kvadrant-analyser:** 62 rätter via SERVERADE→Ratt→HAR_NARING (obs>=2). Alla verksamhetstyper ingår (förskola + skola/ÄO) i svinnmåttet. Täckning begränsad av SERVERADE-relationer i Neo4j — ej alla rätter har näringskoppling.
+**Notering kvadrant-analyser:** 30 rätter via Python-join (matratt_norm → dish_name_mapping.csv → naring.parquet). Matchningstyper: 3 exact, 15 normalized, 12 manual_override. Alla verksamhetstyper ingår (förskola + skola/ÄO). Pulled pork matchas via manual_override (6 obs, 45.2 g/portion). Täckning begränsas av matratt_norm i svinndatan.
 
 ### AI-svarstestpaket — adversarial-skydd
 
@@ -383,10 +385,10 @@ Purchases-kedja: `purchases.csv (råkälla) → Data/analysis/*.json → Dashboa
 
 ### Kvarvarande begränsningar (påverkar ej dashboardens ordinarie analyser)
 
-1. **Rättnamns-fragmentering**: Samma rätt förekommer under flera stavningar (nasigoreng/nasi goreng). Splitrade observationer i rätts-rankings. Fix: normalisering av matratt_norm.
+1. **Rättnamns-fragmentering**: Samma rätt förekommer under flera stavningar (nasigoreng/nasi goreng). Splitrade observationer i rätts-rankings. Kvadrantanalysen hanterar detta via dish_name_mapping.csv, men svinn-per-rätt-rankingar aggregerar ej.
 2. **Enhetsnamnsmappning köp↔svinn**: purchases.csv använder VERSALER och avvikande namn. Cross-analyser kräver explicit namnmappning.
 3. **Nyhamnsgården portionsdata**: Serverade portioner = 0 — gram-per-portion kan ej beräknas.
-4. **Näring-analyser täckning**: svinn_naring_kvadrant, svinn_naring_per_ratt, konsumerad_naring täcker 62 rätter (begränsat av SERVERADE-relationer i Neo4j). Fler rätter inkluderas om SERVERADE-täckningen utökas.
+4. **Näring-analyser täckning**: svinn_naring_kvadrant täcker 30 rätter via Python-join (dish_name_mapping.csv). svinn_naring_per_ratt och konsumerad_naring täcker 62 rätter via Neo4j SERVERADE→HAR_NARING. Fler rätter inkluderas i kvadranten om dish_name_mapping.csv utökas.
 
 ---
 

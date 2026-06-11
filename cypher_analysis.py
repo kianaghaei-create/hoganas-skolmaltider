@@ -8,6 +8,8 @@ från food_waste_daily_v2.csv. Egenskapsnamn matchar nu CSV-kolumner direkt.
 """
 from neo4j import GraphDatabase
 import json
+import pandas as pd
+import numpy as np
 from pathlib import Path
 
 URI  = "bolt://localhost:7687"
@@ -248,51 +250,121 @@ ORDER BY snitt_over_pct DESC
 LIMIT 20
 """), "Rätter med störst överbeställning")
 
-# ── 14. Svinn + näring kvadrant (via SERVERADE→Ratt→HAR_NARING→Naring) ──────
-print("14. Svinn + näring kvadrantanalys (alla verksamhetstyper)...")
-# Filtrerar bort troliga felmatchningar: protein<5g eller kcal<150
-raw_kv = cypher("""
-MATCH (d:Dag)-[:SERVERADE]->(r:Ratt)-[:HAR_NARING]->(n:Naring)
-WHERE d.serverade_portioner > 0 AND d.totalt_svinn_kg > 0
-  AND n.protein_g >= 5 AND n.energi_kcal >= 150
-WITH n.ratt AS komponent,
-     count(*) AS obs,
-     round(avg(d.totalt_svinn_kg / d.serverade_portioner) * 1000, 1) AS svinn_g_p,
-     round(avg(d.tallrikssvinn_kg / d.serverade_portioner) * 1000, 1) AS tallrik_g_p,
-     round(avg(n.protein_g), 1) AS protein,
-     round(avg(n.energi_kcal), 1) AS kcal,
-     round(avg(n.fett_g), 1) AS fett,
-     round(avg(n.kolhydrater_g), 1) AS kh
-WHERE obs >= 2
-RETURN komponent, obs, svinn_g_p, tallrik_g_p, protein, kcal, fett, kh
-ORDER BY svinn_g_p DESC
-""")
+# ── 14. Svinn + näring kvadrant (Python-baserad matchning via dish_name_mapping) ─
+print("14. Svinn + näring kvadrantanalys (Python-join med dish_name_mapping.csv)...")
+
+# Ladda rådata
+_fw = pd.read_csv("Data/processed/food_waste_daily_v2.csv")
+_nr = pd.read_parquet("Data/processed/naring.parquet")
+_mp = pd.read_csv("Data/config/dish_name_mapping.csv")
+
+# Rader med svinn och portioner
+_fw_kv = _fw.dropna(subset=["matratt_norm", "serverade_portioner", "totalt_svinn_kg"]).copy()
+_fw_kv = _fw_kv[(_fw_kv["serverade_portioner"] > 0) & (_fw_kv["totalt_svinn_kg"] > 0)]
+_fw_kv["svinn_g_p_rad"] = _fw_kv["totalt_svinn_kg"] * 1000 / _fw_kv["serverade_portioner"]
+_fw_kv["tallrik_g_p_rad"] = (
+    _fw_kv["tallrikssvinn_kg"].fillna(0) * 1000 / _fw_kv["serverade_portioner"]
+)
+
+# Näringstabell: aggregera per rättnamn (tar medelvärde om duplicates)
+_nr_agg = _nr.groupby("ratt", as_index=False).agg(
+    protein_g=("protein_g", "mean"),
+    energi_kcal=("energi_kcal", "mean"),
+    fett_g=("fett_g", "mean"),
+    kolhydrater_g=("kolhydrater_g", "mean"),
+)
+
+# Bygg normaliserings-lookup: ratt_lower → ratt (original namn)
+_nr_norm = {r.lower().replace(" ", ""): r for r in _nr_agg["ratt"]}
+_nr_exact = {r.lower(): r for r in _nr_agg["ratt"]}
+
+# Bygg mapping-lookup från dish_name_mapping.csv (waste_dish_name → nutrition_dish_name)
+_mapping = dict(zip(_mp["waste_dish_name"].str.lower(), _mp["nutrition_dish_name"]))
+_mapping_type = dict(zip(_mp["waste_dish_name"].str.lower(), _mp["match_type"]))
+
+def _match_dish(name: str):
+    """Returnerar (nutrition_dish_name, match_status) eller (None, 'unmatched')."""
+    if not isinstance(name, str):
+        return None, "unmatched"
+    lo = name.lower().strip()
+    # 1. Exakt match på rättnamn i näringsfilen
+    if lo in _nr_exact:
+        return _nr_exact[lo], "exact"
+    # 2. Normaliserad match (lowercase + strip spaces)
+    lo_norm = lo.replace(" ", "")
+    if lo_norm in _nr_norm:
+        return _nr_norm[lo_norm], "normalized"
+    # 3. Mapping-tabell
+    if lo in _mapping:
+        return _mapping[lo], _mapping_type.get(lo, "manual_override")
+    return None, "unmatched"
+
+# Matcha varje matratt_norm
+_fw_kv["nutrition_dish_name"], _fw_kv["match_status"] = zip(
+    *_fw_kv["matratt_norm"].apply(_match_dish)
+)
+
+# Aggregera per matchat näringsnyckel
+_matched = _fw_kv.dropna(subset=["nutrition_dish_name"]).copy()
+_agg = _matched.groupby("nutrition_dish_name", as_index=False).agg(
+    obs=("svinn_g_p_rad", "count"),
+    svinn_g_p=("svinn_g_p_rad", "mean"),
+    tallrik_g_p=("tallrik_g_p_rad", "mean"),
+    match_status=("match_status", "first"),
+    waste_dish_name=("matratt_norm", "first"),
+)
+
+# Lägg till näringsvärden
+_agg = _agg.merge(_nr_agg.rename(columns={"ratt": "nutrition_dish_name"}),
+                  on="nutrition_dish_name", how="left")
+
+# Filtrera: protein≥5, kcal≥150, obs≥2
+_agg = _agg[
+    (_agg["obs"] >= 2) &
+    (_agg["protein_g"] >= 5) &
+    (_agg["energi_kcal"] >= 150)
+].copy()
+
+# Avrunda
+for col in ["svinn_g_p", "tallrik_g_p", "protein_g", "energi_kcal", "fett_g", "kolhydrater_g"]:
+    _agg[col] = _agg[col].round(1)
 
 # Beräkna medianer för kvadrantindelning
-svinn_vals = sorted([r["svinn_g_p"] for r in raw_kv if r.get("svinn_g_p")])
-prot_vals  = sorted([r["protein"]   for r in raw_kv if r.get("protein")])
-if svinn_vals and prot_vals:
-    svinn_med = svinn_vals[len(svinn_vals)//2]
-    prot_med  = prot_vals[len(prot_vals)//2]
-else:
-    svinn_med, prot_med = 30, 20
+_sv_med = float(np.median(_agg["svinn_g_p"])) if len(_agg) > 0 else 30.0
+_pr_med = float(np.median(_agg["protein_g"])) if len(_agg) > 0 else 20.0
 
-for r in raw_kv:
-    sv = r.get("svinn_g_p", 0) or 0
-    pr = r.get("protein", 0) or 0
-    if sv >= svinn_med and pr < prot_med:
-        r["kvadrant"] = "hog_svinn_lag_protein"
-    elif sv < svinn_med and pr >= prot_med:
-        r["kvadrant"] = "lag_svinn_hog_protein"
-    elif sv >= svinn_med and pr >= prot_med:
-        r["kvadrant"] = "hog_svinn_hog_protein"
-    else:
-        r["kvadrant"] = "lag_svinn_lag_protein"
+def _kvadrant(sv, pr):
+    if sv >= _sv_med and pr < _pr_med:
+        return "hog_svinn_lag_protein"
+    if sv < _sv_med and pr >= _pr_med:
+        return "lag_svinn_hog_protein"
+    if sv >= _sv_med and pr >= _pr_med:
+        return "hog_svinn_hog_protein"
+    return "lag_svinn_lag_protein"
 
-# Ta bort känt matchningsfel
-kv_clean = [r for r in raw_kv
-            if not str(r.get("komponent","")).lower().startswith("fiskgratäng serveras med potatismos")]
-save("svinn_naring_kvadrant", kv_clean, f"Svinn+näring kvadrant ({len(kv_clean)} rätter)")
+_agg["kvadrant"] = _agg.apply(lambda r: _kvadrant(r["svinn_g_p"], r["protein_g"]), axis=1)
+
+# Sortera och konvertera till lista av dict
+kv_clean = (
+    _agg
+    .sort_values("svinn_g_p", ascending=False)
+    .rename(columns={
+        "nutrition_dish_name": "komponent",
+        "protein_g": "protein",
+        "energi_kcal": "kcal",
+        "fett_g": "fett",
+        "kolhydrater_g": "kh",
+    })
+    [["komponent","waste_dish_name","match_status","obs","svinn_g_p","tallrik_g_p","protein","kcal","fett","kh","kvadrant"]]
+    .to_dict("records")
+)
+
+# Statistik
+_n_exact    = sum(1 for r in kv_clean if r["match_status"] == "exact")
+_n_norm     = sum(1 for r in kv_clean if r["match_status"] == "normalized")
+_n_manual   = sum(1 for r in kv_clean if r["match_status"] == "manual_override")
+print(f"  {len(kv_clean)} rätter: {_n_exact} exact, {_n_norm} normalized, {_n_manual} manual_override")
+save("svinn_naring_kvadrant", kv_clean, f"Svinn+näring kvadrant ({len(kv_clean)} rätter, Python-join)")
 
 # ── 15. Svinn + näring per rätt (utökad tabell) ──────────────────────────────
 print("15. Svinn + näring per rätt (utökad)...")

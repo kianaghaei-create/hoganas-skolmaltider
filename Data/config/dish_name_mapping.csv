@@ -1,0 +1,47 @@
+waste_dish_name,nutrition_dish_name,match_type,confidence,comment
+pulledpork,"Pulled pork med coleslaw, bröd och picklad rödlök",manual_override,high,sammanskrivning
+pulled pork,"Pulled pork med coleslaw, bröd och picklad rödlök",manual_override,high,mellanslag saknas i variant
+nasi goreng,Nasi Goreng (veg) serveras med kall sås,manual_override,high,skiftläge/stavning
+nasigoreng,Nasi Goreng (veg) serveras med kall sås,manual_override,high,sammanskrivning
+wienerkorv,Wienerkorv serveras med potatissallad,normalized,high,exakt efter normalisering
+vienerkorv,Wienerkorv serveras med potatissallad,manual_override,high,stavfel v→w
+cowboysoppa,Cowboysoppa,normalized,high,exakt efter lowercase
+gulaschsoppa,Gulaschsoppa timbal,normalized,high,exakt efter lowercase
+gulashsoppa,Gulaschsoppa timbal,manual_override,high,stavfel sch→sh
+gulachsoppa,Gulaschsoppa timbal,manual_override,high,stavfel sch→ch
+minestronesoppa,Minestronesoppa ÄO,normalized,high,exakt efter lowercase
+grönsakssoppa,Redd grönsakssoppa ÄO,manual_override,medium,"kortnamn, antas vara redd-versionen"
+grönsaksoppa,Redd grönsakssoppa ÄO,manual_override,medium,stavvariant
+fiskpanetter,Fiskpanetter serveras med potatis och stuvad spenat,normalized,high,exakt efter lowercase
+pankofisk,"Pankopanerad fisk, potatis*, örtsås och grönsaker",manual_override,high,kortnamn för pankopanerad fisk
+fiskburgare,"Fiskburgare serveras med bröd, mos och remoulad",normalized,high,exakt efter lowercase
+falafel,"Falafelbiff serveras med ris, vitlöksås och bröd",manual_override,medium,"kortnamn, antas vara falafelbiff-rätten"
+kålpudding,"Kålpudding/dolmar timbal, brunsås, potatismos",normalized,high,exakt efter lowercase
+kalops,Kalops timbal  med torghandlarmos och rödbetor,normalized,high,exakt efter lowercase
+pannbiff,"Pannbiff, grönpepparsås, stekt potatis*, grönsaker",normalized,high,exakt efter lowercase
+falukorv,Ugnstekt falukorv serveras med potatismos och ketchup,manual_override,high,kortnamn
+thaigryta,"Thaigryta med kyckling, ris* och grönsaker ÄO",manual_override,medium,kortnamn
+thaisoppa,"Thaisoppa med kyckling serveras med bröd, ost och frukt",normalized,high,exakt efter lowercase
+tomatsoppa,"Tomatsoppa med linser serveras med bröd, ost och frukt",normalized,high,exakt efter lowercase
+köttsoppa,Kött- och grönsakssoppa ÄO,manual_override,medium,kortnamn
+gulasch,Gulaschsoppa timbal,manual_override,medium,"kortnamn, antas vara gulaschsoppa"
+blomkålsoppa,Blomkålssoppa med timbalfläsk,normalized,high,exakt efter lowercase
+ärtsoppa,Ärtsoppa slät med timbalfläsk,manual_override,high,kortnamn
+hamburgare,"Hamburgare med bröd, dressing fsk mos",normalized,high,exakt efter lowercase
+rotfruktspytt,Rotfruktspytt med kyckling serveras med mangosås,normalized,high,exakt efter lowercase
+wok,Kycklingwok serveras med nudlar och sweet chilidressing,manual_override,medium,"generiskt namn, antas vara kycklingwok"
+chilipanna,"Chilipanna med ris, cheezydip och nachos",normalized,high,exakt efter lowercase
+pastasallad,"Pastasallad med salladsost och bönor, dressing och bröd",normalized,high,exakt efter lowercase
+minestronesop,Minestronesoppa ÄO,manual_override,high,avkortat
+cowboysopp,Cowboysoppa,manual_override,high,avkortat
+cowboysop,Cowboysoppa,manual_override,high,avkortat
+cowboyssoppa,Cowboysoppa,manual_override,high,dubblerat s
+cowsoppa,Cowboysoppa,manual_override,high,kortnamn
+gulaschsopp,Gulaschsoppa timbal,manual_override,high,avkortat
+gulashsopp,Gulaschsoppa timbal,manual_override,high,stavfel+avkortat
+grönsakssopp,Redd grönsakssoppa ÄO,manual_override,medium,avkortat
+"falafel,ris","Falafelbiff serveras med ris, vitlöksås och bröd",manual_override,medium,kortnamn med tillbehör
+kycklingwok,Kycklingwok serveras med nudlar och sweet chilidressing,normalized,high,exakt efter lowercase
+tacofisk,Tacofisk serveras med potatismos,normalized,high,exakt efter lowercase
+quornbiff,"Quornburgare med bröd, mos och remoulad",manual_override,medium,kortnamn quornbiff≈quornburgare
+tomatgryta,"Mustig tomatgryta serveras med ris, bröd och ost",manual_override,high,kortnamn

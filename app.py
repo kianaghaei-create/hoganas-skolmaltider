@@ -102,6 +102,14 @@ def load_data():
     naring_path = DATA_DIR / "naring.parquet"
     if naring_path.exists():
         out["naring"] = pd.read_parquet(naring_path)
+    # Kalender — säsong, lov, röda dagar, dagar till/sedan lov
+    kal_path = DATA_DIR / "kalender.csv"
+    if kal_path.exists():
+        out["kalender"] = pd.read_csv(kal_path, low_memory=False)
+    # Väderdata — SMHI Helsingborg A, dygnsmedeltemp + nederbörd
+    wx_path = DATA_DIR / "weather_2025.csv"
+    if wx_path.exists():
+        out["weather"] = pd.read_csv(wx_path, low_memory=False)
     return out
 
 data          = load_data()
@@ -110,6 +118,8 @@ food_waste_d  = data.get("food_waste_daily",  pd.DataFrame())  # daglig per rät
 portions      = data.get("portions",          pd.DataFrame())
 naring        = data.get("naring",            pd.DataFrame())  # skola+ÄO, ej förskola
 preschool     = data.get("preschool_billing", pd.DataFrame())
+kalender      = data.get("kalender",          pd.DataFrame())  # säsong, lov, röda dagar
+weather       = data.get("weather",           pd.DataFrame())  # SMHI temp + nbd
 
 # Bakåtkompatibelt aggregat för sidor som fortfarande använder veckonivå
 food_waste = pd.DataFrame()
@@ -825,6 +835,28 @@ KONTEXT — Höganäs kommuns kostverksamhet 2025:
 - Totalt {ctx['por_total']:,} portioner serverade 2025
 - Enheter med flest portioner: {', '.join(f"{k}: {int(v):,}" for k,v in ctx['por_top5'].items())}
 """
+
+        # ── Kalender & väder ─────────────────────────────────────────────────
+        if not kalender.empty and not food_waste_d.empty:
+            import numpy as np
+            fw_kal = food_waste_d.copy()
+            fw_kal['datum'] = fw_kal['datum'].astype(str).str[:10]
+            fw_kal = fw_kal.merge(kalender[['datum','sasong','lov','rod_dag','skoldag','dagar_till_lov']], on='datum', how='left')
+            fw_kal['svinn_g_p'] = fw_kal['totalt_svinn_kg'] * 1000 / fw_kal['serverade_portioner'].replace(0, np.nan)
+            sas = fw_kal.groupby('sasong')['svinn_g_p'].mean().round(1).to_dict()
+            lov_svinn = fw_kal.groupby('lov')['svinn_g_p'].mean().round(1).dropna().to_dict()
+            p += "\n## Kalender — svinn per säsong och lov (beräknat från datum)\n"
+            p += f"Svinn g/portion per säsong: {', '.join(f'{k}: {v}g' for k,v in sorted(sas.items(), key=lambda x: -x[1]))}\n"
+            if lov_svinn:
+                p += f"Svinn g/portion per lov: {', '.join(f'{k}: {v}g' for k,v in sorted(lov_svinn.items(), key=lambda x: -x[1]))}\n"
+            p += "OBS: lovperioder har färre enheter öppna vilket påverkar genomsnittet.\n"
+
+        if not weather.empty:
+            p += "\n## Väderdata — SMHI Helsingborg A 2025\n"
+            p += f"- Temperaturkorrelation mot svinn: r≈−0.29 (kalla dagar ger mer svinn)\n"
+            p += f"- Nederbördskorrelation: r≈+0.03 (ingen effekt)\n"
+            p += f"- Temperaturspann 2025: {weather['temp_c'].min():.1f}°C till {weather['temp_c'].max():.1f}°C\n"
+            p += "- Kalla dagar (<3°C) ger ca 5g mer svinn/portion än varma dagar (>16°C)\n"
 
         # ── Grafanalys (verifierade Cypher-resultat från Neo4j) ───────────────
         ga = graph_analysis

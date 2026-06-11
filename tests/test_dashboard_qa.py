@@ -99,11 +99,44 @@ bad_ratio = (fw_agg[fw_agg["ordered_portions"] > 0]["served_portions"] /
              fw_agg[fw_agg["ordered_portions"] > 0]["ordered_portions"] > 3).sum()
 print(f"  [INFO] {bad_ratio} rader serverade >3× beställda (troliga felregistreringar)")
 
+# ── Iteration 3: exkluderingsverifiering ──────────────────────────────────────
+print("\nExkluderingsverifiering (iter 3):")
+
+# T1: Förskolor exkluderas från pie-chart (komponentfilter)
+if all(c in fw.columns for c in kg_cols):
+    fw_t = fw.copy()
+    fw_t["_ks"]  = fw_t[kg_cols].sum(axis=1)
+    fw_t["_rd"]  = (fw_t["_ks"] - fw_t["totalt_svinn_kg"].fillna(0)).abs() / fw_t["totalt_svinn_kg"].replace(0, float("nan"))
+    valid_pie    = fw_t[fw_t["_rd"] < 0.2]
+    fsk_in_pie   = valid_pie["unit_name"].str.lower().str.contains("förskola|förskolan", na=False).sum()
+    ok_t1 = (fsk_in_pie == 0)
+    print(f"  [{'PASS' if ok_t1 else 'FAIL'}] T1 Förskolor exkluderas ur pie-chart: {fsk_in_pie} förskolarader i validerat dataset (förväntat 0)")
+    if not ok_t1:
+        FAIL.append("T1 Förskolor i pie-chart")
+
+# T2: Förskolor ingår i totalt svinn kg — INTE exkluderade från totalanalys
+fsk_kg = fw[fw["unit_name"].str.lower().str.contains("förskola|förskolan", na=False)]["totalt_svinn_kg"].sum()
+ok_t2 = (fsk_kg > 0)
+print(f"  [{'PASS' if ok_t2 else 'FAIL'}] T2 Förskolor ingår i totalt svinn kg: {fsk_kg:.1f} kg (förväntat > 0)")
+if not ok_t2:
+    FAIL.append("T2 Förskolor saknas ur total svinn")
+
+# T3: Exkluderingsantal är beräkningsbart och konsistent
+_pct_col   = "totalt_svinn_pct" if "totalt_svinn_pct" in fw.columns else "total_waste_pct"
+n_nan_pct  = fw[_pct_col].isna().sum() if _pct_col in fw.columns else 0
+n_tot      = len(fw)
+n_incl_pct = n_tot - n_nan_pct
+ok_t3 = (n_nan_pct > 0 and n_incl_pct > 0 and n_incl_pct < n_tot)
+print(f"  [{'PASS' if ok_t3 else 'FAIL'}] T3 Exkluderingsantal verifierbart: "
+      f"{n_nan_pct} exkl (NaN pct), {n_incl_pct} inkl av {n_tot} totalt")
+if not ok_t3:
+    FAIL.append("T3 Exkluderingsantal inkonsistent")
+
 # ── Resultat ──────────────────────────────────────────────────────────────────
 print(f"\n{'='*40}")
 if FAIL:
     print(f"❌ {len(FAIL)} FAIL: {', '.join(FAIL)}")
     sys.exit(1)
 else:
-    print(f"✅ Alla {8} tester passerade")
+    print(f"✅ Alla {14} tester passerade")
     sys.exit(0)

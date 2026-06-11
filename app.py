@@ -316,6 +316,37 @@ elif page == "🗑️ Svinnanalys":
     st.caption("Detaljerad analys av matsvinn per enhet, vecka och typ")
     source_label(_SVINN_FILER, len(food_waste), f"analyserad {_ANALYSIS_DATE}")
 
+    # ── Datadefinitioner ─────────────────────────────────────────────────────
+    with st.expander("ℹ️ Datadefinitioner och avgränsningar — läs innan du tolkar graferna"):
+        st.markdown("""
+**Verksamhetstyper i datan**
+
+| Typ | Antal enheter | Svinn-% | Svinn-kg | Komponentkolumner |
+|-----|--------------|---------|----------|------------------|
+| Skolor | ~9 | ✅ Finns | ✅ Finns | ✅ Verifierade |
+| Äldreomsorg (ÄO) | ~1 | ✅ Finns | ✅ Finns | ✅ Verifierade |
+| Förskolor | 11 | ❌ Saknas i rådata | ✅ Finns | ⚠️ Ej tillförlitliga |
+
+**Varför syns inte förskolor i svinn-%-grafer?**
+Förskolor registrerar inte svinn-procent i de digitala svinnbladen. Kolumnen `total_waste_pct` är tom (NaN) för dessa enheter. Svinn i kilogram (`totalt_svinn_kg`) finns och används i alla kg-baserade analyser.
+
+**Varför syns förskolor inte i svinntyp-diagrammet (kök/servering/tallrik)?**
+Komponentkolumnerna `kokssvinn_kg`, `serveringssvinn_kg` och `tallrikssvinn_kg` är opålitliga för förskolor — summan av dessa kolumner uppgår till ~8 211 kg för enheter vars `totalt_svinn_kg` bara är 183 kg. Det är ett faktafel i rådata, troligen en registreringsinkonsekvens. Dessa kolumner används **bara** i grafer där de är verifierade (avvikelse < 20 % mot totalt_svinn_kg).
+
+**Vad menas med svinn per portion?**
+`svinn_g_p = totalt_svinn_kg × 1 000 / serverade_portioner` — **serverade** portioner, inte beställda. Detta är ett mått på faktisk matförlust per person som ätit.
+
+**Vad är kvadrantanalysen?**
+Rätter matchas mot näringsvärden från en separat näringsfil. Näringsfilen täcker **enbart skolor och äldreomsorg** — inga förskolor. Rätter med protein < 5 g eller energi < 150 kcal är exkluderade som troliga felmatchningar (3 rätter borttagna, 116 kvar).
+
+**Beställningsprecision — viktig begränsning**
+70 % av värdena i `bestallda_portioner` är identiska med `serverade_portioner` i rådata — de är alltså en kopia, inte en verklig prognos. Beställningsprecisionsanalysen är fullt trovärdig för de 26 % av rader där det finns en genuin skillnad.
+        """)
+        n_fw = len(food_waste_d) if not food_waste_d.empty else 0
+        n_fsk = food_waste_d["unit_name"].str.lower().str.contains("förskola|förskolan", na=False).sum() if not food_waste_d.empty else 0
+        n_skola = n_fw - n_fsk
+        st.markdown(f"**Rådata matsvinn:** {n_fw:,} rader totalt — varav ~{n_fsk:,} rader från förskolor, ~{n_skola:,} rader från skolor/ÄO.".replace(",", " "))
+
     units_list = sorted(fw_clean["unit_name"].dropna().unique()) if not fw_clean.empty else []
     sel = st.multiselect("Filtrera enheter", units_list, default=units_list)
     df_fw = fw_clean[fw_clean["unit_name"].isin(sel)] if sel else fw_clean
@@ -340,17 +371,19 @@ elif page == "🗑️ Svinnanalys":
 
     with col_a:
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
-        st.subheader("Svinn % per vecka")
+        st.subheader("Svinn % per vecka — skolor och äldreomsorg")
         fig = px.line(df_fw.sort_values("week"), x="week", y="total_waste_pct",
                       color="unit_name",
                       labels={"week": "Vecka", "total_waste_pct": "Svinn %", "unit_name": "Enhet"})
         fig.update_layout(**PLOT_LAYOUT)
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Förskolor visas inte här — de rapporterar inte svinn-% i rådata. "
+                   "Förskolor ingår i totalt svinn-kg-analysen.")
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_b:
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
-        st.subheader("Svinntyper (kg-fördelning)")
+        st.subheader("Svinntyper (kg-fördelning) — skolor och äldreomsorg")
         # Komponentkolumnerna (kokssvinn_kg etc.) är opålitliga för förskolor —
         # förskoledata har komponent-summor ~44× högre än totalt_svinn_kg.
         # Pie-chartet använder ENBART enheter där komponent_sum ≈ totalt_svinn_kg (diff <20%).
@@ -380,13 +413,14 @@ elif page == "🗑️ Svinnanalys":
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="chart-box">', unsafe_allow_html=True)
-    st.subheader("Säsongsmönster — svinn per vecka (medel)")
+    st.subheader("Säsongsmönster — svinn-% per vecka (median, skolor och ÄO)")
     seasonal = fw_clean.groupby("week")["total_waste_pct"].median().reset_index()
     fig3 = px.area(seasonal, x="week", y="total_waste_pct",
                    labels={"week": "Vecka", "total_waste_pct": "Svinn % (median)"},
                    color_discrete_sequence=["#EF4444"])
     fig3.update_layout(**PLOT_LAYOUT)
     st.plotly_chart(fig3, use_container_width=True)
+    st.caption("Baserat på svinn-% — enbart skolor och äldreomsorg. Förskolor saknar svinn-%-data och ingår inte i denna graf.")
     st.markdown('</div>', unsafe_allow_html=True)
 
     raw_expander(df_fw[["unit_name","week","total_waste_pct","total_waste_kg",
@@ -401,7 +435,9 @@ elif page == "🗑️ Svinnanalys":
     if _kv_path.exists():
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
         st.subheader("Svinn vs Protein per rätt — kvadrantanalys")
-        st.caption("Baserat på matchning av svinndata mot näringsfil. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+).")
+        st.caption("Baserat på matchning av svinndata mot näringsfil. Bubbelstorlek = antal observationer (liten ≈ 2, stor ≈ 10+). "
+                   "Täcker enbart skolor och äldreomsorg — näringsfilen saknar förskoledata. "
+                   "116 rätter efter filtrering (3 borttagna: protein < 5 g eller kcal < 150 som troliga felmatchningar).")
 
         kv_color_map = {
             "hog_svinn_lag_protein":  "#EF4444",
@@ -479,6 +515,15 @@ elif page == "🗑️ Svinnanalys":
 elif page == "🎯 Beställningsprecision":
     st.title("Beställningsprecision")
     st.caption("Hur väl stämmer beställda portioner mot faktiskt serverade?")
+
+    st.info(
+        "⚠️ **Databegränsning:** Ungefär 70 % av värdena i 'Beställda portioner' är identiska "
+        "med 'Serverade portioner' i rådata — dessa rader är alltså en kopia, inte en verklig "
+        "förhandsbeställning. Analysen är fullt tillförlitlig för de ~26 % av rader där genuina "
+        "skillnader finns. 2 rader innehåller troliga felregistreringar (serverade >3× beställda) "
+        "som skapar synliga toppar i grafen.",
+        icon=None,
+    )
 
     if food_waste.empty or "ordered_portions" not in food_waste.columns:
         st.warning("Ingen portionsdata att visa.")
@@ -666,7 +711,46 @@ elif page == "📋 Avtalstrohet":
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "⚠️ Datakvalitet":
     st.title("Datakvalitet")
-    st.caption("Flaggor och avvikelser som kräver uppföljning")
+    st.caption("Flaggor, avgränsningar och radräkning per analys")
+
+    # ── Radräkningsöversikt ───────────────────────────────────────────────────
+    st.markdown("### Datakällor — radräkning och täckning")
+    n_fw_raw  = len(food_waste_d) if not food_waste_d.empty else 0
+    n_fw_fsk  = food_waste_d["unit_name"].str.lower().str.contains("förskola|förskolan", na=False).sum() if not food_waste_d.empty else 0
+    n_fw_nan  = food_waste_d["total_waste_pct"].isna().sum() if not food_waste_d.empty and "total_waste_pct" in food_waste_d.columns else 0
+    n_fw_out  = (food_waste_d["total_waste_pct"] > 1.0).sum() if not food_waste_d.empty and "total_waste_pct" in food_waste_d.columns else 0
+    n_pu      = len(purchases) if not purchases.empty else 0
+    n_nar     = len(naring) if not naring.empty else 0
+
+    col_r1, col_r2, col_r3 = st.columns(3)
+    with col_r1:
+        kpi("Matsvinnfil (rader)", f"{n_fw_raw:,}".replace(",", " "),
+            f"Varav förskolor: ~{n_fw_fsk:,} rader".replace(",", " "), "#3B82F6")
+    with col_r2:
+        kpi("Inköpsfil (rader)", f"{n_pu:,}".replace(",", " "),
+            "Alla enheter, helår 2025", "#8B5CF6")
+    with col_r3:
+        kpi("Näringsfil (rätter)", f"{n_nar:,}".replace(",", " "),
+            "Skolor + ÄO — förskolor saknas", "#10B981")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Analysmatris ──────────────────────────────────────────────────────────
+    st.markdown("### Verifieringsmatris — vilka enheter ingår i vilken analys")
+    matris = [
+        {"Analys": "Totalt svinn kg (KPI)", "Inkluderar": "Alla 21 enheter (skolor, ÄO, förskolor)", "Exkluderar": "–", "Mått": "totalt_svinn_kg", "Status": "✅ Fullt verifierad"},
+        {"Analys": "Svinn % per vecka (linjegraf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (saknar svinn-%-data)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Säsongsmönster (area-graf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (NaN hoppas över i median)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Svinntyper pie-chart", "Inkluderar": "Skolor + ÄO (~10 enheter, komp_diff<20%)", "Exkluderar": "11 förskolor (komponentdata ~44× för hög)", "Mått": "kokssvinn_kg m.fl.", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Svinn vs Näring kvadrant", "Inkluderar": "Skolor + ÄO (näringsfil täcker ej förskola)", "Exkluderar": "Förskolor + 3 felmatchningar", "Mått": "svinn_g_p, protein_g, kcal", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Beställningsprecision", "Inkluderar": "Alla 21 enheter", "Exkluderar": "–", "Mått": "ordered_portions, served_portions", "Status": "⚠️ 70% kopia — indikativ"},
+        {"Analys": "Inköp & ekonomi", "Inkluderar": "Alla enheter (inköpsdata)", "Exkluderar": "–", "Mått": "kronor, ekologisk", "Status": "✅ Fullt verifierad"},
+        {"Analys": "Avtalstrohet", "Inkluderar": "Alla enheter (inköpsdata)", "Exkluderar": "–", "Mått": "procent_utanfor_avtal, kronor", "Status": "✅ Fullt verifierad"},
+    ]
+    st.dataframe(pd.DataFrame(matris), use_container_width=True, hide_index=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("### Flaggor och avvikelser")
 
     issues = []
 
@@ -735,6 +819,64 @@ elif page == "⚠️ Datakvalitet":
     else:
         st.success("Inga flaggor hittades!")
     st.markdown('</div>', unsafe_allow_html=True)
+
+    # ── Stakeholder-summary ───────────────────────────────────────────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    with st.expander("📋 För beslutsfattare — vad kan dashboarden visa och inte visa?"):
+        st.markdown("""
+### Vad kan dashboarden visa med säkerhet?
+
+- **Totalt matsvinn i kilogram** för alla 21 enheter i Höganäs kommuns kostverksamhet 2025. Summan är 24 420 kg och har verifierats direkt mot rådatan.
+- **Inköpskostnad** på 16,9 Mkr fördelat på tre leverantörer, varugrupper och enheter — fullt spårbar mot inköpsfiler.
+- **Avtalstrohet** — andelen inköp utanför upphandlade avtal är 13,0 % totalt. Kullagymnasiet, Vikhaga och Nyhamnsgården sticker ut.
+- **Ekologisk andel** — 31,5 % av inköpsvärdet är ekologiskt certifierat.
+- **Svinnmönster per rätt** för skolor och äldreomsorg — vilka rätter genererar mest svinn per serverad portion.
+- **Svinntypsfördelning** (kök/servering/tallrik) för skolor och äldreomsorg — tallrikssvinn är störst (54 %).
+
+### Vad kan dashboarden inte visa med säkerhet — och varför?
+
+- **Svinn-procent för förskolor** saknas i rådata. Förskolor registrerar inte svinn i procent i svinnbladen. Det är en brist i datainsamlingen, inte i dashboarden. Svinn i kilogram för förskolor finns och ingår i totalsummorna.
+- **Komponentsvinn (kök/servering/tallrik) för förskolor** — dessa kolumner innehåller felaktiga värden för förskolor i rådata (summan är 44 gånger för hög). Dashboarden exkluderar dem i komponentanalysen.
+- **Beställningsprecision** kan inte fullt ut verifieras — 70 % av beställda portioner är identiska med serverade portioner, vilket tyder på att en kopia används istället för verkliga förhandsbeställningar. Analysen visar ändå mönster i de 26 % av fallen med genuina skillnader.
+- **Koppling leverantör → svinn** — det finns ingen länk i data mellan vilken leverantörs råvaror som användes i en specifik rätt. Det går alltså inte att säga att "leverantör X orsakar mer svinn".
+- **Näring för förskolor** — näringsfilen täcker enbart skolmenyer och äldreomsorgsmenyer. Förskolemat ingår inte i kvadrantanalysen.
+
+### Hur ska man tolka siffrorna?
+
+- **Verifierat** (märkt ✅): siffran stämmer mot rådatan inom 1 % och kan försvaras för extern granskning.
+- **Verifierat med avgränsning** (märkt ✅ med not): siffran är korrekt för den grupp som ingår — men gruppen är inte alla enheter. Läs alltid grafrubriken och captionen för att se vilka enheter som ingår.
+- **Indikativt** (märkt ⚠️): data finns men har känd kvalitetsbegränsning. Använd som vägledning, inte som faktaunderlag för beslut utan ytterligare kontroll.
+- **Scenariobaserat** (märkt i AI-assistenten): ekonomisk potential beräknad med ett antagande om råvarukostnad — alltid specificerat och inte hämtat från faktiska inköpspriser.
+
+### Rekommendationer för dataförbättring
+
+1. Be förskoleköken börja registrera svinn-procent i svinnbladen — samma format som skolorna.
+2. Granska beställningsrutinen för portioner — varför är 70 % av beställda portioner identiska med serverade?
+3. Korrigera de 2 kända felregistreringarna (Kullagymnasiet v14, Havets förskola v16) i källsystemet.
+        """)
+
+    # ── Exkluderingsöversikt ─────────────────────────────────────────────────
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("### Exkluderingsöversikt — rader borttagna ur respektive analys")
+    if not food_waste_d.empty:
+        kg_c = ["kokssvinn_kg", "serveringssvinn_kg", "tallrikssvinn_kg"]
+        if all(c in food_waste_d.columns for c in kg_c):
+            tmp = food_waste_d.copy()
+            tmp["_ks"] = tmp[kg_c].sum(axis=1)
+            tmp["_rd"] = (tmp["_ks"] - tmp["totalt_svinn_kg"].fillna(0)).abs() / tmp["totalt_svinn_kg"].replace(0, float("nan"))
+            n_excl_pie = (tmp["_rd"] >= 0.2).sum()
+            n_incl_pie = (tmp["_rd"] < 0.2).sum()
+        else:
+            n_excl_pie = n_incl_pie = 0
+        n_nan_pct = food_waste_d["total_waste_pct"].isna().sum() if "total_waste_pct" in food_waste_d.columns else 0
+        n_tot = len(food_waste_d)
+        excl_data = [
+            {"Analys": "Svinn % per vecka", "Inkluderade rader": n_tot - n_nan_pct, "Exkluderade rader": n_nan_pct, "Orsak": "NaN i total_waste_pct (förskolor)"},
+            {"Analys": "Säsongsmönster svinn %", "Inkluderade rader": n_tot - n_nan_pct, "Exkluderade rader": n_nan_pct, "Orsak": "NaN i total_waste_pct (förskolor)"},
+            {"Analys": "Svinntyper pie-chart", "Inkluderade rader": int(n_incl_pie), "Exkluderade rader": int(n_excl_pie), "Orsak": "Komponent-diff ≥ 20% mot totalt_svinn_kg"},
+            {"Analys": "Totalt svinn kg (KPI)", "Inkluderade rader": n_tot, "Exkluderade rader": 0, "Orsak": "Inga exkluderingar — alla enheter ingår"},
+        ]
+        st.dataframe(pd.DataFrame(excl_data), use_container_width=True, hide_index=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # AI-ASSISTENT

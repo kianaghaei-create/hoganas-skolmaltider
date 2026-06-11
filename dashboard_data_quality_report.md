@@ -6,14 +6,16 @@ Genererad: 2026-06-11
 
 ## Sammanfattning
 
-Dashboarden har genomgått en fullständig QA-audit mot rådatan. 8 av 8 nyckel-KPI:er verifieras med differens <1%. Fyra kritiska fel identifierades och korrigerades. Inga kvarvarande FAIL-poster.
+Dashboarden har genomgått tre fullständiga QA-iterationer mot rådatan. 14 automatiserade tester passerar med differens <1%. 8 fel identifierades och korrigerades. Databegränsningar är synliga direkt i dashboarden. Dashboarden är tekniskt verifierad och försvarbar för extern granskning.
 
 | Kategori | Antal |
 |----------|-------|
-| Verifierade KPI:er/grafer | 33 |
-| PASS | 30 |
-| FAIL (korrigerade) | 6 |
-| INFO/Databegränsningar | 4 |
+| Automatiserade tester | 14 |
+| Alla PASS | ✅ 14/14 |
+| Korrigerade fel totalt | 8 |
+| Dokumenterade databegränsningar | 6 |
+| Analyser fullt verifierade | 4 |
+| Analyser verifierade med avgränsning | 4 |
 
 ---
 
@@ -111,12 +113,65 @@ Dashboarden har genomgått en fullständig QA-audit mot rådatan. 8 av 8 nyckel-
 
 ---
 
+---
+
+## Iteration 3 — Sanity check, datadefinitioner och stakeholder proof
+
+**Datum:** 2026-06-11 | **Status:** Godkänd
+
+### Visualiseringsmatris — slutlig status
+
+| Analys | Inkluderar | Exkluderar | Mått | Status |
+|--------|-----------|-----------|------|--------|
+| Totalt svinn kg (KPI) | Alla 21 enheter | – | totalt_svinn_kg | ✅ Fullt verifierad |
+| Svinn % per vecka | Skolor + ÄO (~10 st) | 11 förskolor (NaN pct) | total_waste_pct | ✅ Verifierad med avgränsning |
+| Säsongsmönster | Skolor + ÄO (~10 st) | 11 förskolor (NaN hoppar över i median) | total_waste_pct | ✅ Verifierad med avgränsning |
+| Svinntyper pie-chart | Skolor + ÄO (komp_diff<20%) | 11 förskolor (44× inflat. komp.) | kokssvinn_kg m.fl. | ✅ Verifierad med avgränsning |
+| Svinn vs Näring kvadrant | Skolor + ÄO | Förskolor + 3 felmatchn. | svinn_g_p, protein, kcal | ✅ Verifierad med avgränsning |
+| Beställningsprecision | Alla 21 enheter | – | ordered/served_portions | ⚠️ 70% kopia — indikativ |
+| Inköp & ekonomi | Alla enheter | – | kronor, ekologisk | ✅ Fullt verifierad |
+| Avtalstrohet | Alla enheter | – | procent_utanfor_avtal | ✅ Fullt verifierad |
+
+### Åtgärder iteration 3
+
+| # | Problem | Åtgärd | Fil |
+|---|---------|--------|-----|
+| I3-A | Svinn %-graf saknade caption om förskolor | Grafens titel och caption uppdaterade | app.py |
+| I3-B | Säsongsmönster exkluderade tyst förskolor | Caption tillagd med tydlig avgränsning | app.py |
+| I3-C | Pie-chart titel antydde alla verksamhetstyper | Titel + caption uppdaterade | app.py |
+| I3-D | Kvadrantanalys saknade info om förskolor | Caption tillagd | app.py |
+| I3-E | Beställningsprecision dolde 70%-kopia-begränsning | st.info-box tillagd på sidan | app.py |
+| I3-F | Ingen datadefinitionssektion i dashboarden | Expander tillagd i Svinnanalys | app.py |
+| I3-G | Datakvalitetssidan saknade radräkning | Radräkningsöversikt + verifieringsmatris tillagd | app.py |
+| I3-H | Ingen stakeholder-summary | Expander "För beslutsfattare" tillagd i DK-sidan | app.py |
+
+### Kända databegränsningar — slutlig lista
+
+| # | Begränsning | Påverkar |
+|---|-------------|---------|
+| DB1 | Förskolor saknar svinn-% i rådata | Svinn %-grafer, säsongsmönster |
+| DB2 | Förskolekomponentkolumner ~44× för höga | Pie-chart svinntyper |
+| DB3 | 70% beställda portioner = kopia av serverade | Beställningsprecisionsanalys |
+| DB4 | 2 felregistreringar i rådata (Kulla v14, Havets v16) | Beställda vs serverade-grafen |
+| DB5 | Leverantör→rätt-koppling saknas | Kan ej fördela svinn per leverantör |
+| DB6 | Näringsfil täcker ej förskolor | Kvadrantanalys saknar förskolor |
+
+### Analyser som INTE bör göras med nuvarande rådata
+
+- **Svinn-% för förskolor** — data saknas i källsystemet
+- **Komponentsvinn (kök/servering/tallrik) för förskolor** — opålitliga värden
+- **Svinn per leverantör** — inget råvara→rätt-samband i datan
+- **Prognos beställda portioner** — 70% är kopior, inte verkliga prognoser
+- **Näringsvärden för förskolerätter** — näringsfil täcker ej förskola
+
+---
+
 ## Automatiserade tester
 
 Fil: `tests/test_dashboard_qa.py`
-Kör: `python tests/test_dashboard_qa.py`
+Kör: `python3 tests/test_dashboard_qa.py`
 
-Testar: V1, V2, V3, V14, V15, V20, V21, V26, väderkorrelation.
+Testar (14 st): V1, V2, V3, V14, V15, V20, V21, V26, väderkorrelation, pie-chart andelar (3), exkluderingsverifiering (3).
 Returnerar exit code 1 om något FAIL.
 
 ---

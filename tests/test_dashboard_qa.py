@@ -65,6 +65,27 @@ merged = daily.merge(wx, on="datum", how="inner")
 r = merged["svinn_g_p"].corr(merged["temp_c"])
 check("Väder r(svinn_g_p,temp)",   r,                                   -0.29,    0.10)
 
+# ── Svinntyp pie-chart — komponentfilter ──────────────────────────────────────
+print("\nSvinntyper pie-chart:")
+kg_cols = ["kokssvinn_kg", "serveringssvinn_kg", "tallrikssvinn_kg"]
+if all(c in fw.columns for c in kg_cols):
+    fw_pie = fw.copy()
+    fw_pie["_komp_sum"] = fw_pie[kg_cols].sum(axis=1)
+    fw_pie["_rel_diff"] = (
+        (fw_pie["_komp_sum"] - fw_pie["totalt_svinn_kg"].fillna(0)).abs()
+        / fw_pie["totalt_svinn_kg"].replace(0, float("nan"))
+    )
+    valid = fw_pie[fw_pie["_rel_diff"] < 0.2]
+    kok = valid["kokssvinn_kg"].sum()
+    srv = valid["serveringssvinn_kg"].sum()
+    tal = valid["tallrikssvinn_kg"].sum()
+    tot = kok + srv + tal
+    check("Pie tallrik andel %", tal / tot * 100, 54.7, 0.05, "%")
+    check("Pie kök andel %",     kok / tot * 100, 25.2, 0.05, "%")
+    check("Pie servering andel %", srv / tot * 100, 20.7, 0.05, "%")
+    forsk_in_valid = valid["unit_name"].str.lower().str.contains("förskola|förskolan", na=False).sum()
+    print(f"  [INFO] Förskoleierader i validerat dataset: {forsk_in_valid} (förväntat ~0)")
+
 # ── Datakvalitet ──────────────────────────────────────────────────────────────
 print("\nDatakvalitet:")
 nan_pct_rows = fw_agg["total_waste_pct"].isna().sum()

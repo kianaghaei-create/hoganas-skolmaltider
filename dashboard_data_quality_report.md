@@ -10,9 +10,9 @@ Dashboarden har genomgått en fullständig QA-audit mot rådatan. 8 av 8 nyckel-
 
 | Kategori | Antal |
 |----------|-------|
-| Verifierade KPI:er/grafer | 31 |
-| PASS | 28 |
-| FAIL (korrigerade) | 4 |
+| Verifierade KPI:er/grafer | 33 |
+| PASS | 30 |
+| FAIL (korrigerade) | 6 |
 | INFO/Databegränsningar | 4 |
 
 ---
@@ -69,6 +69,21 @@ Dashboarden har genomgått en fullständig QA-audit mot rådatan. 8 av 8 nyckel-
 **Root cause:** `df_fw[k].mean()` beräknade medelvärde av procentsatser, inte viktad mot portioner/kg. Detta ger missvisande andelar om enheter har olika storlek.
 **Korrigering:** Pie-chart beräknar nu `sum(kokssvinn_kg)`, `sum(serveringssvinn_kg)`, `sum(tallrikssvinn_kg)` direkt från daglig rådata. Caption tillagd med källhänvisning.
 **Fil:** app.py rad 348–362.
+
+### F7 — KRITISK: NameError i Svinnanalys — `selected_units` ej definierad
+**Root cause:** Pie-chart-koden på Svinnanalys-sidan refererade till `selected_units` (rad 357–358) som aldrig definierats i det scopet. Befintlig variabel heter `sel`.
+**Korrigering:** `selected_units` → `sel` på rad 357–358.
+**Fil:** app.py rad 357–358.
+
+### F8 — KRITISK: Pie-chart svinntyper inkluderade förskolor med opålitliga komponentkolumner
+**Root cause:** Kolumnerna `kokssvinn_kg`, `serveringssvinn_kg`, `tallrikssvinn_kg` är opålitliga för förskolor — summan (8 211 kg) är ~44× högre än `totalt_svinn_kg` (183.8 kg). Inkludering av förskolor drog upp kök- och serveringssvinn kraftigt och dolde det verkliga mönstret.
+**Korrigering:** Pie-chart filtrerar nu till rader där `|komponent_sum − totalt_svinn_kg| / totalt_svinn_kg < 20%`. Förskolor exkluderas automatiskt; skolor/ÄO (24 236 kg total, komponenter ≈ total ✓) ger korrekta andelar: Tallrik 54.7%, Kök 25.2%, Servering 20.7%. Caption förklarar exkluderingen.
+**Kontrollvärden (skolor/ÄO, fw_clean):**
+- kokssvinn_kg: 6 110 kg → 25.2%
+- serveringssvinn_kg: 5 031 kg → 20.7%
+- tallrikssvinn_kg: 13 268 kg → 54.7%
+- totalt_svinn_kg (skolor/ÄO): 24 236 kg
+**Fil:** app.py rad 351–376.
 
 ---
 

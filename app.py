@@ -351,18 +351,32 @@ elif page == "🗑️ Svinnanalys":
     with col_b:
         st.markdown('<div class="chart-box">', unsafe_allow_html=True)
         st.subheader("Svinntyper (kg-fördelning)")
-        # Använder kg-summor direkt från daglig data — ej procent-medelvärde
+        # Komponentkolumnerna (kokssvinn_kg etc.) är opålitliga för förskolor —
+        # förskoledata har komponent-summor ~44× högre än totalt_svinn_kg.
+        # Pie-chartet använder ENBART enheter där komponent_sum ≈ totalt_svinn_kg (diff <20%).
         kg_cols = {"kokssvinn_kg": "Kök", "serveringssvinn_kg": "Servering", "tallrikssvinn_kg": "Tallrik"}
         raw_fw = food_waste_d.copy()
-        if not raw_fw.empty and selected_units:
-            raw_fw = raw_fw[raw_fw["unit_name"].isin(selected_units)]
-        avail_kg = {v: raw_fw[k].sum() for k, v in kg_cols.items() if k in raw_fw.columns and raw_fw[k].sum() > 0}
-        if avail_kg:
-            fig2 = px.pie(values=list(avail_kg.values()), names=list(avail_kg.keys()), hole=0.45,
-                          color_discrete_sequence=["#EF4444", "#F97316", "#FBBF24"])
-            fig2.update_layout(**PLOT_LAYOUT)
-            st.plotly_chart(fig2, use_container_width=True)
-            st.caption("Källa: food_waste_daily_v2.csv — kokssvinn_kg, serveringssvinn_kg, tallrikssvinn_kg (summerat)")
+        if not raw_fw.empty and sel:
+            raw_fw = raw_fw[raw_fw["unit_name"].isin(sel)]
+        # Filtrera till rader med trovärdig komponentdata
+        if all(c in raw_fw.columns for c in kg_cols):
+            raw_fw = raw_fw.copy()
+            raw_fw["_komp_sum"] = raw_fw[list(kg_cols.keys())].sum(axis=1)
+            raw_fw["_rel_diff"] = (
+                (raw_fw["_komp_sum"] - raw_fw["totalt_svinn_kg"].fillna(0)).abs()
+                / raw_fw["totalt_svinn_kg"].replace(0, float("nan"))
+            )
+            valid_fw = raw_fw[raw_fw["_rel_diff"] < 0.2]
+            n_valid = len(valid_fw["unit_name"].unique()) if not valid_fw.empty else 0
+            avail_kg = {v: valid_fw[k].sum() for k, v in kg_cols.items()
+                        if k in valid_fw.columns and valid_fw[k].sum() > 0}
+            if avail_kg:
+                fig2 = px.pie(values=list(avail_kg.values()), names=list(avail_kg.keys()), hole=0.45,
+                              color_discrete_sequence=["#EF4444", "#F97316", "#FBBF24"])
+                fig2.update_layout(**PLOT_LAYOUT)
+                st.plotly_chart(fig2, use_container_width=True)
+                st.caption(f"Källa: food_waste_daily_v2.csv — kg-komponenter, {n_valid} enheter med verifierad komponentdata. "
+                           f"Förskolor exkluderas (komponentkolumner ej tillförlitliga i rådata).")
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="chart-box">', unsafe_allow_html=True)

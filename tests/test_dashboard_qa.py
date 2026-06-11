@@ -151,11 +151,34 @@ print(f"  [{'PASS' if ok_t4 else 'FAIL'}] T4 Exkluderingsantal verifierbart: "
 if not ok_t4:
     FAIL.append("T4 Exkluderingsantal inkonsistent")
 
+# ── T5: Regressionsskydd — felaktiga påståenden om förskolor och svinn-% ───────
+print("\nRegressionsskydd:")
+app_src = Path("app.py").read_text(encoding="utf-8")
+
+FORBIDDEN = [
+    ("T5a", "Saknas i rådata",
+     "tabellen ska ej säga 'Saknas i rådata' för förskolor efter parser-fix"),
+    ("T5b", "förskolor registrerar ej % i svinnbladet",
+     "felaktig formulering om att förskolor inte registrerar svinn-%"),
+    ("T5c", "saknar svinn-%-data",
+     "förskolor saknar inte svinn-%-data — de exkluderas pga kombinerat format"),
+    ("T5d", "total_waste_pct är tom för förskolor",
+     "felaktigt påstående om att totalt_svinn_pct är tom för förskolor"),
+]
+
+for tid, phrase, note in FORBIDDEN:
+    found = phrase.lower() in app_src.lower()
+    ok = not found
+    print(f"  [{'PASS' if ok else 'FAIL'}] {tid} ej förekomst av '{phrase}'" +
+          (f" — {note}" if not ok else ""))
+    if not ok:
+        FAIL.append(tid)
+
 # ── Resultat ──────────────────────────────────────────────────────────────────
 print(f"\n{'='*40}")
 if FAIL:
     print(f"❌ {len(FAIL)} FAIL: {', '.join(FAIL)}")
     sys.exit(1)
 else:
-    print(f"✅ Alla {15} tester passerade")
+    print(f"✅ Alla {19} tester passerade")
     sys.exit(0)

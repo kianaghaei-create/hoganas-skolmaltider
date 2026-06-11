@@ -105,7 +105,7 @@ Source-of-truth-kedja: Excel → CSV (food_waste_daily_v2.csv) → Neo4j → JSO
 
 ### F1 — KRITISK: Förskolor filtrerades tyst ur svinn-visualiseringar
 **Root cause:** `fw_clean = food_waste[total_waste_pct <= 1.0]` — NaN utvärderas som False, så alla 11 förskolor (515 veckorader) exkluderades utan varning.
-**Korrigering:** Filter ändrat till `total_waste_pct.isna() | (total_waste_pct <= 1.0)`. Förskolor inkluderas nu i grafer; de saknar svinn-% men har svinn-kg-data.
+**Korrigering:** Filter ändrat till `total_waste_pct.isna() | (total_waste_pct <= 1.0)`. Förskolor inkluderas nu i grafer med svinn-kg-data. (OBS: förskolor HAR svinn-% i rådata — NaN-filtrering behölls för enstaka saknade mätdagar, inte för att svinn-% generellt saknas.)
 **Fil:** app.py rad 151.
 
 ### F2 — KRITISK: Default multiselect exkluderade 13 enheter
@@ -200,7 +200,7 @@ Source-of-truth-kedja: Excel → CSV (food_waste_daily_v2.csv) → Neo4j → JSO
 
 | # | Begränsning | Påverkar |
 |---|-------------|---------|
-| DB1 | Förskolor saknar svinn-% i rådata | Svinn %-grafer, säsongsmönster |
+| DB1 | Förskolor exkluderas ur svinn-%-grafer och säsongsmönster — de HAR svinn-% i rådata men använder kombinerat kök/serveringsformat som kräver separat vy | Svinn %-grafer, säsongsmönster |
 | DB2 | Förskolekomponentkolumner ~44× för höga | Pie-chart svinntyper |
 | DB3 | 70% beställda portioner = kopia av serverade | Beställningsprecisionsanalys |
 | DB4 | 2 felregistreringar i rådata (Kulla v14, Havets v16) | Beställda vs serverade-grafen |

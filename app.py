@@ -325,7 +325,7 @@ elif page == "🗑️ Svinnanalys":
 |-----|--------------|---------|----------|------------------|
 | Skolor | ~9 | ✅ Finns | ✅ Finns | ✅ Verifierade |
 | Äldreomsorg (ÄO) | ~1 | ✅ Finns | ✅ Finns | ✅ Verifierade |
-| Förskolor | 11 | ❌ Saknas i rådata | ✅ Finns | ⚠️ Ej tillförlitliga |
+| Förskolor | 11 | ✅ Finns, nästan komplett | ✅ Finns | ⚠️ Kombinerad kök/servering, ej separata komponenter |
 
 **Varför syns inte förskolor i svinn-%-grafer?**
 Förskolor registrerar faktiskt svinn-procent i Excel-filerna. Kolumnen `totalt_svinn_pct` är korrekt inläst och nästan komplett (4 NaN av 2 398 rader). I tidigare version av parsern lästes fel rad pga hårdkodade radnummer — det är nu åtgärdat (label-baserad parser, juni 2025).
@@ -736,7 +736,7 @@ elif page == "⚠️ Datakvalitet":
     st.markdown("### Verifieringsmatris — vilka enheter ingår i vilken analys")
     matris = [
         {"Analys": "Totalt svinn kg (KPI)", "Inkluderar": "Alla 21 enheter (skolor, ÄO, förskolor)", "Exkluderar": "–", "Mått": "totalt_svinn_kg", "Status": "✅ Fullt verifierad"},
-        {"Analys": "Svinn % per vecka (linjegraf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (saknar svinn-%-data)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
+        {"Analys": "Svinn % per vecka (linjegraf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (registrerar svinn-% men har eget kombinerat format — exkluderas tills vyn anpassats)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Säsongsmönster (area-graf)", "Inkluderar": "Skolor + ÄO (~10 enheter)", "Exkluderar": "11 förskolor (NaN hoppas över i median)", "Mått": "total_waste_pct", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Svinntyper pie-chart", "Inkluderar": "Skolor + ÄO (~10 enheter, komp_diff<20%)", "Exkluderar": "11 förskolor (komponentdata ~44× för hög)", "Mått": "kokssvinn_kg m.fl.", "Status": "✅ Verifierad med avgränsning"},
         {"Analys": "Svinn vs Näring kvadrant", "Inkluderar": "Skolor + ÄO (förskolesvinn tillkommer i uppdatering)", "Exkluderar": "Förskolesvinn (ej ännu Neo4j-importerat) + 3 felmatchningar", "Mått": "svinn_g_p, protein_g, kcal", "Status": "✅ Verifierad med avgränsning"},
@@ -766,7 +766,7 @@ elif page == "⚠️ Datakvalitet":
         nan_pct = food_waste["total_waste_pct"].isna().sum()
         if nan_pct:
             nan_units = food_waste[food_waste["total_waste_pct"].isna()]["unit_name"].nunique()
-            issues.append({"Typ": "Saknade värden", "Tabell": "Matsvinn", "Beskrivning": f"{nan_pct} rader ({nan_units} enheter) saknar svinn-procent — förskolor registrerar ej % i svinnbladet. Svinn-kg finns för dessa enheter.", "Allvarlighet": "Varning"})
+            issues.append({"Typ": "Saknade värden", "Tabell": "Matsvinn", "Beskrivning": f"{nan_pct} rader ({nan_units} enheter) saknar svinn-procent. OBS: förskolor HAR svinn-% i rådata — dessa NaN beror på enstaka saknade mätdagar, ej på format.", "Allvarlighet": "Info"})
         # Felregistreringar: serverade >> beställda (>200%)
         if "served_portions" in food_waste.columns and "ordered_portions" in food_waste.columns:
             suspicious = food_waste[
